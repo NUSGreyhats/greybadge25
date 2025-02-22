@@ -1,0 +1,51 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830")
+	(paper "A4")
+	(lib_symbols)
+	(sheet
+		(at 123.19 57.15)
+		(size 29.21 26.67)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "2cdab27b-cb2a-4a55-968e-23d5719b76a5")
+		(property "Sheetname" "tinyfpga_bx"
+			(at 123.19 56.4384 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "tinyfpga_bx.kicad_sch"
+			(at 123.19 84.4046 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "greybadge_pcb"
+				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)
