@@ -1,13 +1,17 @@
 (kicad_sch
-	(version 20231120)
+	(version 20250114)
 	(generator "eeschema")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(uuid "4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830")
 	(paper "A4")
 	(lib_symbols)
 	(sheet
-		(at 123.19 57.15)
+		(at 58.42 21.59)
 		(size 29.21 26.67)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
 		(fields_autoplaced yes)
 		(stroke
 			(width 0.1524)
@@ -18,7 +22,7 @@
 		)
 		(uuid "2cdab27b-cb2a-4a55-968e-23d5719b76a5")
 		(property "Sheetname" "tinyfpga_bx"
-			(at 123.19 56.4384 0)
+			(at 58.42 20.8784 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -27,7 +31,7 @@
 			)
 		)
 		(property "Sheetfile" "tinyfpga_bx.kicad_sch"
-			(at 123.19 84.4046 0)
+			(at 58.42 48.8446 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -43,9 +47,53 @@
 			)
 		)
 	)
+	(sheet
+		(at 22.86 21.59)
+		(size 27.94 26.67)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+			(color 132 0 132 1)
+		)
+		(fill
+			(color 255 255 255 0.0000)
+		)
+		(uuid "9563b0f2-de2f-44b6-a21c-14dec17cccec")
+		(property "Sheetname" "rp2350"
+			(at 22.86 20.8784 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "rp2350.kicad_sch"
+			(at 22.86 48.8446 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "greybadge_pcb"
+				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
+					(page "3")
+				)
+			)
+		)
+	)
 	(sheet_instances
 		(path "/"
 			(page "1")
 		)
 	)
+	(embedded_fonts no)
 )
