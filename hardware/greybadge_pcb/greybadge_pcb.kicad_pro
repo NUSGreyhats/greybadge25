@@ -640,6 +640,10 @@
     [
       "9563b0f2-de2f-44b6-a21c-14dec17cccec",
       "rp2350"
+    ],
+    [
+      "cfddc707-99f6-43b5-b12d-bc465b2a8faa",
+      "ECP5_25K_FPGA"
     ]
   ],
   "text_variables": {}
