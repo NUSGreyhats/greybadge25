@@ -1446,6 +1446,89 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Mechanical:MountingHole"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim yes)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "H"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "MountingHole"
+				(at 0 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Mounting Hole without connection"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "mounting hole"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "MountingHole*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "MountingHole_0_1"
+				(circle
+					(center 0 0)
+					(radius 1.27)
+					(stroke
+						(width 1.27)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Regulator_Linear:TLV73333PDBV"
 			(pin_names
 				(offset 0.254)
@@ -14172,7 +14255,25 @@
 			"gIvcRvnJ+TZsfcqT45LcWlb1fh1S27U5+thy817b/ERDrdDPMJIZAAAAPzsqbgAAmOl/qz8ozyyk"
 			"sTjvN9u84Em32+ZNiGwAAADmGN3sAAAAAAAAc4rgBgAAAAAAYE4R3AAAAAAAAMwpghsAAAAAAIA5"
 			"RXADAAAAAAAwpwhuAAAAAAAA5hTBDQAAAAAAwJwiuAEAAAAAAJhTBDcAAAAAAABziuAGAAAAAABg"
-			"ThHcAAAAAAAAzCmCGwAAAAAAgDlFcAMAAAAAADCn/gd+YO62ObsgTwAAAABJRU5ErkJggg=="
+			"ThHcAAAAAAAAzCmCGwAAAAAAgDlFcAMAAAAAADCn/gd+YO62ObsgTwAAAABJRU5ErkJggnYALwBm"
+			"AE4ARABVADcAUgBuAHoAVgBDAGsATgBRAFgAUQBDAEIAWABGAHIANgBCAEMAaQB1AG8AYQBIAHIA"
+			"OAA0AHEANwByAFgAdgBEAEEAMQBhAGMAZAA5AFYAZABEAEcATAA1AE4AVgA4AEwAWQBtAFQAbwBM"
+			"AGcAcABaAGoAUgBwAEEAVQBmAG4AWQBMAC8AMwBUAGEAMwA2ADMARwB5AEkAKwB2AHUANwB4AGcA"
+			"UgBHAFoAegAzAEsAMgBlAFoASgAxAG4AagBxAHIAWQBCAGwAQQA3AEsASwBwAEgAKwB2AFQAdwBx"
+			"AE0ASgBaADgATQAxAGgAVwByAGYAYQAxAGoAeQBTAGoAQQB3AHoAUgB4AFoAWABHAGQAcwB0AGkA"
+			"RABXAHUANQB1AFAATABQAFIATABNAHUAWQAyAE0AQwArADQAYQBQAE8ALwBLAGEAOQA1AHoANgBz"
+			"AHUAZgBYAGsATQBkAGcAbwBRAFQAegBSAGYAMAB6ADMARABwAGoASABVAGIAVgBXAFoASABYAFgA"
+			"QgBxAEoATQBuAEQARABtAGQALwA3ADQAcgBuADcAcgBQAGIAWAArAHkAegB4ADAAdwBZAFcANABn"
+			"AGwANQB3AGgATwBjAGoAMwB2AC8AQgArADkANwBHAFUAdgBxADkAZgByAEIAbABGAFIASgBtADgA"
+			"VwA4ADgAbwBaAHgAawBSAG8ASwAvAHgANAB6ADgASQBZAEoAUAByAHkATgA3ADkAegA5ADMAMQAz"
+			"AGYAdQBqAGYAMwBqADAAegA0ADUAcABEAEMARABEAEYAbgByAHMAdQBUAGcAawBQAHIAVgA0AHoA"
+			"OQA2AG0ATAB5AFYAcABwAG0AdQBRAEYAVgBqADYAOAA3AGcAdgBmAC8AdgA2AHgATAB6AG4AcQB1"
+			"AGYAdgB1AHgAWgByAEgASgB6AHAAegBtAEYAWABQAG0AbwBOAEQAYQBvAGkAQgB3AC8AVQBzAFoA"
+			"WQBlAEIAbwBhAEUAWQBlAGUAYwA5AGkASQB6AEoARQBrAGcASwAxAEsASABQAE8AZQBUAFAAagBu"
+			"AG4AdQBnAFQAVgByAEEAWABCAEoAVgBvAGoAdQB1AG0AUQBYAHIAawBKAFoAMgBaAFQASQA0AEoA"
+			"TQBIAE4AKwBiAC8AOQBaAG4ALwBlAGQAWAB4AEwALwBuAEwARQA0ADQASgBnAHEARwBBAFUAOQAv"
+			"ADQAagBoAHgATwBHAFUAaQA4AG0AQQBsAEUASQBVAHkAQgA0AFQAbQBXAEoAWQB3AGEATgAzAEUA"
+			"RABTAHQARwBqAEUAUgBpAEIAQQBVAFoAZwBpAEoARQBUAHcAOABqAFEAcABzAFcATABkAA=="
 		)
 	)
 	(label "2v5"
@@ -20359,6 +20460,70 @@
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
 					(reference "#PWR017")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 378.46 234.95 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "67f3a144-3459-4d48-b2dd-c881b96e642d")
+		(property "Reference" "H1"
+			(at 381 233.6799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 381 236.2199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3mm_Pad"
+			(at 378.46 234.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 378.46 234.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 378.46 234.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project ""
+				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
+					(reference "H1")
 					(unit 1)
 				)
 			)
