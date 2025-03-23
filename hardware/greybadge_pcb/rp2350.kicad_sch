@@ -5383,16 +5383,6 @@
 	)
 	(wire
 		(pts
-			(xy 45.085 86.36) (xy 45.085 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "69667ce8-3da8-4781-b3ef-b913d1bd9653")
-	)
-	(wire
-		(pts
 			(xy 250.19 154.94) (xy 250.19 156.21)
 		)
 		(stroke
@@ -6073,6 +6063,16 @@
 	)
 	(wire
 		(pts
+			(xy 44.45 86.36) (xy 44.45 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c20819e3-93cd-4c58-b020-1c7a554a2ebb")
+	)
+	(wire
+		(pts
 			(xy 199.39 109.22) (xy 210.82 109.22)
 		)
 		(stroke
@@ -6193,7 +6193,7 @@
 	)
 	(wire
 		(pts
-			(xy 45.085 73.66) (xy 45.085 76.2)
+			(xy 44.45 73.66) (xy 44.45 76.2)
 		)
 		(stroke
 			(width 0)
@@ -6283,7 +6283,7 @@
 	)
 	(wire
 		(pts
-			(xy 57.785 73.66) (xy 45.085 73.66)
+			(xy 57.785 73.66) (xy 44.45 73.66)
 		)
 		(stroke
 			(width 0)
@@ -7885,7 +7885,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 45.085 88.9 0)
+		(at 44.45 88.9 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7893,7 +7893,7 @@
 		(dnp no)
 		(uuid "102ac910-dd19-4bb5-a74b-15d3535289f9")
 		(property "Reference" "#PWR069"
-			(at 45.085 95.25 0)
+			(at 44.45 95.25 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7902,7 +7902,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 45.212 93.2942 0)
+			(at 44.577 93.2942 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7910,7 +7910,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 45.085 88.9 0)
+			(at 44.45 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7919,7 +7919,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 45.085 88.9 0)
+			(at 44.45 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7928,7 +7928,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 45.085 88.9 0)
+			(at 44.45 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8344,6 +8344,74 @@
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
 					(reference "#PWR082")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_Push")
+		(at 50.8 115.57 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1d983733-8b1d-43d5-9ec3-cdd3cfb85a60")
+		(property "Reference" "SW?"
+			(at 50.8 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_Push"
+			(at 50.8 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_XKB_TS-1187A"
+			(at 50.8 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 50.8 110.49 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Push button switch, generic, two pins"
+			(at 50.8 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "a1dc3640-9f6d-4f59-85b2-e07ce4eea711")
+		)
+		(pin "1"
+			(uuid "216e2b05-3755-4cb2-8236-8c25642b3861")
+		)
+		(instances
+			(project "greybadge_pcb"
+				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
+					(reference "SW?")
 					(unit 1)
 				)
 			)
@@ -9946,75 +10014,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Switch:SW_Push")
-		(at 45.085 81.28 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "71fa4469-c105-4f61-bded-8402b1905453")
-		(property "Reference" "SW8"
-			(at 46.228 80.4453 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "SW_Push"
-			(at 46.228 82.9822 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_Vertical_Wuerth_434133025816"
-			(at 40.005 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 40.005 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 45.085 81.28 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "f97b5eeb-3e5d-4d96-acd2-9e9d3e784925")
-		)
-		(pin "2"
-			(uuid "aaba8f00-96da-49c9-95d3-a19b44db9ed6")
-		)
-		(instances
-			(project "greybadge_pcb"
-				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "SW8")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Memory_Flash:W25Q128JVS")
 		(at 233.68 53.34 0)
 		(unit 1)
@@ -11365,73 +11364,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Switch:SW_Push")
-		(at 50.8 115.57 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "ab1e68f9-3a82-488c-96c4-b3692a582227")
-		(property "Reference" "SW9"
-			(at 50.8 108.9492 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "SW_Push"
-			(at 50.8 111.4861 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_NO_Vertical_Wuerth_434133025816"
-			(at 50.8 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 50.8 110.49 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 50.8 115.57 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "f6e1cac6-1de8-480b-b321-9adef6242d63")
-		)
-		(pin "2"
-			(uuid "f638ca8a-0ea9-4797-927a-d05429ba2bf9")
-		)
-		(instances
-			(project "greybadge_pcb"
-				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "SW9")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:GND")
 		(at 222.25 119.38 0)
 		(unit 1)
@@ -12402,6 +12334,74 @@
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
 					(reference "#PWR071")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_Push")
+		(at 44.45 81.28 90)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "dcbd5498-e048-4661-b09e-1cbaaa118c0d")
+		(property "Reference" "SW?"
+			(at 36.83 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SW_Push"
+			(at 39.37 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Button_Switch_SMD:SW_Push_1P1T_XKB_TS-1187A"
+			(at 39.37 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 39.37 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Push button switch, generic, two pins"
+			(at 44.45 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "82667764-be78-4e9a-a9d6-d453ded080e4")
+		)
+		(pin "1"
+			(uuid "4aa4564f-df34-40a8-9504-38d2c182ac6f")
+		)
+		(instances
+			(project "greybadge_pcb"
+				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
+					(reference "SW?")
 					(unit 1)
 				)
 			)

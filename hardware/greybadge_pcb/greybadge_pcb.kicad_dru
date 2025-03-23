@@ -115,16 +115,6 @@
 	(constraint hole_clearance (min 0.254mm))
 )
 
-(rule "Clearance: track to PTH hole perimeter"
-	(condition "A.isPlated() && B.Type == 'track' && A.Net != B.Net")
-	(constraint hole_clearance (min 0.33mm))
-)
-
-# TODO: try combining with rule "Clearance: PTH to track, different nets"
-(rule "Clearance: track to pad"
-	(condition "A.Type == 'pad' && B.Type == 'track' &&  A.Net != B.Net")
-	(constraint clearance (min 0.2mm))
-)
 
 (rule "Clearance: pad/via to pad/via"
 	(layer outer)
@@ -133,8 +123,20 @@
 	(constraint clearance (min 0.127mm))
 )
 
+#### My Custom Rules #################################################
+
+(rule "Clearance: track to PTH hole perimeter"
+	(condition "A.isPlated() && B.Type == 'track' && A.Net != B.Net")
+	(constraint hole_clearance (min 0.12mm))
+)
+
+# TODO: try combining with rule "Clearance: PTH to track, different nets"
+(rule "Clearance: track to pad"
+	(condition "A.Type == 'pad' && B.Type == 'track' &&  A.Net != B.Net")
+	(constraint clearance (min 0.08mm) (opt 0.1mm))
+)
 
 (rule "BGA neckdown"
-  (constraint track_width (min 0.2mm) (opt 0.25mm))
+  (constraint track_width (min 0.12mm) (opt 0.15mm))
   (constraint clearance (min 0.08mm) (opt 0.1mm))
   (condition "A.insideCourtyard('U9')"))
