@@ -9954,7 +9954,7 @@
 				(justify mirror)
 			)
 		)
-		(property "LCSC" "C29718"
+		(property "LCSC" "C25804"
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
@@ -11222,7 +11222,7 @@
 				(justify mirror)
 			)
 		)
-		(property "LCSC" "C29718"
+		(property "LCSC" "C25804"
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
@@ -11979,7 +11979,7 @@
 				(justify mirror)
 			)
 		)
-		(property "LCSC" "C29718"
+		(property "LCSC" "C25804"
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
@@ -14646,7 +14646,7 @@
 				(justify mirror)
 			)
 		)
-		(property "LCSC" "C29718"
+		(property "LCSC" "C25804"
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
@@ -15855,7 +15855,7 @@
 				(justify mirror)
 			)
 		)
-		(property "LCSC" "C29718"
+		(property "LCSC" "C25804"
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
@@ -20088,7 +20088,7 @@
 				(justify mirror)
 			)
 		)
-		(property "LCSC" "C29718"
+		(property "LCSC" "C25804"
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
@@ -20743,7 +20743,7 @@
 				(justify mirror)
 			)
 		)
-		(property "LCSC" "C29718"
+		(property "LCSC" "C25804"
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
@@ -28847,7 +28847,7 @@
 				(justify mirror)
 			)
 		)
-		(property "LCSC" "C29718"
+		(property "LCSC" "C25804"
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
@@ -34263,7 +34263,7 @@
 				(justify mirror)
 			)
 		)
-		(property "LCSC" "C29718"
+		(property "LCSC" "C25804"
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
