@@ -16294,7 +16294,7 @@
 		(descr "THT pad as test Point, diameter 1.0mm, hole diameter 0.5mm")
 		(tags "test point THT pad")
 		(property "Reference" "TP2"
-			(at 0 1.448 180)
+			(at -2.250271 0.016445 180)
 			(layer "B.SilkS")
 			(uuid "e52a9560-1505-4128-a8d7-70bbd4983232")
 			(effects
@@ -29991,7 +29991,7 @@
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "capacitor")
 		(property "Reference" "C14"
-			(at 0 1.16 90)
+			(at -1.68 -0.02 180)
 			(layer "B.SilkS")
 			(uuid "d09e8dc3-d941-43ed-84ac-952278beb445")
 			(effects
@@ -35303,7 +35303,7 @@
 		(descr "THT pad as test Point, diameter 1.0mm, hole diameter 0.5mm")
 		(tags "test point THT pad")
 		(property "Reference" "TP3"
-			(at -0.022709 -1.620357 180)
+			(at -2.253649 -0.010414 180)
 			(layer "B.SilkS")
 			(uuid "0a21de8f-6ca5-4c25-850c-b8fa571fb4d4")
 			(effects
