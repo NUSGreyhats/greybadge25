@@ -4901,16 +4901,6 @@
 	)
 	(wire
 		(pts
-			(xy 218.44 39.37) (xy 218.44 50.8)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0c57bbee-f6a3-48a9-b6e4-180b0638b2c7")
-	)
-	(wire
-		(pts
 			(xy 119.38 44.45) (xy 119.38 41.91)
 		)
 		(stroke
@@ -5741,7 +5731,7 @@
 	)
 	(wire
 		(pts
-			(xy 218.44 31.75) (xy 218.44 30.48)
+			(xy 218.44 30.48) (xy 218.44 50.8)
 		)
 		(stroke
 			(width 0)
@@ -9560,74 +9550,6 @@
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
 					(reference "C22")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R")
-		(at 218.44 35.56 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "419dd787-8261-4c17-983c-5fb4495c8276")
-		(property "Reference" "R21"
-			(at 220.218 34.3916 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "DNF"
-			(at 220.218 36.703 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
-			(at 216.662 35.56 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 218.44 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 218.44 35.56 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "8f4d8339-503d-48df-bcee-39583fbfc452")
-		)
-		(pin "2"
-			(uuid "d8058571-2fcf-40cc-a424-a4c663ebcdb1")
-		)
-		(instances
-			(project "greybadge_pcb"
-				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "R21")
 					(unit 1)
 				)
 			)

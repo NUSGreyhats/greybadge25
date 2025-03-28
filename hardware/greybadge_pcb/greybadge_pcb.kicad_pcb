@@ -8745,6 +8745,18 @@
 				(justify mirror)
 			)
 		)
+		(property "LCSC" "C2042572"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "7c0d8efd-3400-4a32-ac6f-7e8055e623eb")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "Choke_* *Coil* Inductor_* L_*")
 		(path "/9563b0f2-de2f-44b6-a21c-14dec17cccec/110b81b4-e332-433c-83b8-3684225c42cc")
 		(sheetname "/rp2350/")
@@ -12623,6 +12635,18 @@
 				(justify mirror)
 			)
 		)
+		(property "LCSC" "C17168"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "76961278-caf3-45f6-811d-40910c1f9f66")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "R_*")
 		(path "/9563b0f2-de2f-44b6-a21c-14dec17cccec/82cc6368-779c-420c-9230-ae04eb33e393")
 		(sheetname "/rp2350/")
@@ -16063,7 +16087,7 @@
 				(justify mirror)
 			)
 		)
-		(property "LCSC" "C17266361"
+		(property "LCSC" "C92959"
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
@@ -16660,6 +16684,18 @@
 					(thickness 0.15)
 				)
 				(justify mirror)
+			)
+		)
+		(property "LCSC" "C5224194"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "8407bf50-657e-4186-ae41-edfba1dd4ac0")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
 			)
 		)
 		(path "/cfddc707-99f6-43b5-b12d-bc465b2a8faa/00000000-0000-0000-0000-00005e3568b4")
@@ -18082,7 +18118,7 @@
 		(path "/9563b0f2-de2f-44b6-a21c-14dec17cccec/8a7f592b-18b3-4879-900a-92a70dd344f9")
 		(sheetname "/rp2350/")
 		(sheetfile "rp2350.kicad_sch")
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -0.153641 0.38)
 			(end 0.153641 0.38)
@@ -21751,7 +21787,7 @@
 				(justify mirror)
 			)
 		)
-		(property "LCSC" "C1521614"
+		(property "LCSC" "C42411118"
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
@@ -30360,7 +30396,7 @@
 				(justify mirror)
 			)
 		)
-		(property "LCSC" "C17266361"
+		(property "LCSC" "C92959"
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
@@ -32147,6 +32183,18 @@
 					(thickness 0.15)
 				)
 				(justify mirror)
+			)
+		)
+		(property "LCSC" "C6186"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "37f67146-8f1e-4f18-95b3-219b7ca10011")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
 			)
 		)
 		(property ki_fp_filters "SOT?223*TabPin2*")
@@ -36924,7 +36972,7 @@
 		(property "Reference" "TP6"
 			(at 0.140733 -1.991824 180)
 			(layer "B.SilkS")
-			(uuid "53f33140-fe56-451d-a49d-8240c8a621bb")
+			(uuid "86eda303-37f2-425e-8946-2410640863d1")
 			(effects
 				(font
 					(size 1 1)
@@ -36936,7 +36984,7 @@
 		(property "Value" "clock"
 			(at 0 -1.55 90)
 			(layer "B.Fab")
-			(uuid "15cb28ad-60a6-4c80-acb2-62ed7050b42f")
+			(uuid "a8b8ba42-964c-4557-8e53-fc40aebfcc3a")
 			(effects
 				(font
 					(size 1 1)
@@ -36950,7 +36998,7 @@
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
-			(uuid "5cc9d172-83c8-4858-9f6c-88e855bdfef3")
+			(uuid "8b4d6e7a-4aa6-45b7-976d-65d8a90588f7")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -36964,7 +37012,7 @@
 			(unlocked yes)
 			(layer "B.Fab")
 			(hide yes)
-			(uuid "bde210da-5727-4026-a6e3-0842457aaf7c")
+			(uuid "a6f23cf7-6a03-49d5-9003-ca191eb82f08")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -38921,6 +38969,18 @@
 				(justify mirror)
 			)
 		)
+		(property "LCSC" "C183599"
+			(at 0 0 0)
+			(layer "B.SilkS")
+			(hide yes)
+			(uuid "255f648c-b751-46f5-a11d-c7c779cbeaed")
+			(effects
+				(font
+					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
 		(property ki_fp_filters "Oscillator*SMD*SeikoEpson*SG210*2.5x2.0mm*")
 		(path "/cfddc707-99f6-43b5-b12d-bc465b2a8faa/00000000-0000-0000-0000-00005e0ef068")
 		(sheetname "/ECP5_25K_FPGA/")
@@ -39704,7 +39764,7 @@
 		(path "/9563b0f2-de2f-44b6-a21c-14dec17cccec/419dd787-8261-4c17-983c-5fb4495c8276")
 		(sheetname "/rp2350/")
 		(sheetfile "rp2350.kicad_sch")
-		(attr smd)
+		(attr smd exclude_from_pos_files exclude_from_bom)
 		(fp_line
 			(start -0.153641 0.38)
 			(end 0.153641 0.38)
