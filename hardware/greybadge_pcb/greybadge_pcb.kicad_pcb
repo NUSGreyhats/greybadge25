@@ -21787,7 +21787,7 @@
 				(justify mirror)
 			)
 		)
-		(property "LCSC" "C42411118"
+		(property "LCSC" "C1521614"
 			(at 0 0 0)
 			(layer "B.SilkS")
 			(hide yes)
