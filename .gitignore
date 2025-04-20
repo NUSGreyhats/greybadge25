@@ -1,0 +1,12 @@
+hardware/greybadge_pcb/jlcpcb/production_files/GERBER-greybadge_pcb.zip
+hardware/greybadge_pcb/jlcpcb/gerber/greybadge_pcb-SilkTop.gbr
+hardware/greybadge_pcb/jlcpcb/gerber/greybadge_pcb-SilkBottom.gbr
+hardware/greybadge_pcb/jlcpcb/gerber/greybadge_pcb-PTH.drl
+hardware/greybadge_pcb/jlcpcb/gerber/greybadge_pcb-PTH-drl_map.pdf
+hardware/greybadge_pcb/jlcpcb/gerber/greybadge_pcb-NPTH.drl
+hardware/greybadge_pcb/jlcpcb/gerber/greybadge_pcb-NPTH-drl_map.pdf
+hardware/greybadge_pcb/jlcpcb/gerber/greybadge_pcb-MaskTop.gbr
+hardware/greybadge_pcb/jlcpcb/gerber/greybadge_pcb-MaskBottom.gbr
+hardware/greybadge_pcb/jlcpcb/gerber/greybadge_pcb-EdgeCuts.gbr
+hardware/greybadge_pcb/jlcpcb/gerber/greybadge_pcb-CuTop.gbr
+hardware/greybadge_pcb/jlcpcb/gerber/greybadge_pcb-CuBottom.gbr
