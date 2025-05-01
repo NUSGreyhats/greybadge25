@@ -544,6 +544,167 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Device:Buzzer"
+			(pin_names
+				(offset 0.0254)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "BZ"
+				(at 3.81 1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "Buzzer"
+				(at 3.81 -1.27 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at -0.635 2.54 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at -0.635 2.54 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Buzzer, polarized"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "quartz resonator ceramic"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "*Buzzer*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Buzzer_0_1"
+				(polyline
+					(pts
+						(xy -1.651 1.905) (xy -1.143 1.905)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.397 2.159) (xy -1.397 1.651)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 3.175)
+					(mid 3.1612 0)
+					(end 0 -3.175)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 3.175) (xy 0 -3.175)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Buzzer_1_1"
+				(pin passive line
+					(at -2.54 2.54 0)
+					(length 2.54)
+					(name "+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -2.54 -2.54 0)
+					(length 2.54)
+					(name "-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Device:C"
 			(pin_numbers
 				(hide yes)
@@ -2938,6 +3099,18 @@
 		)
 		(uuid "2caf25f5-282f-4c1c-9c07-be7113634be7")
 	)
+	(text "Buzzer - RP2350"
+		(exclude_from_sim no)
+		(at 303.53 91.694 0)
+		(effects
+			(font
+				(size 3 3)
+				(thickness 1)
+				(bold yes)
+			)
+		)
+		(uuid "2e4f0a32-b464-44e6-957f-04bd6e15935c")
+	)
 	(text "PMOD - Expansion"
 		(exclude_from_sim no)
 		(at 142.24 21.844 0)
@@ -3076,6 +3249,18 @@
 			(justify left bottom)
 		)
 		(uuid "b2257917-232f-49a9-bcca-7cf82ed65fcf")
+	)
+	(text "Sound"
+		(exclude_from_sim no)
+		(at 292.354 80.518 0)
+		(effects
+			(font
+				(size 5 5)
+				(thickness 1)
+				(bold yes)
+			)
+		)
+		(uuid "b7248ba0-b8a4-4de3-93fa-33dd27fb51e4")
 	)
 	(text "RP2350-FPGA Interlink"
 		(exclude_from_sim no)
@@ -3575,6 +3760,16 @@
 			(type default)
 		)
 		(uuid "37358061-7764-46e6-a05c-e641af2ece4a")
+	)
+	(wire
+		(pts
+			(xy 297.18 106.68) (xy 300.99 106.68)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "37dd12fa-68f8-406b-8414-6b2eac4f547c")
 	)
 	(wire
 		(pts
@@ -14707,7 +14902,25 @@
 			"AEMAcABkADUAWgBKAGgAUgBoAGwANwA0AG0ATQBCAFYAQwBPAHkAMAB0AG0AcgBEAGgAMABkAHQA"
 			"KwBEAHoAegAyADQANABlAEMAcgBaAHkAMAA2AGEALwB1AGIAYgA2AHgANwBaAFcATgBIADAAbgBY"
 			"ADUAZQBkAGQAWQBKAEsAcwAzAFAAYgBKAG0AOQBiAFAALwA0AFoAZgAvAFkAKwBKAGIAUABCAFEA"
-			"UQBVAGkARgB4ADYAaQBXAE8AUwAzAEYAYwB5AG8AWgBkAFIAQQBZAGUAMQBsAGcAaABaAA=="
+			"UQBVAGkARgB4ADYAaQBXAE8AUwAzAEYAYwB5AG8AWgBkAFIAQQBZAGUAMQBsAGcAaABaAEoAbQBm"
+			"ACsAOQBRAG4AKwBoAE8AOAA2AHUAVQB2AFgAagBNAFkATAByAGgAMAArAGQAMgAzAC8AOAA0AHoA"
+			"QQB0AG0AeABSADcAMwBvAHQASgBOAGYAMgBwAGUAbwBFADIAdgA3AGgAeAB6AFoAMwBuAHYAcwB0"
+			"AHYATwBpAHgAVgBjAHMAdgAyAHEALwBWADcANAA0AFoAWgB2AGgAYwBmAEwAeAB4ADkAeQA1ADgA"
+			"bwBIAFAAZgB2AHEAcwBMAHoAcgBkAGIALwA5AG4ASABQADMAQwB3ADMANwB5AGcAMgA4AHoAZwBo"
+			"AGEATgBBADUAKwAyADIAKwBuAC8AOABlADYAegB2AC8AVwBEAGQAMQAzADAAaQB5AEMAeQA1ADYA"
+			"NgBMADMALwBUAEcATgAzAGcAVABpAE4AVwA4AHoAbQBTAHAAVwBjAHUAeABlAE8ATAA5ADkAOQA3"
+			"AHQANQBPAE8ATwArAHMAbABGAEYALwB6AGkAMABrAHQAYgBlAFQAagBxAHEASwBOAEgAZgBuAFgA"
+			"VgA0AE0ATQBQAEoAcgBxAE0AbgBEAC8AdAAxAEwALwA4ADgAagBuAGYAZgB2AHMALwB2ADUAMgBn"
+			"ACsAeAAzADQAagBKADMAbgB6AHEAUgBXAE0AdwBtAEEAdwBSAGQATgBxAEQASgBBAEQAawBlACsA"
+			"OABIAGsAWABYAG4AbgBkAE8AOQAvADYAegA4AGMAKwA5ADUAbgAvADgATABlAHYAZABkADcAZABm"
+			"AE8AdgB0AGYAUQA0AEgATAA5AHMAdAA0AFYAYgBJAG0AOABUAFoAawA2AEwAcQB3AHAAOABLAGEA"
+			"RwBSAGsANQBMAEgAdQBRAHcAOAA5ADkATgBEAEQARwBKAEEAQgBGAHQAVgB0ADIAYwBpADkANABQ"
+			"AEEAagB4AE0AaQBsAHYAdABOADQAMgBCAFoARQAyAFoAYwBzAHkAMQBSAFYAVgBCADEAegBMAEwA"
+			"ZQBVAHAAcQBtAHEAZQBwADgATQBEAGcAMwAyADEAZQB0AG0ASgBoAEkAVgBlAEkAawByAFoAVgA4"
+			"ADEAVQB4AEgAdgB2AFoAbwB4AEUAYQBDAGkASwBpAEcAWQBXAFoAWgBsAHMAYgBXAHgARwBWAEwA"
+			"YgA0AE0AcABvAEIAeABVAGoAWABIADcANQBoAFUAQgBaAG4AagBtAG0AUAB0ADEAKwArACsAMwBq"
+			"AEQAMQBjAFMARgBjAGYATwBlAFEAZABBAFYAVgBXAFUAMwBaAGcASQBqAHIAZwB4AFkAdQBaAGwA"
+			"eQA1AFoATgBPAGoANQBsAG4AegBuAEYAeABoAFcAMwAvADMAVABsAEgANgA0AGkASABVAA=="
 		)
 	)
 	(label "+F2V5"
@@ -20495,6 +20708,70 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 297.18 106.68 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4d8b105e-7b57-48ff-aa82-29bf5540516c")
+		(property "Reference" "#PWR085"
+			(at 297.18 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 293.37 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 297.18 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 297.18 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 297.18 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "2b75dbb7-a327-4794-85a2-33d4372015fe")
+		)
+		(instances
+			(project "greybadge_pcb"
+				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
+					(reference "#PWR085")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 208.28 57.15 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -25086,6 +25363,76 @@
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
 					(reference "C7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:Buzzer")
+		(at 303.53 104.14 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e1278f20-100a-428e-8901-5a8f3c73b84d")
+		(property "Reference" "BZ1"
+			(at 307.34 102.8699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Buzzer"
+			(at 307.34 105.4099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "custom:BUZ-SMD_4P-L7.5-W7.5-BR"
+			(at 302.895 101.6 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 302.895 101.6 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Buzzer, polarized"
+			(at 303.53 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7e6b660c-da1b-4294-8b8d-6fddb53111fe")
+		)
+		(pin "2"
+			(uuid "c7540f25-3179-4d71-9849-8b65d9257086")
+		)
+		(instances
+			(project "greybadge_pcb"
+				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
+					(reference "BZ1")
 					(unit 1)
 				)
 			)
