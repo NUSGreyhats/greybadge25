@@ -31,7 +31,7 @@ main = displayio.Group()
 display.root_group = main
 
 # Draw a text label
-text = "Loading\nFPGA"
+text = "Loading\nFPGA..."
 text_area = label.Label(terminalio.FONT, text=text, color=0xFFFF00,
                         anchor_point=(0.5,0.5), anchored_position=(0,0))
 text_group = displayio.Group(scale=2)
