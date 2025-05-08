@@ -10713,7 +10713,7 @@
 	(footprint "LOGO"
 		(layer "B.Cu")
 		(uuid "0899563b-bc2e-4d73-88aa-d6c9948f9b4b")
-		(at 106.761891 115.740564 180)
+		(at 107.455841 114.948711 180)
 		(property "Reference" "G***"
 			(at 0 -0.024412 0)
 			(layer "B.SilkS")
@@ -27986,7 +27986,7 @@
 	(footprint "LOGO"
 		(layer "B.Cu")
 		(uuid "824617ab-039c-4b68-99c8-1a9d65dd07ce")
-		(at 116.511001 113.747652 180)
+		(at 117.24994 111.725587 180)
 		(property "Reference" "G***"
 			(at 0 -0.024412 0)
 			(layer "B.SilkS")
@@ -32119,7 +32119,7 @@
 			(at 0 0.14 0)
 			(layer "B.SilkS")
 			(hide yes)
-			(uuid "398a5afe-b1e2-4761-b97e-8c469fe3a8d8")
+			(uuid "b97705a1-e0d7-48b9-b048-e417ab1ed626")
 			(effects
 				(font
 					(size 1.5 1.5)
@@ -32132,7 +32132,7 @@
 			(at 0.75 0.14 0)
 			(layer "B.SilkS")
 			(hide yes)
-			(uuid "d6d09b41-317a-4dc1-ad24-7f75361b2802")
+			(uuid "6462160d-b4dc-4ac8-8747-35f291dbefc5")
 			(effects
 				(font
 					(size 1.5 1.5)
@@ -32145,7 +32145,7 @@
 			(at 0 0.14 0)
 			(layer "B.Fab")
 			(hide yes)
-			(uuid "292df7a8-67b4-4be6-8cf9-e9cd61a460f8")
+			(uuid "507aa029-fd6f-4efa-ab18-6b6a51d22ba6")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -32158,7 +32158,7 @@
 			(at 0 0.14 0)
 			(layer "B.Fab")
 			(hide yes)
-			(uuid "076f5f7a-3af2-4ea4-9949-8c406d1778e0")
+			(uuid "8673062c-06ce-40a7-a04b-beca1b295f91")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -39594,12 +39594,12 @@
 	(footprint "LOGO"
 		(layer "B.Cu")
 		(uuid "ed71c241-2c2a-4b5f-afe3-a1de12d67577")
-		(at 97.766856 118.056651 180)
+		(at 97.051696 118.39412 180)
 		(property "Reference" "G***"
 			(at 0 0.14 0)
 			(layer "B.SilkS")
 			(hide yes)
-			(uuid "9b02ee40-7e8a-41a0-b8af-590d8d0f945a")
+			(uuid "a32f38ac-41b2-453b-9850-7a27a4d14dfa")
 			(effects
 				(font
 					(size 1.5 1.5)
@@ -39612,7 +39612,7 @@
 			(at 0.75 0.14 0)
 			(layer "B.SilkS")
 			(hide yes)
-			(uuid "931e37e6-3a9e-4a6a-9a3b-400082a277b7")
+			(uuid "1c26a09a-057b-470a-ada4-9881bd36be85")
 			(effects
 				(font
 					(size 1.5 1.5)
@@ -39625,7 +39625,7 @@
 			(at 0 0.14 0)
 			(layer "B.Fab")
 			(hide yes)
-			(uuid "39ac62b1-a001-446e-894c-bde43d3d8009")
+			(uuid "f662c27f-d23b-433d-a6c0-199f62db1e70")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -39638,7 +39638,7 @@
 			(at 0 0.14 0)
 			(layer "B.Fab")
 			(hide yes)
-			(uuid "45ed4c8e-9215-4af5-a584-6a07b9581a78")
+			(uuid "770eea34-cb14-4683-a4f4-0d69b128b73a")
 			(effects
 				(font
 					(size 1.27 1.27)
