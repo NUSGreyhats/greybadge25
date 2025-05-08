@@ -5875,12 +5875,6 @@
 		(uuid "bac0d122-5d47-4bb1-9a5f-a3430b6b1b30")
 	)
 	(junction
-		(at 212.09 311.15)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "bd93676f-7eb6-4648-bc0e-b6ea49688cab")
-	)
-	(junction
 		(at 97.79 212.09)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7012,16 +7006,6 @@
 	)
 	(wire
 		(pts
-			(xy 212.09 330.2) (xy 212.09 324.485)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "81be27c6-c159-4397-8830-196a0d133fb1")
-	)
-	(wire
-		(pts
 			(xy 307.34 124.46) (xy 307.34 156.21)
 		)
 		(stroke
@@ -7779,16 +7763,6 @@
 			(type default)
 		)
 		(uuid "e2e4ce40-b32a-40f2-8a17-37b15a33d6fd")
-	)
-	(wire
-		(pts
-			(xy 212.09 311.15) (xy 212.09 319.405)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e33561e6-59a2-417d-af82-4f99d98d8f27")
 	)
 	(wire
 		(pts
@@ -18526,36 +18500,6 @@
 		)
 		(uuid "44fe0ede-1a45-4757-86f2-49e97629f9be")
 	)
-	(label "3V3_2"
-		(at 251.46 293.37 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "551fa9ac-fe3d-49d9-ad75-212be989e5fc")
-	)
-	(label "PIN_LED"
-		(at 212.09 298.45 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "692683a8-42c4-4af1-a5e9-cd1917a82190")
-	)
-	(label "3V3_2"
-		(at 273.05 293.37 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "9852efda-b5a8-4d82-9fe5-042bff3d431a")
-	)
 	(label "TMR"
 		(at 325.12 138.43 0)
 		(effects
@@ -18782,6 +18726,28 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "OLED_SCL"
+		(shape input)
+		(at 234.95 307.34 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "1a581c08-163b-4c69-a627-4a1f766e9e8b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 222.712 307.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -19446,6 +19412,28 @@
 		(uuid "961a62f8-83d0-4bbf-8b91-f9dc8a8e82a6")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 195.3768 182.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "OLED_SDA"
+		(shape input)
+		(at 234.95 303.53 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "96741f61-8e6f-42dd-824e-c7b65109517b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 222.6515 303.53 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -24414,6 +24402,70 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+3V3")
+		(at 273.05 293.37 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3643b607-49eb-4a20-8bae-d66daf9e1faf")
+		(property "Reference" "#PWR0129"
+			(at 273.05 297.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 273.431 288.9758 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 273.05 293.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 273.05 293.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 273.05 293.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "a476c038-7fce-4e2b-b2f3-db76ad055cd5")
+		)
+		(instances
+			(project "greybadge_pcb"
+				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
+					(reference "#PWR0129")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+2V5")
 		(at 29.21 261.62 0)
 		(unit 1)
@@ -24661,6 +24713,71 @@
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
 					(reference "R15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3.3V")
+		(at 212.09 298.45 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3991544d-e736-4fe2-9b6e-04c613cdc8ff")
+		(property "Reference" "#PWR0127"
+			(at 212.09 302.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+F3V3"
+			(at 209.296 293.624 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 212.09 298.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 212.09 298.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 212.09 298.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "9d64321b-5523-4f07-b333-e722e6a6080a")
+		)
+		(instances
+			(project "greybadge_pcb"
+				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
+					(reference "#PWR0127")
 					(unit 1)
 				)
 			)
@@ -25204,74 +25321,6 @@
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
 					(reference "R22")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Device:R_Small")
-		(at 212.09 321.945 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "406fd723-06ac-4821-b7cc-97eaaa0653dc")
-		(property "Reference" "R3"
-			(at 213.995 320.04 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "1M"
-			(at 210.185 319.405 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 212.09 321.945 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 212.09 321.945 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 212.09 321.945 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "b1e3e7fe-0dcd-4c25-aa07-9b7cd0d35d47")
-		)
-		(pin "2"
-			(uuid "5dd67ce7-2f6e-408b-bbdd-b4477dd425db")
-		)
-		(instances
-			(project "greybadge_pcb"
-				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
-					(reference "R3")
 					(unit 1)
 				)
 			)
@@ -26188,6 +26237,70 @@
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
 					(reference "SW3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 251.46 293.37 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "547b5583-b7aa-4bed-9432-1b58ba64551b")
+		(property "Reference" "#PWR0128"
+			(at 251.46 297.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 251.841 288.9758 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 251.46 293.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 251.46 293.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 251.46 293.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "aa246a18-3020-415e-8c9b-fb2e0f20b832")
+		)
+		(instances
+			(project "greybadge_pcb"
+				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
+					(reference "#PWR0128")
 					(unit 1)
 				)
 			)
@@ -30204,7 +30317,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 229.235 311.15 0)
 			(effects
 				(font
@@ -31149,70 +31262,6 @@
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
 					(reference "R13")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 212.09 330.2 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "d13d8b3d-d469-4e4e-aeb2-4ac39ef8b5c8")
-		(property "Reference" "#PWR015"
-			(at 212.09 336.55 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 212.217 334.5942 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 212.09 330.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 212.09 330.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 212.09 330.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "f16a505b-8dc1-4ac7-825e-8a660beb9d14")
-		)
-		(instances
-			(project "greybadge_pcb"
-				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
-					(reference "#PWR015")
 					(unit 1)
 				)
 			)
