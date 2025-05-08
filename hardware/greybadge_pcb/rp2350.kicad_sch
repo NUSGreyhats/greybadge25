@@ -7328,7 +7328,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "0bcada9f-42e4-4dd9-b4d1-698f8cf5f59f")
-		(property "Reference" "#PWR088"
+		(property "Reference" "#PWR091"
 			(at 36.83 55.88 0)
 			(effects
 				(font
@@ -7377,7 +7377,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR088")
+					(reference "#PWR091")
 					(unit 1)
 				)
 			)
@@ -7392,7 +7392,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "102ac910-dd19-4bb5-a74b-15d3535289f9")
-		(property "Reference" "#PWR092"
+		(property "Reference" "#PWR095"
 			(at 44.45 95.25 0)
 			(effects
 				(font
@@ -7441,7 +7441,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR092")
+					(reference "#PWR095")
 					(unit 1)
 				)
 			)
@@ -7593,7 +7593,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "1730e8ed-eb65-4595-bbea-11b871f76bf5")
-		(property "Reference" "#PWR081"
+		(property "Reference" "#PWR084"
 			(at 233.68 29.21 0)
 			(effects
 				(font
@@ -7642,7 +7642,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR081")
+					(reference "#PWR084")
 					(unit 1)
 				)
 			)
@@ -8131,7 +8131,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "37f3dfdc-979a-4f63-a7f4-a2700d496bfc")
-		(property "Reference" "#PWR0103"
+		(property "Reference" "#PWR0106"
 			(at 224.79 160.02 0)
 			(effects
 				(font
@@ -8180,7 +8180,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR0103")
+					(reference "#PWR0106")
 					(unit 1)
 				)
 			)
@@ -8195,7 +8195,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "3a87643f-0b65-4eb9-9352-de8aae48f8d7")
-		(property "Reference" "#PWR083"
+		(property "Reference" "#PWR086"
 			(at 25.4 41.91 0)
 			(effects
 				(font
@@ -8244,7 +8244,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR083")
+					(reference "#PWR086")
 					(unit 1)
 				)
 			)
@@ -8259,7 +8259,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "3c1acf12-d88b-4046-bfc5-a30dcfcb4870")
-		(property "Reference" "#PWR089"
+		(property "Reference" "#PWR092"
 			(at 233.68 71.12 0)
 			(effects
 				(font
@@ -8308,7 +8308,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR089")
+					(reference "#PWR092")
 					(unit 1)
 				)
 			)
@@ -8458,7 +8458,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "42277103-5fba-41dc-aa67-9fd805fe2214")
-		(property "Reference" "#PWR0105"
+		(property "Reference" "#PWR0108"
 			(at 190.5 190.5 0)
 			(effects
 				(font
@@ -8507,7 +8507,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR0105")
+					(reference "#PWR0108")
 					(unit 1)
 				)
 			)
@@ -8591,7 +8591,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "5493d70b-bdae-4005-8590-cdbad8d2a4f4")
-		(property "Reference" "#PWR090"
+		(property "Reference" "#PWR093"
 			(at 25.4 74.93 0)
 			(effects
 				(font
@@ -8640,7 +8640,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR090")
+					(reference "#PWR093")
 					(unit 1)
 				)
 			)
@@ -8655,7 +8655,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "5730a475-72f5-436b-bd20-b2b689c54f8d")
-		(property "Reference" "#PWR0100"
+		(property "Reference" "#PWR0103"
 			(at 209.55 149.86 0)
 			(effects
 				(font
@@ -8704,7 +8704,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR0100")
+					(reference "#PWR0103")
 					(unit 1)
 				)
 			)
@@ -8720,7 +8720,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "59e2eb65-c709-47e8-be76-05a545b3b796")
-		(property "Reference" "#PWR099"
+		(property "Reference" "#PWR0102"
 			(at 109.0168 152.4 0)
 			(effects
 				(font
@@ -8769,7 +8769,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR099")
+					(reference "#PWR0102")
 					(unit 1)
 				)
 			)
@@ -8852,7 +8852,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "61c62d64-14b8-4b18-9b97-687a30dbead9")
-		(property "Reference" "#PWR084"
+		(property "Reference" "#PWR087"
 			(at 97.79 45.72 0)
 			(effects
 				(font
@@ -8901,7 +8901,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR084")
+					(reference "#PWR087")
 					(unit 1)
 				)
 			)
@@ -9061,7 +9061,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "6b20d2f4-68e2-4b31-8a1d-e466732b4d30")
-		(property "Reference" "#PWR095"
+		(property "Reference" "#PWR098"
 			(at 266.7 107.315 0)
 			(effects
 				(font
@@ -9110,7 +9110,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR095")
+					(reference "#PWR098")
 					(unit 1)
 				)
 			)
@@ -9522,7 +9522,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "77266b24-9b67-42d1-9315-ebfce269536b")
-		(property "Reference" "#PWR097"
+		(property "Reference" "#PWR0100"
 			(at 31.75 125.73 0)
 			(effects
 				(font
@@ -9571,7 +9571,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR097")
+					(reference "#PWR0100")
 					(unit 1)
 				)
 			)
@@ -9586,7 +9586,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "774fafd6-bfd5-45ee-a7bb-cd3cddcf092c")
-		(property "Reference" "#PWR0101"
+		(property "Reference" "#PWR0104"
 			(at 238.76 149.86 0)
 			(effects
 				(font
@@ -9636,7 +9636,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR0101")
+					(reference "#PWR0104")
 					(unit 1)
 				)
 			)
@@ -9855,7 +9855,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "835a64b7-7547-4105-8c1b-03ca4bcf348e")
-		(property "Reference" "#PWR086"
+		(property "Reference" "#PWR089"
 			(at 300.355 48.895 0)
 			(effects
 				(font
@@ -9904,7 +9904,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR086")
+					(reference "#PWR089")
 					(unit 1)
 				)
 			)
@@ -10055,7 +10055,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "991fbd73-7197-4d7a-85a8-789cf43cf815")
-		(property "Reference" "#PWR096"
+		(property "Reference" "#PWR099"
 			(at 199.39 113.03 0)
 			(effects
 				(font
@@ -10104,7 +10104,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR096")
+					(reference "#PWR099")
 					(unit 1)
 				)
 			)
@@ -10325,7 +10325,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "afa5aa29-5bdf-42c8-87c5-82ab46127061")
-		(property "Reference" "#PWR098"
+		(property "Reference" "#PWR0101"
 			(at 222.25 125.73 0)
 			(effects
 				(font
@@ -10374,7 +10374,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR098")
+					(reference "#PWR0101")
 					(unit 1)
 				)
 			)
@@ -10457,7 +10457,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "b23696e1-4b4b-4b66-974c-2476493e918b")
-		(property "Reference" "#PWR082"
+		(property "Reference" "#PWR085"
 			(at 240.03 43.18 0)
 			(effects
 				(font
@@ -10506,7 +10506,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR082")
+					(reference "#PWR085")
 					(unit 1)
 				)
 			)
@@ -10591,7 +10591,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "b388b378-9ec1-48cd-922c-cb11979501f4")
-		(property "Reference" "#PWR0104"
+		(property "Reference" "#PWR0107"
 			(at 182.88 190.5 0)
 			(effects
 				(font
@@ -10640,7 +10640,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR0104")
+					(reference "#PWR0107")
 					(unit 1)
 				)
 			)
@@ -10978,7 +10978,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "c6a288dc-4673-4064-93e3-94ddb2b687dc")
-		(property "Reference" "#PWR085"
+		(property "Reference" "#PWR088"
 			(at 132.08 45.72 0)
 			(effects
 				(font
@@ -11027,7 +11027,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR085")
+					(reference "#PWR088")
 					(unit 1)
 				)
 			)
@@ -11043,7 +11043,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d4c4ec2a-0914-44c6-99e0-fbfa323ab1eb")
-		(property "Reference" "#PWR094"
+		(property "Reference" "#PWR097"
 			(at 303.022 100.1268 0)
 			(effects
 				(font
@@ -11092,7 +11092,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR094")
+					(reference "#PWR097")
 					(unit 1)
 				)
 			)
@@ -11176,7 +11176,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "e1ebaaca-b5bb-4033-b264-c8e8189a1a79")
-		(property "Reference" "#PWR093"
+		(property "Reference" "#PWR096"
 			(at 289.0012 97.6884 0)
 			(effects
 				(font
@@ -11225,7 +11225,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR093")
+					(reference "#PWR096")
 					(unit 1)
 				)
 			)
@@ -11315,7 +11315,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "e875db71-cd6e-42cd-9740-9c7858b04607")
-		(property "Reference" "#PWR087"
+		(property "Reference" "#PWR090"
 			(at 71.12 57.15 0)
 			(effects
 				(font
@@ -11364,7 +11364,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR087")
+					(reference "#PWR090")
 					(unit 1)
 				)
 			)
@@ -11379,7 +11379,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "ea88d321-87dc-45da-9382-4dbf208e13a4")
-		(property "Reference" "#PWR0102"
+		(property "Reference" "#PWR0105"
 			(at 248.92 149.86 0)
 			(effects
 				(font
@@ -11428,7 +11428,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR0102")
+					(reference "#PWR0105")
 					(unit 1)
 				)
 			)
@@ -11443,7 +11443,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "f13bf686-1ca6-4952-b306-7a6c84942bcc")
-		(property "Reference" "#PWR091"
+		(property "Reference" "#PWR094"
 			(at 198.12 91.44 0)
 			(effects
 				(font
@@ -11492,7 +11492,7 @@
 		(instances
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/9563b0f2-de2f-44b6-a21c-14dec17cccec"
-					(reference "#PWR091")
+					(reference "#PWR094")
 					(unit 1)
 				)
 			)
