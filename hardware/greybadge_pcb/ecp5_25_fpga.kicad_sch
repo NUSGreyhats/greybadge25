@@ -5,113 +5,6 @@
 	(uuid "44e5256f-1d49-4bc1-9f50-5826a99d10e8")
 	(paper "A2")
 	(lib_symbols
-		(symbol "Connector:TestPoint"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0.762)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "TP"
-				(at 0 6.858 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "TestPoint"
-				(at 0 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 5.08 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 5.08 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "test point"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_keywords" "test point tp"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "Pin* Test*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "TestPoint_0_1"
-				(circle
-					(center 0 3.302)
-					(radius 0.762)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "TestPoint_1_1"
-				(pin passive line
-					(at 0 0 90)
-					(length 2.54)
-					(name "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "Device:C"
 			(pin_numbers
 				(hide yes)
@@ -22315,7 +22208,25 @@
 			"5nQZPyKOFT+E9Z8/gQAAf9LRx//j4uH/AAAAAAAAAADmdBk/Io4VvwAAAACBAAB/0tHH/+Pi4f8A"
 			"AAAAAAAAAOZ0GT9dpxG/RqxFPYEAAH/S0cf/4+Lh/wAAAAAAAAAA5nQZP/qzD7+D3TA9gQAAf9LR"
 			"x//j4uH/AAAAAAAAAADmdBk/Ns0Lv9PBmj+BAAB/0tHH/+Pi4f8AAAAAAAAAAOZ0GT8ijhW/hPWf"
-			"P4EAAH/S0cf/4+Lh/wAAAAAAAAAA5nQZPzbNCz/TwZo/gQAAf9LRx//j4uH/AAAAAAAAAADmdA=="
+			"P4EAAH/S0cf/4+Lh/wAAAAAAAAAA5nQZPzbNCz/TwZo/gQAAf9LRx//j4uH/AAAAAAAAAADmdFEA"
+			"dgBIACsASwA2AEIASgA5ADUAegBaADMAZABQAGMAdQBPAFAAMwBsAHgANAArADUAbQA2AEEAQQBB"
+			"AFEARQB1ACsAawBXAEgAOABiAEkARABwAEcAZQBBAEUAQQBCAEcASwBVAGgASABYADgAbwAyAHEA"
+			"cwBPAHYAYgBBAFcAbABQAFQAWgB6AHgAZwBHAFEAawBjAHQAQQAyAEgAQgBzAG4AVgAyAGEAUQB5"
+			"ADEAaABjAE4ATgBwAHYAeABnAFcAagBkADgAcwAwADEARwBXAGgAVQBqAFYAYgBHAEgANABnAHUA"
+			"bgA0AE0AVwBHAGsAQQBRADIASABlAEMASABOAHEAdABYAHgATgBIAHoARwA5AHYARQBRAFEAQQBk"
+			"AG4AYQBzAHYAZgBMAFoAYwBwAGgAUABWADQASgBSAGwASQBsAEsAdwArAGQAQwB5AEIASwBXAEoA"
+			"YgBTAGoATgB6AEkAeABHAEoATQBsAFgASwBwADcAVAB4ACsAKwBSAHQARgBzAFoAWABmAHEAUABi"
+			"AHYAMAB5AHYAWQA3AFAAWQBTAEQAYwAwAHoAZAAwAE0AQgBnAGYAZgBqADIARgBpAE4AUQBBAEIA"
+			"ZwBOAFMAaQBrAFgASABpAFAANQBLAHIAMwBFAGEAagBxAE8AYQB0AEoANwA3ACsANgB0AFcAegA1"
+			"AGoAbwBtAHoANgBDADAAVwA3AFoAagBYAGQAQgAyAFAANAB0AGsAagB4AGkAdABMAEcAWABrADYA"
+			"WQBoADUAaQAvAG4AYgBzAE4AQQBDAEEAUQBaAHkAUwAwAEMANgBXAHMAVgAzAFkAOQB4AE4AYwBv"
+			"ADkAMABHAHUAQQBlAFAAaQBxAGkATgBmAFkAQQBSAGMAUQBHAEEAUABTAHgAdwBGAFYAcABEAFAA"
+			"QgBGADgAegBHAFMANwByAGwAVgAwAFAAUgAzAE0AWABXAG0AagBBAEUAQQBoAEMAdAB5AHMAbgBR"
+			"AGUANABXADgAMABrAFkAZwA3AGMAWAA3AHoARwBHAGIAbAB0ADcAeABQAFcANQBSAEoAQQBBAEUA"
+			"RQBJAEkAZwBlAG8AMgA1AFUASwBvAE0AaABuAG8AMAByAE0ASgBOAFIAMgBUAGgAUgBDAG4AWgAx"
+			"AHEAWgA0AGIAeAA0AHIAegBGADQAVwA2AHkAdABzAEIAdwBKAHYAbQAzACsAYgBlAEEAYwBNADcA"
+			"YwA5ADcAcgAwAGgAVQBvAFYAYgArACsAdgB2AHoAcwBTAFYAeABVAHQAbAB2ADYAYQAvAGYAMQAv"
+			"AFcAUQBhAHgAaABzADkAdwBsAFoAeQBaAHYAeABRADIAUABxAFcAWgAxADkASgBYAGwATwAvAA=="
 		)
 	)
 	(image
@@ -23450,7 +23361,25 @@
 			"fwAAkNysy/1/AABwwKzL/X8AAMAnrMv9fwAAgL6sy/1/AACQc6zL/X8AAFCRrMv9fwAAkJGsy/1/"
 			"AADQe6zL/X8AALB5qcv9fwAAvHmpy/1/AACQGKzL/X8AAMC/rMv9fwAAkHWsy/1/AACgv6zL/X8A"
 			"AFDArMv9fwAAEMCsy/1/AADQdazL/X8AAOA8rMv9fwAAAK2sy/1/AADgTKzL/X8AACA1rMv9fwAA"
-			"ADWsy/1/AABAoazL/X8AAPCgrMv9fwAAkDysy/1/AABgVqzL/X8AANC8rMv9fw=="
+			"ADWsy/1/AABAoazL/X8AAPCgrMv9fwAAkDysy/1/AABgVqzL/X8AANC8rMv9fwAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
 		)
 	)
 	(image
@@ -24038,7 +23967,25 @@
 			"QRJCEkMSRBJFEkYSRxJIEkkSShJLEkwSTRJOEk8SUBJRElISUxJUElUSVhJXElgSWRJaElsSXBJd"
 			"El4SXxJgEmESYhJjEmQSZRJmEmcSaBJpEmoSaxJsEm0SbhJvEnAScRJyEnMSdBJ1EnYSdxJ4EnkS"
 			"ehJ7EnwSfRJ+En8SgBKBEoISgxKEEoUShhKHEogSiRKKEosSjBKNEo4SjxKQEpESkhKTEpQSlRKW"
-			"EpcSmBKZEpoSmxKcEg=="
+			"EpcSmBKZEpoSmxKcEsWs0MWseHNoMzMzMzMzMzMzMzMzMzMzMzMzMzMzi4V30MWs0MWs0MWs0MWs"
+			"0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs"
+			"tq6aXV1cWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpa"
+			"WlpaWlpaWlpaqKGQ0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs"
+			"0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs"
+			"0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs"
+			"0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs"
+			"0MWseHNoMzMzMzMzMzMzMzMzMzMzMzMzMzMzi4V30MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs"
+			"0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWsr6eVaWdkWlpaWlpa"
+			"WlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaWlpaZGNhpJ2N0MWs0MWs"
+			"0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs"
+			"0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWsVFRUVFRUVFRU"
+			"VFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRUVFRU"
+			"VFRUVFRUU1NTQUFBNDQ0MzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMz"
+			"MzMzMzMzMzMzMzMzi4V30MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs"
+			"0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWsz8SsvbSfuLCcuLCcuLCcuLCcuLCcuLCc"
+			"uLCcuLCcuLCcuLCcuLCcuLCcuLCcuLCcuLCcvLOezsOr0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs"
+			"0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs0MWs"
+			"0MWs0MWs0MWs0MWs0A=="
 		)
 	)
 	(label "cfg_2"
@@ -24213,26 +24160,6 @@
 		(uuid "02bda434-3ade-4281-abdc-3fc3f1a7e4b2")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 321.31 234.95 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "clk"
-		(shape input)
-		(at 336.55 281.94 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "041c89e0-acb7-4f5d-99e9-46845c742c5d")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 336.55 281.94 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34143,7 +34070,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+F3V3"
+		(property "Value" "+F2V5"
 			(at 319.786 284.734 0)
 			(effects
 				(font
@@ -34252,69 +34179,6 @@
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/cfddc707-99f6-43b5-b12d-bc465b2a8faa"
 					(reference "R43")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:TestPoint")
-		(at 336.55 281.94 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "d01a221a-a8be-4c36-b7ab-623556dc38ba")
-		(property "Reference" "TP6"
-			(at 335.788 279.654 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "clock"
-			(at 320.04 281.94 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "TestPoint:TestPoint_THTPad_D1.0mm_Drill0.5mm"
-			(at 336.55 276.86 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 336.55 276.86 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 336.55 281.94 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "30c0214c-e48c-4dd1-a107-2f219792798b")
-		)
-		(instances
-			(project "greybadge_pcb"
-				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/cfddc707-99f6-43b5-b12d-bc465b2a8faa"
-					(reference "TP6")
 					(unit 1)
 				)
 			)
