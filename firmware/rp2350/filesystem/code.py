@@ -35,7 +35,7 @@ main.append(text_group)
 text_group.x = 120 #+ int(r * math.sin(theta))
 text_group.y = 120 #+ int(r * math.cos(theta))
 
-#hardware.fpga.upload_bitstream("test.bit")
+hardware.fpga.upload_bitstream("test.bit")
 
 ### Menu ############################################
 fpga_buttons = hardware.overlay_buttons()
