@@ -18231,7 +18231,25 @@
 			"AFAALwBCAEsAegAvAGIAdQAvAHYAZQBQAFoATgBjACsATgBhADIAKwAvADcATABMAEwAbABpAHgA"
 			"WgBNAHQAcgBNAC8AbwBqAHYAagB3AEEAMwBmADIAcQBNAHoAYwBWAFgAVABwACsARgBxADYANABa"
 			"AC8AdAB1AC8AVwBmAGYAMABtAHAASwBvADcAUgB4AC8AMQBwADkAKwBZAGUANAAxAFYAMgB6ADkA"
-			"dwBRADkAMgBQAFAAdgA4ADEAQQA5AGMAUAAyAFAAbAA4AHQAMQA3ADcAMwBIAEQAcQBaAA=="
+			"dwBRADkAMgBQAFAAdgA4ADEAQQA5AGMAUAAyAFAAbAA4AHQAMQA3ADcAMwBIAEQAcQBaAK5b2D0a"
+			"slFBP3lYwa5b2D2kxlFBdZNYwa5b2D361VFBbq1Ywa5b2D1V3VFBZb1Ywa5b2D024lFBVstYwa5b"
+			"2D1G5VFBUdpYwa5b2D0v51FBZe1Ywa5b2D1a6FFBNAJZwa5b2D0T6VFB/hhZwa5b2D2X6FFB8SxZ"
+			"wa5b2D1s5lFBjj9Zwa5b2D0Z4lFBVVJZwa5b2D0n21FByGZZwa5b2D0c0VFBZ35Zwa5b2D1/w1FB"
+			"tJpZwa5b2D3ZsVFBML1Zwa5b2D2Wp1FBytBZwa5b2D0qh1FBzQxawa5b2D3aaFFBG0Fawa5b2D2V"
+			"S1FBI29awa5b2D1LLlFBUphawa5b2D3uD1FBFL5awa5b2D1r71BB2OFawa5b2D22y1BBCgVbwa5b"
+			"2D1irlBBwB9bwa5b2D1hb1BB2FNbwa5b2D1mK1BBVYVbwa5b2D035E9BLLNbwa5b2D2bm09BUtxb"
+			"wa5b2D1aU09Bv/9bwa5b2D06DU9BZxxcwa5b2D1j6U5Biihcwa5b2D15t05BKzhcwa5b2D2lGU5B"
+			"IG5cwa5b2D0IJk5BP4Bcwa5b2D0mMU5BYZFcwa5b2D24Ok5BdqJcwa5b2D0WQ05BrbRcwa5b2D2X"
+			"Sk5BNslcwa5b2D2QUU5BPuFcwa5b2D1YWE5B9f1cwa5b2D1FX05BiyBdwa5b2D2vZk5BLkpdwa5b"
+			"2D3rbk5BDHxdwa5b2D0ycE5BAIRdwa5b2D1BeE5BWLZdwa5b2D35fk5BbOBdwa5b2D2NhE5BgQNe"
+			"wa5b2D0viU5B3iBewa5b2D0SjU5Byjlewa5b2D1okE5Bi09ewa5b2D1kk05BZ2Newa5b2D04lk5B"
+			"pXZewa5b2D0XmU5Biopewa5b2D04rE5B+QZfwa5b2D23rE5Bsglfwa5b2D00sU5B0SNfwa5b2D0K"
+			"tU5BZT5fwa5b2D1CuE5BTlpfwa5b2D3luk5BcHhfwa5b2D36vE5BrJlfwa5b2D2Mvk5B5r5fwa5b"
+			"2D2jv05B/uhfwa5b2D1HwE5B2Rhgwa5b2D2CwE5BV09gwa5b2D1bwE5BW41gwa5b2D3bv05Bx9Ng"
+			"wa5b2D2Ov05B5fNgwa5b2D3lvk5B3jNhwa5b2D0/vk5B/Gphwa5b2D2JvU5BEJphwa5b2D20vE5B"
+			"6MFhwa5b2D2tu05BVuNhwa5b2D1kuk5BJ/9hwa5b2D3IuE5BLRZiwa5b2D3Itk5BNiliwa5b2D1T"
+			"tE5BEzliwa5b2D1XsU5Bk0Ziwa5b2D3ErU5BhlJiwa5b2D2JqU5Bu11iwa5b2D2UpE5BA2liwa5b"
+			"2D0uoE5BXHJiwa5b2D1ekU5Bropiwa5b2D0tfU5BvJ9iwa5b2D1mYk5BdLJiwa5b2D3SPw=="
 		)
 	)
 	(label "EN2"
@@ -23079,15 +23097,15 @@
 		(fields_autoplaced yes)
 		(uuid "22b21116-5d40-4fbb-94c8-07a33f6b2335")
 		(property "Reference" "R3"
-			(at 140.97 100.33 90)
+			(at 140.97 101.5195 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "R"
-			(at 140.97 102.87 90)
+		(property "Value" "10k"
+			(at 140.97 103.9438 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -25719,7 +25737,7 @@
 				)
 			)
 		)
-		(property "Value" "SW_SPST"
+		(property "Value" "SW_SPDT"
 			(at 96.52 298.1268 0)
 			(effects
 				(font
@@ -29138,7 +29156,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "0.1u"
+		(property "Value" "100n"
 			(at 230.505 316.865 90)
 			(effects
 				(font
@@ -29976,15 +29994,15 @@
 		(fields_autoplaced yes)
 		(uuid "d069eed1-786b-43cb-8da1-00d2968f8734")
 		(property "Reference" "R10"
-			(at 142.24 125.73 90)
+			(at 142.24 126.9195 90)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
 		)
-		(property "Value" "R"
-			(at 142.24 128.27 90)
+		(property "Value" "10k"
+			(at 142.24 129.3438 90)
 			(effects
 				(font
 					(size 1.27 1.27)
