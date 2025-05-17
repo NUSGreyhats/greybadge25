@@ -6,8 +6,8 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
     // UART Params
     parameter SB_TICK = 16;       // number of stop bit / oversampling ticks
     // Baud Rate
-    parameter BR_LIMIT = 32_000_00;     // baud rate generator counter limit
-    parameter BR_BITS = 32;       // number of baud rate generator counter bits
+    parameter BR_LIMIT = 204;     // baud rate generator counter limit
+    parameter BR_BITS = 8;       // number of baud rate generator counter bits
     
     
     //// UART Setup ////////////////////////////////////////////////////

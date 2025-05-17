@@ -38,6 +38,6 @@ module baud_rate_generator
     assign next = (counter >= (M-1)) ? 0 : counter + 1;
     
     // Output Logic
-    assign tick = (counter >= (M-1)/2) ? 1'b1 : 1'b0;
+    assign tick = (counter >= (M-1)) ? 1'b1 : 1'b0;
        
 endmodule
