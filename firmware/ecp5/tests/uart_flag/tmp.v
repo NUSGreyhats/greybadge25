@@ -2,56 +2,59 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
 
     parameter DBITS = 8;
     parameter UART_FRAME_SIZE = 4;
-    //// UART Setup ////////////////////////////////////////////////////
-    // RX Wires
-    wire rx = interconnect[1];
-    wire [UART_FRAME_SIZE*DBITS-1:0] rx_out;
-    wire rx_full, rx_empty, rx_tick;
+
+    // UART Params
+    parameter SB_TICK = 16;       // number of stop bit / oversampling ticks
+    // Baud Rate
+    parameter BR_LIMIT = 32_000_00;     // baud rate generator counter limit
+    parameter BR_BITS = 32;       // number of baud rate generator counter bits
     
-    // TX Wires
+    
+    //// UART Setup ////////////////////////////////////////////////////
+    wire reset = 0; // = ~btn[1];
     wire tx;
 
-    // Complete UART Core
-    uart_top 
+
+    //// Baud Rate ////////////////////////////////////////////////////
+    wire tick;                  // sample tick from baud rate generator
+    // Instantiate Modules for UART Core
+    baud_rate_generator // basically a clock scalar
         #(
-            .FIFO_IN_SIZE(UART_FRAME_SIZE),
-            .FIFO_OUT_SIZE(UART_FRAME_SIZE),
-            .FIFO_OUT_SIZE_EXP(32)
-        ) 
-        UART_UNIT
+            .M(BR_LIMIT), 
+            .N(BR_BITS)
+         ) 
+        BAUD_RATE_GEN   
         (
-            .clk_100MHz(clk),
-            //.write_data(rec_data),
-            .reset(1),
-            
-            .rx(rx),
-            .tx(tx),
-            
-            .rx_full(rx_full),
-            .rx_empty(rx_empty),
-            .rx_tick(rx_tick),
-            .rx_out(rx_out),
-            
-            .tx_trigger(~btn[0]),
-            .tx_in({8'd65, 8'd65, 8'd65, 8'd65})
-        );
-
-    reg t=0;
-    always @(posedge clk) begin
-        // send A__B
-        if (rx_out[7:0] == 65 & rx_out[DBITS*UART_FRAME_SIZE-1:DBITS*(UART_FRAME_SIZE-1)] == 65) begin
-            t <= 1;
-        end
-        if (rx_out[7:0] == 67 & rx_out[DBITS*UART_FRAME_SIZE-1:DBITS*(UART_FRAME_SIZE-1)] == 67) begin
-            t <= 0;
-        end
-    end
-
+            .clk_100MHz(clk), 
+            .reset(reset),
+            .tick(tick)
+         );
     
+    //// Transmitter /////////////////////////////////////////////////
+    wire tx_done_tick;                  // data transmission complete
+    uart_transmitter
+        #(
+            .DBITS(DBITS),
+            .SB_TICK(SB_TICK)
+         )
+         UART_TX_UNIT
+         (
+            .clk_100MHz(clk),
+            .reset(reset),
+            .tx(tx),
+            .sample_tick(tick),
+            .tx_start(1), //tx_send),
+            .data_in(8'd0), //tx_fifo_out),
+            .tx_done(tx_done_tick)
+         );
+
     assign interconnect[0] = tx;
     assign led = (~btn[4] ? 
-        rx_out :
-        btn
+        btn :
+        (~btn[3] ? 
+            rx_out :
+            {1'b1, tick, tx}
+        )
     );
 
 endmodule
@@ -81,7 +84,7 @@ module baud_rate_generator
     );
     
     // Counter Register
-    reg [N-1:0] counter;        // counter value
+    reg [N-1:0] counter = 0;        // counter value
     wire [N-1:0] next;          // next counter value
     
     // Register Logic
@@ -92,10 +95,10 @@ module baud_rate_generator
             counter <= next;
             
     // Next Counter Value Logic
-    assign next = (counter == (M-1)) ? 0 : counter + 1;
+    assign next = (counter >= (M-1)) ? 0 : counter + 1;
     
     // Output Logic
-    assign tick = (counter == (M-1)) ? 1'b1 : 1'b0;
+    assign tick = (counter >= (M-1)/2) ? 1'b1 : 1'b0;
        
 endmodule
 `timescale 1ns /1ps
