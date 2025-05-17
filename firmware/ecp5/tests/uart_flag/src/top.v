@@ -12,11 +12,10 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
     
     //// UART Setup ////////////////////////////////////////////////////
     wire reset = 0; // = ~btn[1];
-    wire tx;
 
 
     //// Baud Rate ////////////////////////////////////////////////////
-    wire tick;                  // sample tick from baud rate generator
+    wire tick = ~btn[1];                  // sample tick from baud rate generator
     // Instantiate Modules for UART Core
     baud_rate_generator // basically a clock scalar
         #(
@@ -27,11 +26,13 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
         (
             .clk_100MHz(clk), 
             .reset(reset),
-            .tick(tick)
+            //.tick(tick)
          );
     
     //// Transmitter /////////////////////////////////////////////////
+    wire tx;
     wire tx_done_tick;                  // data transmission complete
+    wire [1:0] state_out;
     uart_transmitter
         #(
             .DBITS(DBITS),
@@ -43,9 +44,10 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
             .reset(reset),
             .tx(tx),
             .sample_tick(tick),
-            .tx_start(1), //tx_send),
+            .tx_start(~btn[0]), //tx_send),
             .data_in(8'd0), //tx_fifo_out),
-            .tx_done(tx_done_tick)
+            .tx_done(tx_done_tick), 
+            .state_out(state_out)
          );
 
     assign interconnect[0] = tx;
@@ -53,7 +55,7 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
         btn :
         (~btn[3] ? 
             rx_out :
-            {1'b1, tick, tx}
+            {state_out, 4'b1111,  tick, tx}
         )
     );
 

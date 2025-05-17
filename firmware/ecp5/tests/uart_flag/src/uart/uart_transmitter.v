@@ -24,7 +24,8 @@ module uart_transmitter
         input sample_tick,              // from baud rate generator
         input [DBITS-1:0] data_in,      // data word from FIFO
         output reg tx_done,             // end of transmission
-        output tx                       // transmitter data line
+        output tx,                       // transmitter data line
+        output [1:0] state_out
     );
     
     // State Machine States
@@ -41,7 +42,7 @@ module uart_transmitter
     reg tx_reg, tx_next;                    // data filter for potential glitches
     
     // Register Logic
-    always @(posedge clk_100MHz, posedge reset)
+    always @(posedge clk_100MHz) //, posedge reset)
         if(reset) begin
             state <= idle;
             tick_reg <= 0;
@@ -118,5 +119,5 @@ module uart_transmitter
     
     // Output Logic
     assign tx = tx_reg;
- 
+    assign state_out = state;
 endmodule
