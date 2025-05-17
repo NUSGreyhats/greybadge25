@@ -14,11 +14,11 @@
 
 module baud_rate_generator
     #(              // 9600 baud
-        parameter   N = 8,     // number of counter bits
-                    M = 208     // counter limit value
+        parameter   N = 10,     // number of counter bits
+                    M = 651     // counter limit value
     )
     (
-        input clk,       // basys 3 clock
+        input clk_100MHz,       // basys 3 clock
         input reset,            // reset
         output tick             // sample tick
     );
@@ -28,7 +28,7 @@ module baud_rate_generator
     wire [N-1:0] next;          // next counter value
     
     // Register Logic
-    always @(posedge clk, posedge reset)
+    always @(posedge clk_100MHz, posedge reset)
         if(reset)
             counter <= 0;
         else

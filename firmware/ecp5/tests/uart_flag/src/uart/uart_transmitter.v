@@ -34,7 +34,7 @@ module uart_transmitter
                         stop  = 2'b11;
     
     // Registers                    
-    reg [1:0] state = idle, next_state;            // state registers
+    reg [1:0] state, next_state;            // state registers
     reg [3:0] tick_reg, tick_next;          // number of ticks received from baud rate generator
     reg [2:0] nbits_reg, nbits_next;        // number of bits transmitted in data state
     reg [DBITS-1:0] data_reg, data_next;    // assembled data word to transmit serially

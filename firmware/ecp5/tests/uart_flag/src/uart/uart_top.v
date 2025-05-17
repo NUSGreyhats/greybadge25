@@ -50,10 +50,9 @@ module uart_top
             // Baud Rate
             //BR_LIMIT = 14,     // baud rate generator counter limit
             //BR_BITS = 4,       // number of baud rate generator counter bits
-           
             // 9600
-            //BR_LIMIT = 208,     // baud rate generator counter limit
-            //BR_BITS = 8,       // number of baud rate generator counter bits
+            BR_LIMIT = 208,     // baud rate generator counter limit
+            BR_BITS = 9,       // number of baud rate generator counter bits
             
             // Size
             FIFO_IN_SIZE = 4,        
@@ -95,7 +94,7 @@ module uart_top
          ) 
         BAUD_RATE_GEN   
         (
-            .clk(clk_100MHz), 
+            .clk_100MHz(clk_100MHz), 
             .reset(reset),
             .tick(tick)
          );
@@ -137,6 +136,7 @@ module uart_top
            );
     
     // UART Transmitter ////////////////////////////////////////////////
+    
     wire tx_empty;                      // Tx FIFO has no data to transmit
     wire tx_fifo_not_empty;             // Tx FIFO contains data to transmit
     //wire [DBITS-1:0] tx_fifo_out;       // from Tx FIFO to UART transmitter
@@ -173,7 +173,7 @@ module uart_top
             .reset(reset),
             .tx(tx),
             .sample_tick(tick),
-            .tx_start(1), //tx_send),
+            .tx_start(tx_trigger), //tx_send),
             .data_in(8'd65), //tx_fifo_out),
             .tx_done(tx_done_tick)
          );

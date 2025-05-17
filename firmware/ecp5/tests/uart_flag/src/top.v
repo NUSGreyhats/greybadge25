@@ -22,7 +22,7 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
         (
             .clk_100MHz(clk),
             //.write_data(rec_data),
-            .reset(~btn[1]),
+            .reset(1),
             
             .rx(rx),
             .tx(tx),
@@ -49,6 +49,9 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
 
     
     assign interconnect[0] = tx;
-    assign led = {6'hf0f, t, btn[0], ~tx};
+    assign led = (~btn[4] ? 
+        rx_out :
+        btn
+    );
 
 endmodule
