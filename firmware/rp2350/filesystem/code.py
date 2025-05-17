@@ -120,6 +120,7 @@ def load_image(img_filename):
     del img_bitmap, img_palette
 
 def face_mode():
+    time.sleep(0.5)
     val = main.pop()
     del val
     load_image("/image/greymecha_angy.jpg")
@@ -172,6 +173,7 @@ def display_text(text):
     text_group.y = 120 #+ int(r * math.cos(theta))
         
 def controller():
+    time.sleep(0.5)
     display_text("Controller\nMode")
     
     button_list = fpga_buttons[:5] + [hardware.button_a, hardware.button_b]

@@ -16,4 +16,4 @@ def upload_bitstream(path):
     
     ## Upload Bitsream
     #ecp5f.flash("test.bit")
-    ecp5p.prog("test.bit")
+    ecp5p.prog(path)
