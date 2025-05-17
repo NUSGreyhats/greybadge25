@@ -48,7 +48,7 @@ module uart_transmitter
             tick_reg <= 0;
             nbits_reg <= 0;
             data_reg <= 0;
-            tx_reg <= 1'b1;
+            tx_reg <= 1'b0;
         end
         else begin
             state <= next_state;
@@ -118,6 +118,6 @@ module uart_transmitter
     end
     
     // Output Logic
-    assign tx = tx_reg;
+    assign tx = tx_next; //tx_reg;
     assign state_out = state;
 endmodule
