@@ -49,7 +49,7 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
             .state_out(state_out)
          );
 
-    assign interconnect = {tx, tx, tx, tx, tx, tx, tx};
+    assign interconnect[1] = tx;
     assign led = (~btn[4] ? 
         btn :
         (~btn[3] ? 
