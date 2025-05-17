@@ -16,7 +16,7 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
     wire tx_start = ~btn[0];
 
     //// Baud Rate ////////////////////////////////////////////////////
-    wire tick = ~btn[1];                  // sample tick from baud rate generator
+    wire tick; // = ~btn[1];                  // sample tick from baud rate generator
     // Instantiate Modules for UART Core
     baud_rate_generator 
         #(
@@ -27,7 +27,7 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
         (
             .clk_100MHz(clk), 
             .reset(reset),
-            //.tick(tick)
+            .tick(tick)
          );
     //// Transmitter /////////////////////////////////////////////////
     wire [1:0] state_out;
