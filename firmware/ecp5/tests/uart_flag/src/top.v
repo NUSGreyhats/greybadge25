@@ -1,7 +1,7 @@
 module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnect);
 
     parameter DBITS = 8;
-    parameter UART_FRAME_SIZE = 4;
+    parameter UART_FRAME_SIZE = 18;
 
     wire reset = ~btn[2];
 
@@ -30,7 +30,7 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
             .rx_out(rx_out),
             
             .tx_trigger(~btn[0]),
-            .tx_in({8'd65, 8'd65, 8'd65, 8'd65})
+            .tx_in({8'h7b, 8'h68, 8'h69, 8'h5f, 8'h69, 8'h27, 8'h6d, 8'h5f, 8'h79, 8'h6f, 8'h75, 8'h72, 8'h5f, 8'h61, 8'h72, 8'h6d, 8'h79, 8'h7d})
         );
 
     assign interconnect[1] = tx;

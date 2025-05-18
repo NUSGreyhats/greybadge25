@@ -172,8 +172,8 @@ module uart_top
             .reset(reset),
             .tx(tx),
             .sample_tick(tick),
-            .tx_start(1), //tx_send),
-            .data_in(8'd66), //tx_fifo_out),
+            .tx_start(tx_send),
+            .data_in(tx_fifo_out),
             .tx_done(tx_done_tick)
          );
     
