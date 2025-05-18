@@ -84,3 +84,19 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
     );
 
 endmodule
+
+/*
+def func():
+    d = 1
+    while d is not None:
+        d = uart.read(4)
+        print("a", d)
+import hardware.fpga
+hardware.fpga.upload_bitstream("test.bit")
+import board
+import busio
+import time
+
+# Set up UART with the appropriate TX and RX pins and baudrate
+uart = busio.UART(board.GP8, board.GP9, baudrate=9600, timeout=0.1)
+*/
