@@ -3,57 +3,42 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
     parameter DBITS = 8;
     parameter UART_FRAME_SIZE = 4;
 
-    // UART Params
-    parameter SB_TICK = 16;       // number of stop bit / oversampling ticks
-    // Baud Rate
-    parameter BR_LIMIT = 32_000_00;     // baud rate generator counter limit
-    parameter BR_BITS = 32;       // number of baud rate generator counter bits
-    
-    
-    //// UART Setup ////////////////////////////////////////////////////
-    wire reset = 0; // = ~btn[1];
+    wire reset = ~btn[2];
+
+    wire rx;
     wire tx;
-
-
-    //// Baud Rate ////////////////////////////////////////////////////
-    wire tick;                  // sample tick from baud rate generator
-    // Instantiate Modules for UART Core
-    baud_rate_generator // basically a clock scalar
+    wire [UART_FRAME_SIZE*DBITS-1:0] rx_out;
+    wire rx_full, rx_empty;
+    // Complete UART Core
+    uart_top 
         #(
-            .M(BR_LIMIT), 
-            .N(BR_BITS)
-         ) 
-        BAUD_RATE_GEN   
+            .FIFO_IN_SIZE(UART_FRAME_SIZE),
+            .FIFO_OUT_SIZE(UART_FRAME_SIZE),
+            .FIFO_OUT_SIZE_EXP(32)
+        ) 
+        UART_UNIT
         (
-            .clk_100MHz(clk), 
-            .reset(reset),
-            .tick(tick)
-         );
-    
-    //// Transmitter /////////////////////////////////////////////////
-    wire tx_done_tick;                  // data transmission complete
-    uart_transmitter
-        #(
-            .DBITS(DBITS),
-            .SB_TICK(SB_TICK)
-         )
-         UART_TX_UNIT
-         (
             .clk_100MHz(clk),
             .reset(reset),
+            //.write_data(rec_data1),
+            
+            .rx(rx),
             .tx(tx),
-            .sample_tick(tick),
-            .tx_start(1), //tx_send),
-            .data_in(8'd0), //tx_fifo_out),
-            .tx_done(tx_done_tick)
-         );
+            
+            .rx_full(rx_full),
+            .rx_empty(rx_empty),
+            .rx_out(rx_out),
+            
+            .tx_trigger(~btn[0]),
+            .tx_in({8'd65, 8'd65, 8'd65, 8'd65})
+        );
 
-    assign interconnect[0] = tx;
+    assign interconnect[1] = tx;
     assign led = (~btn[4] ? 
         btn :
         (~btn[3] ? 
             rx_out :
-            {1'b1, tick, tx}
+            {2'b11, state_out, 2'b11, ~btn[0], tx}
         )
     );
 
@@ -98,7 +83,7 @@ module baud_rate_generator
     assign next = (counter >= (M-1)) ? 0 : counter + 1;
     
     // Output Logic
-    assign tick = (counter >= (M-1)/2) ? 1'b1 : 1'b0;
+    assign tick = (counter >= (M-1)) ? 1'b1 : 1'b0;
        
 endmodule
 `timescale 1ns /1ps
@@ -326,7 +311,7 @@ module uart_top
             //BR_LIMIT = 14,     // baud rate generator counter limit
             //BR_BITS = 4,       // number of baud rate generator counter bits
             // 9600
-            BR_LIMIT = 208,     // baud rate generator counter limit
+            BR_LIMIT = 20,     // baud rate generator counter limit
             BR_BITS = 9,       // number of baud rate generator counter bits
             
             // Size
@@ -349,7 +334,6 @@ module uart_top
         output rx_full,                 // do not write data to FIFO
         output rx_empty,                // no data to read from FIFO
         output [DBITS*FIFO_IN_SIZE - 1:0] rx_out,
-        output rx_tick,
         
         // Debugging
         output [DBITS*FIFO_OUT_SIZE - 1:0] tx_fifo_out,
@@ -448,8 +432,8 @@ module uart_top
             .reset(reset),
             .tx(tx),
             .sample_tick(tick),
-            .tx_start(tx_trigger), //tx_send),
-            .data_in(8'd65), //tx_fifo_out),
+            .tx_start(1), //tx_send),
+            .data_in(8'd66), //tx_fifo_out),
             .tx_done(tx_done_tick)
          );
     
@@ -462,46 +446,6 @@ module uart_top
          end
          tx_done_tick_latch <= tx_done_tick;
     end
-    //////////////////////////////////////////////
-    
-    /*
-    fifo
-        #(
-            .DATA_SIZE(DBITS),
-            .ADDR_SPACE_EXP(FIFO_EXP)
-         )
-         FIFO_RX_UNIT
-         (
-            .clk(clk_100MHz),
-            .reset(reset),
-            .write_to_fifo(rx_done_tick),
-	        .read_from_fifo(read_uart),
-	        .write_data_in(rx_data_out),
-	        .read_data_out(read_data),
-	        .empty(rx_empty),
-	        .full(rx_full)            
-	      );
-	   
-    fifo
-        #(
-            .DATA_SIZE(DBITS),
-            .ADDR_SPACE_EXP(FIFO_EXP)
-         )
-         FIFO_TX_UNIT
-         (
-            .clk(clk_100MHz),
-            .reset(reset),
-            .write_to_fifo(write_uart),
-	        .read_from_fifo(tx_done_tick),
-	        .write_data_in(write_data),
-	        .read_data_out(tx_fifo_out),
-	        .empty(tx_empty),
-	        .full()                // intentionally disconnected
-	      );
-    
-    // Signal Logic
-    assign tx_fifo_not_empty = ~tx_empty;
-    */
 endmodule
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
@@ -529,7 +473,8 @@ module uart_transmitter
         input sample_tick,              // from baud rate generator
         input [DBITS-1:0] data_in,      // data word from FIFO
         output reg tx_done,             // end of transmission
-        output tx                       // transmitter data line
+        output tx,                       // transmitter data line
+        output [1:0] state_out
     );
     
     // State Machine States
@@ -552,7 +497,7 @@ module uart_transmitter
             tick_reg <= 0;
             nbits_reg <= 0;
             data_reg <= 0;
-            tx_reg <= 1'b1;
+            tx_reg <= 1'b0;
         end
         else begin
             state <= next_state;
@@ -622,6 +567,6 @@ module uart_transmitter
     end
     
     // Output Logic
-    assign tx = tx_reg;
- 
+    assign tx = tx_next; //tx_reg;
+    assign state_out = state;
 endmodule

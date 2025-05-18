@@ -51,7 +51,7 @@ module uart_top
             //BR_LIMIT = 14,     // baud rate generator counter limit
             //BR_BITS = 4,       // number of baud rate generator counter bits
             // 9600
-            BR_LIMIT = 20,     // baud rate generator counter limit
+            BR_LIMIT = 208,     // baud rate generator counter limit
             BR_BITS = 9,       // number of baud rate generator counter bits
             
             // Size
@@ -172,8 +172,8 @@ module uart_top
             .reset(reset),
             .tx(tx),
             .sample_tick(tick),
-            .tx_start(1), //tx_send),
-            .data_in(8'd66), //tx_fifo_out),
+            .tx_start(tx_send),
+            .data_in(tx_fifo_out),
             .tx_done(tx_done_tick)
          );
     
@@ -186,4 +186,44 @@ module uart_top
          end
          tx_done_tick_latch <= tx_done_tick;
     end
+    //////////////////////////////////////////////
+    
+    /*
+    fifo
+        #(
+            .DATA_SIZE(DBITS),
+            .ADDR_SPACE_EXP(FIFO_EXP)
+         )
+         FIFO_RX_UNIT
+         (
+            .clk(clk_100MHz),
+            .reset(reset),
+            .write_to_fifo(rx_done_tick),
+	        .read_from_fifo(read_uart),
+	        .write_data_in(rx_data_out),
+	        .read_data_out(read_data),
+	        .empty(rx_empty),
+	        .full(rx_full)            
+	      );
+	   
+    fifo
+        #(
+            .DATA_SIZE(DBITS),
+            .ADDR_SPACE_EXP(FIFO_EXP)
+         )
+         FIFO_TX_UNIT
+         (
+            .clk(clk_100MHz),
+            .reset(reset),
+            .write_to_fifo(write_uart),
+	        .read_from_fifo(tx_done_tick),
+	        .write_data_in(write_data),
+	        .read_data_out(tx_fifo_out),
+	        .empty(tx_empty),
+	        .full()                // intentionally disconnected
+	      );
+    
+    // Signal Logic
+    assign tx_fifo_not_empty = ~tx_empty;
+    */
 endmodule
