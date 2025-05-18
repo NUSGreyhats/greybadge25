@@ -22,7 +22,7 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
             .reset(reset),
             //.write_data(rec_data1),
             
-            .rx(rx),
+            .rx(interconnect[0]),
             .tx(tx),
             
             .rx_full(rx_full),
@@ -33,12 +33,13 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
             .tx_in({8'h7b, 8'h68, 8'h69, 8'h5f, 8'h69, 8'h27, 8'h6d, 8'h5f, 8'h79, 8'h6f, 8'h75, 8'h72, 8'h5f, 8'h61, 8'h72, 8'h6d, 8'h79, 8'h7d})
         );
 
+    // https://gchq.github.io/CyberChef/#recipe=To_Hex('Space',0)Find_/_Replace(%7B'option':'Regex','string':'%20'%7D,',%208%5C'h',true,false,true,false)&input=e2hpX2knbV95b3VyX2FybXl9
     assign interconnect[1] = tx;
     assign led = (~btn[4] ? 
         btn :
         (~btn[3] ? 
             rx_out :
-            {2'b11, state_out, 2'b11, ~btn[0], tx}
+            {2'b11, state_out, interconnect[0], rx_out[7:0] == 65,  ~btn[0], tx}
         )
     );
 
