@@ -20,7 +20,6 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
         (
             .clk_100MHz(clk),
             .reset(reset),
-            //.write_data(rec_data1),
             
             .rx(interconnect[0]),
             .tx(tx),
