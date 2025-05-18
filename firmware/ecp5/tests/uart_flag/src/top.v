@@ -6,9 +6,34 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
     // UART Params
     parameter SB_TICK = 16;       // number of stop bit / oversampling ticks
     // Baud Rate
-    parameter BR_LIMIT = 208;     // baud rate generator counter limit
-    parameter BR_BITS = 9;       // number of baud rate generator counter bits
+    parameter BR_LIMIT = 20;     // baud rate generator counter limit
+    parameter BR_BITS = 5;       // number of baud rate generator counter bits
     
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    reg l;
+    reg [31:0] counter;
+    always @ (posedge clk) begin
+        counter <= counter + 1;
+        if (counter == 32_000_00) begin
+            l <= 1;
+        end
+        if (counter == 64_000_00) begin
+            l <= 0;
+            counter <= 0;
+        end
+    end
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    reg trigger = 0;
+    reg prev_btn = 0;
+    always @ (posedge clk) begin
+        trigger <= 0;
+        if (prev_btn == 1 && ~btn[0] == 0) begin
+            trigger <= 1;
+        end
+        prev_btn <= ~btn[0];
+    end
     //// UART Setup ////////////////////////////////////////////////////
     // TX Wires
     wire tx;

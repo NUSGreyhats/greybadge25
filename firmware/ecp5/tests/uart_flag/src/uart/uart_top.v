@@ -74,7 +74,6 @@ module uart_top
         output rx_full,                 // do not write data to FIFO
         output rx_empty,                // no data to read from FIFO
         output [DBITS*FIFO_IN_SIZE - 1:0] rx_out,
-        output rx_tick,
         
         // Debugging
         output [DBITS*FIFO_OUT_SIZE - 1:0] tx_fifo_out,
@@ -173,8 +172,8 @@ module uart_top
             .reset(reset),
             .tx(tx),
             .sample_tick(tick),
-            .tx_start(tx_trigger), //tx_send),
-            .data_in(8'd65), //tx_fifo_out),
+            .tx_start(tx_send),
+            .data_in(tx_fifo_out),
             .tx_done(tx_done_tick)
          );
     
