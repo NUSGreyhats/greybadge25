@@ -12,8 +12,8 @@ tft_clk = board.GP2 # must be a SPI CLK
 tft_mosi= board.GP3 # must be a SPI TX
 tft_rst = board.GP6
 tft_dc  = board.GP4
-tft_cs  = board.GP5  # optional, can be "None"
-tft_bl  = None  # optional, can be "None"
+tft_cs  = board.GP5 # optional, can be "None"
+tft_bl  = None      # optional, can be "None"
 
 ### Buttons
 button_a = digitalio.DigitalInOut(button_pins[0])
@@ -21,13 +21,14 @@ button_b = digitalio.DigitalInOut(button_pins[1])
 button_a.direction = digitalio.Direction.INPUT
 button_b.direction = digitalio.Direction.INPUT
 
+
 ### GC9A01 Display
 def rp2350_init_display():
     displayio.release_displays()
     spi = busio.SPI(clock=tft_clk, MOSI=tft_mosi)
     display_bus = displayio.FourWire(spi, command=tft_dc, chip_select=tft_cs, reset=tft_rst)
     display = gc9a01.GC9A01(display_bus, width=240, height=240, backlight_pin=tft_bl)
-    return display
+    return display, display_bus
 
 ### FPGA Interconnect
 def overlay_buttons():

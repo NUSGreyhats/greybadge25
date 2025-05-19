@@ -4,12 +4,14 @@ from hardware.fpga import ecp5p
 from hardware.fpga import ecp5f
 import digitalio, board, time
 
+
+jtag_rst = digitalio.DigitalInOut(board.GP20)
+jtag_rst.direction = digitalio.Direction.OUTPUT
+
 def upload_bitstream(path):
     #print("0x%08x" % jtag.idcode())
     
     ## Configure Reset Pin
-    jtag_rst = digitalio.DigitalInOut(board.GP20)
-    jtag_rst.direction = digitalio.Direction.OUTPUT
     jtag_rst.value = False
     time.sleep(0.1)
     jtag_rst.value = True

@@ -21,7 +21,7 @@ import hardware.fpga
 gc.collect()
 ### Initialisation ####################################
 
-display = hardware.rp2350_init_display()
+display, display_bus = hardware.rp2350_init_display()
 main = displayio.Group()
 display.root_group = main
 
@@ -35,7 +35,7 @@ main.append(text_group)
 text_group.x = 120 #+ int(r * math.sin(theta))
 text_group.y = 120 #+ int(r * math.cos(theta))
 
-hardware.fpga.upload_bitstream("test.bit")
+hardware.fpga.upload_bitstream("main.bit")
 
 ### Menu ############################################
 fpga_buttons = hardware.overlay_buttons()
@@ -80,7 +80,7 @@ def menu():
     
     print("menu")
     curr = 0
-    options = ["Face", "Game", "Controller", "Chall"]
+    options = ["Face", "Animation", "Animation2", "Game", "Controller", "Chall"]
     menu_layout(options[curr])
     
     
@@ -100,12 +100,20 @@ def menu():
         
         # Select Code
         if hardware.button_a.value == False:
-            if curr == 0:
+            if options[curr] == "Face":
                 face_mode()
-            if curr == 1:
+            if options[curr] == "Animation":
+                load_gif("image/greycat.gif")
+                asyncio.run(update_gif()) # Run gif
+            if options[curr] == "Animation2":
+                load_gif("image/greycat_lazer.gif")
+                asyncio.run(update_gif()) # Run gif
+            if options[curr] == "Game":
                 pass
-            if curr == 2:
+            if options[curr] == "Controller":
                 controller()
+            if options[curr] == "Chall":
+                return
             menu_layout(options[curr])
             time.sleep(0.5)
         
@@ -114,12 +122,38 @@ def menu():
 ### Face ############################################
 # Load image
 def load_image(img_filename):
+    print(img_filename)
     img_bitmap, img_palette = adafruit_imageload.load(img_filename)
     img_tilegrid = displayio.TileGrid(img_bitmap, pixel_shader=img_palette)
     main.append(img_tilegrid)
     del img_bitmap, img_palette
 
+import gifio, asyncio, struct
+def load_gif(filename):
+    odg = gifio.OnDiskGif(filename)
+    next_delay = odg.next_frame()  # Load the first frame
+
+    async def update_fn():
+        while True:
+            # Direct write to LCD
+            next_delay = odg.next_frame()
+            await asyncio.sleep(next_delay / 1.2)
+            display_bus.send(42, struct.pack(">hh", 0, odg.bitmap.width - 1))
+            display_bus.send(43, struct.pack(">hh", 0, odg.bitmap.height - 1))
+            display_bus.send(44, odg.bitmap)
+    
+    global update_gif
+    update_gif = update_fn
+async def update_gif():
+    tasks = []
+    #tasks.append(asyncio.create_task(update_pixel()))
+    if update_gif:
+        tasks.append(asyncio.create_task(update_gif()))
+    await asyncio.gather(*tasks)
+
+
 def face_mode():
+    #asyncio.run(main()) # Run gif
     time.sleep(0.5)
     val = main.pop()
     del val
@@ -128,7 +162,11 @@ def face_mode():
     ## Rough UI
     prev_fpga_buttons = [x.value for x in fpga_buttons]
     
-    files = os.listdir("/image")
+    files_total = os.listdir("/image")
+    files = []
+    for f in files_total:
+        if ".png" in f:
+            files.append(f)
     file_index = 0
     while True:
         
