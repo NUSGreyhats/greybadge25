@@ -6246,16 +6246,6 @@
 	)
 	(wire
 		(pts
-			(xy 133.35 299.72) (xy 130.81 299.72)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "474e81fd-0af8-4431-9c2d-277fc9d95b09")
-	)
-	(wire
-		(pts
 			(xy 114.3 290.83) (xy 114.3 306.07)
 		)
 		(stroke
@@ -7133,16 +7123,6 @@
 			(type default)
 		)
 		(uuid "c3f21ddf-9770-49c9-a8c5-18d4720dd2e0")
-	)
-	(wire
-		(pts
-			(xy 130.81 299.72) (xy 130.81 302.26)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c571d517-6806-4dbc-90c4-29e12840a80a")
 	)
 	(wire
 		(pts
@@ -18267,7 +18247,25 @@
 			"AHYAcAA3AEgAegA1ADcANgBaAHcARgB0ADkAegB3AG8AOQB1AC8AcwBuAEQAZQBXAFoAagBXAHQA"
 			"ZQAvAE8AaAAyAHEASAArAGoAbwBiAEEAcwA2AFQANAA1ADEAYwAzAEsAcQBLADkANwB4AGsAdwBY"
 			"AGsATQA4AC8AMgBIAHYAagB2AEEAQgA1ADIAdABRAGMAagBsACsAWABOAGIAbgA3ADEAOAA1AHEA"
-			"bwBrAEsAUQA5AGsAUQA1AEsAcgBRAGoAMwBuAGEAVABSAGMAbwA0AEgAWQBKAEQAcwBQAA=="
+			"bwBrAEsAUQA5AGsAUQA1AEsAcgBRAGoAMwBuAGEAVABSAGMAbwA0AEgAWQBKAEQAcwBQAG8ANABI"
+			"AFkASgBEAHMAUABiAEgAOQB1ADcAWABPAFgATAByAGcAMAB0AHIARwBKACsAYwBFAGQARAB6ADIA"
+			"LwA4AGYAawA4AHEAWgBIAFkAZQByADMAZQA2AC8AbwA2ADIAaQBlAFYAawA1AGEANgBIAGoANgBW"
+			"AE4AZwAwAG4AeAArAGkAcQBxAEUAYgBlAHEAZgBGADkAcQBBAG8AcQBGAEMAdQBqAFMAagBCAFUA"
+			"RAB4ADQAOABtAEcAVgB1ADMAdQBJAEYAdAA5ADMAMgBTAFcAWgBEAEYAUABJADgAYgAvAEgAYwBG"
+			"AHYASgBnAEEAYgBrADQAagBwAHoAMwB4AEMAVQB2ADUATAAzAE0AbgBYAC8AKwBnAFYAMAB2AE8A"
+			"SwAxAGIAcwBvADEATAB4AGwANgA1AFoALwBMAHMAYQByAFUAbgBkAGUAWABVAGUAMgBNAEkAVABN"
+			"AFoAWQA4AGQANQB3AEoAWABOAFoAWQBzAGIATgBQAG0AdgBKAHUAaABmAHYAVAAxAGcAVABsAHkA"
+			"KwBjAGQAYwBhAHUAagBXADgAVQBqAEUAMQA0AFUAcQBSAGgARABOAFEAOABtAGkAaQBLAHkASwBE"
+			"AG0ATABwAGkANgA0AG8AYgBmAHYASABtAGcAWABsAFAATABKAE0ASwBHAEwAWgBtADgAbgBxAHUA"
+			"cQBMAFMAVwBXADQAVgBWAEEAQgBDAGkAZABRAEkAdgBFAGIASAA1AE8AUgBWAEkAagBKADQAeQBJ"
+			"AG0AWQBQAGkAeABvAFMASQB0AG4AbAA0AE4ASwBhADQAZQBRAHYAUQBVAFgAZABGAEEAMgBJAFUA"
+			"awBlAGoAbAA1ADUAOQBYAFoAZQBMAGMAcABXAHIAbgBMAEYAegBnAC8ARABnAG4AQwBiAE4AaABD"
+			"AEIARgBVAHkAYQBtAG8AagB5AHkAMQB0ADMAUwBkADMAdABiAGUATQAzAEMAZwBIADUAUQBMAFIA"
+			"QQBtAHEASQBtAHcARgA4AFIAbABuAHIAOABoADgAQwA4AFUAbAB5AFkAcwBPAEgAYwAxAEsAZwBi"
+			"AEMAdABVAFgAOABmAHMAMgArAHEAegBEAHgANwA5AHUAeQBwAFUANgBiAE0AWAA3AGgANAA4AHAA"
+			"UQBwADUAeQAxAGIAZgB1AGYATwBPADMAZgB1ADIAcABsAGwAZgB0ACsAKwAzAFcAdgBXAFAARgBN"
+			"AHEAbABUAC8ANwBXADcAOAA5AGUAZgBJAGsANQAwAGMAYQBWAFoAMgBrAFIATwBpAEkAeAA5AHcA"
+			"cgBzAFkAbQBVAGMAUABjADkAZQAxADkAZQBPADYANQBlAFUANAAvAEQAaAB3ADUAaAAzAA=="
 		)
 	)
 	(label "EN2"
@@ -20028,22 +20026,22 @@
 	)
 	(global_label "~{CHG}"
 		(shape output)
-		(at 148.59 299.72 0)
+		(at 133.35 299.72 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify left)
+			(justify right)
 		)
 		(uuid "d3fce949-3d58-4834-8954-ca786702c2fa")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 155.4457 299.72 0)
+			(at 126.4943 299.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -20580,70 +20578,6 @@
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
 					(reference "D9")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 130.81 302.26 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "00000000-0000-0000-0000-00005e325e09")
-		(property "Reference" "#PWR069"
-			(at 130.81 308.61 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 130.937 306.6542 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 130.81 302.26 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 130.81 302.26 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 130.81 302.26 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "2e948214-04db-4633-baf5-75310c6c04da")
-		)
-		(instances
-			(project "greybadge_pcb"
-				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
-					(reference "#PWR069")
 					(unit 1)
 				)
 			)
@@ -28996,6 +28930,71 @@
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
 					(reference "JP3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+BATT")
+		(at 148.59 299.72 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b51c2b85-9534-4810-bffd-c639c4a919e8")
+		(property "Reference" "#PWR0127"
+			(at 148.59 303.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+BATT"
+			(at 148.59 294.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 148.59 299.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 148.59 299.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 148.59 299.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "17f65028-4971-4821-81cc-5018558e307f")
+		)
+		(instances
+			(project "greybadge_pcb"
+				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830"
+					(reference "#PWR0127")
 					(unit 1)
 				)
 			)
