@@ -24,7 +24,7 @@ module baud_rate_generator
     );
     
     // Counter Register
-    reg [N-1:0] counter;        // counter value
+    reg [N-1:0] counter = 0;        // counter value
     wire [N-1:0] next;          // next counter value
     
     // Register Logic
@@ -35,9 +35,9 @@ module baud_rate_generator
             counter <= next;
             
     // Next Counter Value Logic
-    assign next = (counter == (M-1)) ? 0 : counter + 1;
+    assign next = (counter >= (M-1)) ? 0 : counter + 1;
     
     // Output Logic
-    assign tick = (counter == (M-1)) ? 1'b1 : 1'b0;
+    assign tick = (counter >= (M-1)) ? 1'b1 : 1'b0;
        
 endmodule

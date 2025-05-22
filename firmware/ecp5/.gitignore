@@ -2,3 +2,4 @@
 *.bit
 *.config
 *.json
+tmp.v

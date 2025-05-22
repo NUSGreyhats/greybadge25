@@ -51,8 +51,8 @@ module uart_top
             //BR_LIMIT = 14,     // baud rate generator counter limit
             //BR_BITS = 4,       // number of baud rate generator counter bits
             // 9600
-            BR_LIMIT = 651,     // baud rate generator counter limit
-            BR_BITS = 10,       // number of baud rate generator counter bits
+            BR_LIMIT = 20,     // baud rate generator counter limit
+            BR_BITS = 9,       // number of baud rate generator counter bits
             
             // Size
             FIFO_IN_SIZE = 4,        
@@ -74,7 +74,6 @@ module uart_top
         output rx_full,                 // do not write data to FIFO
         output rx_empty,                // no data to read from FIFO
         output [DBITS*FIFO_IN_SIZE - 1:0] rx_out,
-        output rx_tick,
         
         // Debugging
         output [DBITS*FIFO_OUT_SIZE - 1:0] tx_fifo_out,
@@ -179,52 +178,12 @@ module uart_top
          );
     
     always @(posedge clk_100MHz) begin
-         if (tx_trigger) begin
+        if (tx_trigger) begin
             count <= FIFO_OUT_SIZE; // Edge
         // Debug this part
-         end else if (tx_done_tick != tx_done_tick_latch && tx_done_tick && count != 0) begin
+        end else if (tx_done_tick != tx_done_tick_latch && tx_done_tick && count != 0) begin
             count <= count - 1;
-         end
-         tx_done_tick_latch <= tx_done_tick;
+        end
+        tx_done_tick_latch <= tx_done_tick;
     end
-    //////////////////////////////////////////////
-    
-    /*
-    fifo
-        #(
-            .DATA_SIZE(DBITS),
-            .ADDR_SPACE_EXP(FIFO_EXP)
-         )
-         FIFO_RX_UNIT
-         (
-            .clk(clk_100MHz),
-            .reset(reset),
-            .write_to_fifo(rx_done_tick),
-	        .read_from_fifo(read_uart),
-	        .write_data_in(rx_data_out),
-	        .read_data_out(read_data),
-	        .empty(rx_empty),
-	        .full(rx_full)            
-	      );
-	   
-    fifo
-        #(
-            .DATA_SIZE(DBITS),
-            .ADDR_SPACE_EXP(FIFO_EXP)
-         )
-         FIFO_TX_UNIT
-         (
-            .clk(clk_100MHz),
-            .reset(reset),
-            .write_to_fifo(write_uart),
-	        .read_from_fifo(tx_done_tick),
-	        .write_data_in(write_data),
-	        .read_data_out(tx_fifo_out),
-	        .empty(tx_empty),
-	        .full()                // intentionally disconnected
-	      );
-    
-    // Signal Logic
-    assign tx_fifo_not_empty = ~tx_empty;
-    */
 endmodule
