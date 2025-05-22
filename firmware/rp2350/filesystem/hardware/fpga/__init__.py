@@ -5,10 +5,11 @@ from hardware.fpga import ecp5f
 import digitalio, board, time
 
 
-jtag_rst = digitalio.DigitalInOut(board.GP20)
-jtag_rst.direction = digitalio.Direction.OUTPUT
+
 
 def upload_bitstream(path):
+    jtag_rst = digitalio.DigitalInOut(board.GP20)
+    jtag_rst.direction = digitalio.Direction.OUTPUT
     #print("0x%08x" % jtag.idcode())
     
     ## Configure Reset Pin
@@ -19,3 +20,4 @@ def upload_bitstream(path):
     ## Upload Bitsream
     #ecp5f.flash("test.bit")
     ecp5p.prog(path)
+    return jtag_rst

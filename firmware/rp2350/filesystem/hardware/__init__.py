@@ -3,6 +3,7 @@ import busio
 import displayio
 import digitalio
 import gc9a01
+import pwmio
 
 ### Initialisations
 fpga_interconnect_pins = [board.GP8, board.GP9, board.GP10, board.GP11,	board.GP12, board.GP13, board.GP14, board.GP15]
@@ -29,6 +30,15 @@ def rp2350_init_display():
     display_bus = displayio.FourWire(spi, command=tft_dc, chip_select=tft_cs, reset=tft_rst)
     display = gc9a01.GC9A01(display_bus, width=240, height=240, backlight_pin=tft_bl)
     return display, display_bus
+
+
+### Buzzer
+buzzer = pwmio.PWMOut(board.GP21, variable_frequency=True)
+buzzer.frequency = 440
+#buzzer.duty_cycle = ON
+BUZZ_ON = 2**15
+BUZZ_OFF = 0
+
 
 ### FPGA Interconnect
 def overlay_buttons():

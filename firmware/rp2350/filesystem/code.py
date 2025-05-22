@@ -17,13 +17,19 @@ import gc9a01, displayio, adafruit_imageload
 
 import hardware
 import hardware.fpga
+import hardware.default_overlay
+import face
 
+gc.enable()
 gc.collect()
 ### Initialisation ####################################
 
 display, display_bus = hardware.rp2350_init_display()
 main = displayio.Group()
 display.root_group = main
+
+#face.live_firing(hardware, display_bus)
+#gc.collect()
 
 # Draw a text label
 text = "Loading\nFPGA..."
@@ -35,10 +41,11 @@ main.append(text_group)
 text_group.x = 120 #+ int(r * math.sin(theta))
 text_group.y = 120 #+ int(r * math.cos(theta))
 
-hardware.fpga.upload_bitstream("main.bit")
-
+#hardware.fpga.upload_bitstream("main.bit")
+overlay = hardware.default_overlay.Overlay()
+overlay.init()
 ### Menu ############################################
-fpga_buttons = hardware.overlay_buttons()
+fpga_buttons = overlay.set_mode_buttons()
     
 def splashscreen():
     val = main.pop()
@@ -80,7 +87,7 @@ def menu():
     
     print("menu")
     curr = 0
-    options = ["Face", "Animation", "Animation2", "Game", "Controller", "Chall"]
+    options = ["Hi I'm Terence", "Face", "Animation", "Animation2", "Game", "Controller", "Chall"]
     menu_layout(options[curr])
     
     
@@ -91,7 +98,7 @@ def menu():
             curr = (curr - 1) % len(options)
             trigger = True
         if fpga_buttons[4].value == False:
-            curr = (curr - 1) % len(options)
+            curr = (curr + 1) % len(options)
             trigger = True
         if trigger:
             menu_layout(options[curr])
@@ -106,8 +113,7 @@ def menu():
                 load_gif("image/greycat.gif")
                 asyncio.run(update_gif()) # Run gif
             if options[curr] == "Animation2":
-                load_gif("image/greycat_lazer.gif")
-                asyncio.run(update_gif()) # Run gif
+                face.live_firing(hardware, display_bus, overlay)
             if options[curr] == "Game":
                 pass
             if options[curr] == "Controller":
@@ -117,7 +123,10 @@ def menu():
             menu_layout(options[curr])
             time.sleep(0.5)
         
+### Random Animation Mode ###########################
+
     
+
 
 ### Face ############################################
 # Load image
@@ -127,6 +136,7 @@ def load_image(img_filename):
     img_tilegrid = displayio.TileGrid(img_bitmap, pixel_shader=img_palette)
     main.append(img_tilegrid)
     del img_bitmap, img_palette
+    gc.collect()
 
 import gifio, asyncio, struct
 def load_gif(filename):

@@ -1,5 +1,19 @@
 module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnect);
 
+    // PWM Counter
+    reg [31:0] counter_pwm;
+    reg pwm_out = 0;
+    always @ (posedge clk) begin
+        counter_pwm <= counter_pwm + 1;
+        if (counter_pwm == 1) begin
+            pwm_out <= 0;
+            //counter_pwm <= 0;
+        end else if (counter_pwm == 4) begin
+            pwm_out <= 1;
+            counter_pwm <= 0;
+        end
+    end
+
     // Regular Shooting
     reg [7:0] shooting = 8'b101;
     reg [31:0] counter;
@@ -48,23 +62,32 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
     //// Shooting Cats /////////////////////////////////////////////////
     reg [7:0] cat_status = 8'b11111111;
     always @ (posedge clk) begin
-        if (65 <= rx_out[7:0] <= 65+7) begin
-            cat_status[rx_out[7:0]] = 0;
+        if (rx_out[7:0] <= 65+7 && rx_out[7:0] >= 65) begin
+            cat_status[rx_out[7:0]-65] = 0;
+        end
+        if (rx_out[7:0] <= 97+7 && rx_out[7:0] >= 97) begin
+            cat_status[rx_out[7:0]-97] = 1;
         end
     end 
 
-    
-    assign led = ~btn[0] ? mode : shooting; // & cat_status;
+    wire [4:0] btn_out = btn;
+    assign led = (
+        ~btn[0] ? mode : 
+        ~btn[1] ? rx_out[7:0] : 
+        ~btn[3] ? shooting : 
+        (shooting & cat_status & {pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out} | ~cat_status)
+    ); // & cat_status;
 
 
     parameter MODE_BUTTON = 3'b000;
     parameter MODE_UART = 3'b001;
 
+    //assign interconnect[7:5] = 3'bxxx;
     wire [2:0] mode = interconnect[7:5];
     assign interconnect[4:0] = (
-        mode == MODE_BUTTON ? {btn} : 
-        mode == MODE_UART ? {3'bzzz, tx, 1'bz} : 
+        mode == MODE_BUTTON ? {btn_out} : 
+        mode == MODE_UART ? {3'b101, tx, 1'bz} : 
         5'bzzzzz
     );
-    assign rx = (mode == MODE_UART ? interconnect[0] : 1'bx);
+    assign rx = (mode == MODE_UART ? interconnect[0] : 1'bz);
 endmodule
