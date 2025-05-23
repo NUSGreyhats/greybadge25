@@ -12559,7 +12559,7 @@
 		(descr "LED SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: https://docs.google.com/spreadsheets/d/1BsfQQcO9C6DZCsRaXUlFlo91Tg2WpOkGARC1WS5S8t0/edit?usp=sharing), generated with kicad-footprint-generator")
 		(tags "LED")
 		(property "Reference" "D9"
-			(at -0.02 -1.63 90)
+			(at -0.02 -3.5814 90)
 			(layer "B.SilkS")
 			(uuid "636bb3c3-55cd-42d2-b522-5a79903bd2e9")
 			(effects
@@ -26181,7 +26181,7 @@
 		(descr "Resistor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor")
 		(property "Reference" "R20"
-			(at -0.0175 -1.29 90)
+			(at -0.0489 -3.6068 90)
 			(layer "B.SilkS")
 			(uuid "b2e9b98f-151f-4788-bbf1-ba25e2fb4443")
 			(effects
@@ -48998,6 +48998,19 @@
 		(layer "Edge.Cuts")
 		(uuid "e8d9f3ad-9671-4072-b8d7-5c533551e3ef")
 	)
+	(gr_text "-"
+		(at 134.083237 60.779045 180)
+		(layer "B.SilkS")
+		(uuid "017d890a-0379-4a2c-9916-46bd14568c48")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.15)
+				(bold yes)
+			)
+			(justify mirror)
+		)
+	)
 	(gr_text "Charging\nIndicator"
 		(at 149.77 64 0)
 		(layer "B.SilkS" knockout)
@@ -49983,6 +49996,19 @@
 			(font
 				(size 0.7 0.7)
 				(thickness 0.1)
+			)
+			(justify mirror)
+		)
+	)
+	(gr_text "+"
+		(at 136.091869 60.781148 180)
+		(layer "B.SilkS")
+		(uuid "8386c446-193b-4208-b444-14774cce14a2")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.16)
+				(bold yes)
 			)
 			(justify mirror)
 		)
@@ -76023,8 +76049,9 @@
 	)
 	(group ""
 		(uuid "91a25443-bae9-4408-bce4-cca5391bc67c")
-		(members "1d3311d7-37f7-4859-890c-1558bfdc79ad" "2210df19-e605-4129-a86f-331051d96006"
-			"6e82f755-209f-4f44-b505-f7df5b17021b" "f15f9967-b00f-4eb4-ad39-0499be38a42d"
+		(members "017d890a-0379-4a2c-9916-46bd14568c48" "1d3311d7-37f7-4859-890c-1558bfdc79ad"
+			"2210df19-e605-4129-a86f-331051d96006" "6e82f755-209f-4f44-b505-f7df5b17021b"
+			"8386c446-193b-4208-b444-14774cce14a2" "f15f9967-b00f-4eb4-ad39-0499be38a42d"
 			"f3b3e378-2a57-4c57-a786-88dab6178cb0"
 		)
 	)
