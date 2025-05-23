@@ -87,9 +87,10 @@ def menu():
     
     print("menu")
     curr = 0
-    options = ["Hi I'm Terence", "Face", "Animation", "Animation2", "Game", "Controller", "Chall"]
+    options = ["Hi I'm Terence", "Face", "Animation", "Live Firing", "Game", "Controller", "Chall"]
     menu_layout(options[curr])
     
+    global fpga_buttons
     
     trigger = False
     while True:
@@ -112,8 +113,9 @@ def menu():
             if options[curr] == "Animation":
                 load_gif("image/greycat.gif")
                 asyncio.run(update_gif()) # Run gif
-            if options[curr] == "Animation2":
+            if options[curr] == "Live Firing":
                 face.live_firing(hardware, display_bus, overlay)
+                fpga_buttons = overlay.set_mode_buttons()
             if options[curr] == "Game":
                 pass
             if options[curr] == "Controller":
@@ -206,8 +208,7 @@ from adafruit_hid.keyboard import Keyboard
 from adafruit_hid.keyboard_layout_us import KeyboardLayoutUS
 from adafruit_hid.keycode import Keycode
 
-keyboard = Keyboard(usb_hid.devices)
-keyboard_layout = KeyboardLayoutUS(keyboard)  # We're in the US :)
+
 
 def display_text(text):
     val = main.pop()
@@ -221,6 +222,8 @@ def display_text(text):
     text_group.y = 120 #+ int(r * math.cos(theta))
         
 def controller():
+    keyboard = Keyboard(usb_hid.devices)
+    keyboard_layout = KeyboardLayoutUS(keyboard)  # We're in the US :)
     time.sleep(0.5)
     display_text("Controller\nMode")
     

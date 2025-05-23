@@ -112,16 +112,16 @@ def live_firing(hardware, display_bus, overlay):
             load_gif_oneshot_reverse(display_bus, "face/expressions/greycat_angy.gif")
             time.sleep(0.5)
             u.write(chr(ord("a")+target))
-            #u.write("abcdefg")
             time.sleep(1)
-            
             continue
         load_gif_oneshot(display_bus, expression)
         time.sleep(1)
         load_gif_oneshot_reverse(display_bus, expression)
         time.sleep(1)
-        u.deinit()
         
     
     # Sleeping
     load_gif_oneshot_reverse(display_bus, "face/expressions/greycat_awakening.gif")
+    #u.write("abcdefg")
+    u.deinit()
+    
