@@ -4112,12 +4112,6 @@
 		(uuid "1c34d536-0346-466b-bd6c-0c5a08f07c98")
 	)
 	(junction
-		(at 218.44 50.8)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "2f738dd6-de36-45dd-bd0d-dbf0c745fa2e")
-	)
-	(junction
 		(at 36.83 53.34)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4268,12 +4262,6 @@
 		(uuid "cb04a6ce-4fbe-44db-a2bc-d70cc57d2ae4")
 	)
 	(junction
-		(at 233.68 30.48)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d440241b-78df-448c-bbd1-cd004d06f213")
-	)
-	(junction
 		(at 36.83 66.04)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -4342,16 +4330,6 @@
 			(type default)
 		)
 		(uuid "00d7f2b1-f001-4750-9797-0184cbc20e22")
-	)
-	(wire
-		(pts
-			(xy 233.68 26.67) (xy 233.68 30.48)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "01622027-64c2-4f43-8546-4dbfd2420ca7")
 	)
 	(wire
 		(pts
@@ -5075,7 +5053,7 @@
 	)
 	(wire
 		(pts
-			(xy 204.47 50.8) (xy 218.44 50.8)
+			(xy 204.47 50.8) (xy 220.98 50.8)
 		)
 		(stroke
 			(width 0)
@@ -5105,7 +5083,7 @@
 	)
 	(wire
 		(pts
-			(xy 233.68 30.48) (xy 233.68 43.18)
+			(xy 233.68 26.67) (xy 233.68 43.18)
 		)
 		(stroke
 			(width 0)
@@ -5172,16 +5150,6 @@
 			(type default)
 		)
 		(uuid "6fb588ba-1689-4c9e-88f2-eaecdcc09eea")
-	)
-	(wire
-		(pts
-			(xy 218.44 30.48) (xy 218.44 50.8)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "7441a8bd-eded-4527-8c3b-aa49c5c28e6f")
 	)
 	(wire
 		(pts
@@ -5262,16 +5230,6 @@
 			(type default)
 		)
 		(uuid "8187dad0-f81f-412f-a1c6-1a7e79f3ca39")
-	)
-	(wire
-		(pts
-			(xy 218.44 50.8) (xy 220.98 50.8)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "82675fdb-cef1-45f5-a3fd-de181d26c920")
 	)
 	(wire
 		(pts
@@ -5662,16 +5620,6 @@
 			(type default)
 		)
 		(uuid "b6cf0b61-c3b2-4dd4-a6af-ef22e3008498")
-	)
-	(wire
-		(pts
-			(xy 218.44 30.48) (xy 233.68 30.48)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b8104b04-eee3-4d09-b202-5c0f72753b66")
 	)
 	(wire
 		(pts
@@ -6293,7 +6241,7 @@
 		)
 		(uuid "128be72a-b571-4cd4-9367-15b9c0c6627b")
 	)
-	(label "QSPI_SS"
+	(label "FLASH_SS"
 		(at 206.375 50.8 0)
 		(effects
 			(font
