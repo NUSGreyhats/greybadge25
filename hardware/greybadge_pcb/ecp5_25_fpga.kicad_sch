@@ -729,6 +729,265 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Jumper:SolderJumper_3_Bridged12"
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim yes)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "JP"
+				(at -2.54 -2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "SolderJumper_3_Bridged12"
+				(at 0 2.794 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "3-pole Solder Jumper, pins 1+2 closed/bridged"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "Solder Jumper SPDT"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "SolderJumper*Bridged12*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "SolderJumper_3_Bridged12_0_1"
+				(polyline
+					(pts
+						(xy -2.54 0) (xy -2.032 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.016 1.016) (xy -1.016 -1.016)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -1.016 0.508)
+					(end -0.508 -0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(arc
+					(start -1.016 -1.016)
+					(mid -2.0276 0)
+					(end -1.016 1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start -1.016 -1.016)
+					(mid -2.0276 0)
+					(end -1.016 1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start -0.508 1.016)
+					(end 0.508 -1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 -1.27) (xy 0 -1.016)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 1.016 1.016)
+					(mid 2.0276 0)
+					(end 1.016 -1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 1.016 1.016)
+					(mid 2.0276 0)
+					(end 1.016 -1.016)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.016 1.016) (xy 1.016 -1.016)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 0) (xy 2.032 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "SolderJumper_3_Bridged12_1_1"
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 2.54)
+					(name "C"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Lattice_ECP5_FPGA:ECP5U_25_CABGA256"
 			(pin_names
 				(offset 1.016)
@@ -7267,6 +7526,16 @@
 	)
 	(wire
 		(pts
+			(xy 302.26 285.75) (xy 317.5 285.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a65a358a-704b-4a5c-9abf-86fbfe4e2404")
+	)
+	(wire
+		(pts
 			(xy 248.92 114.3) (xy 262.89 114.3)
 		)
 		(stroke
@@ -7444,6 +7713,16 @@
 			(type default)
 		)
 		(uuid "cfe84c3b-34dd-4241-8046-276f925d1c3f")
+	)
+	(wire
+		(pts
+			(xy 340.36 285.75) (xy 327.66 285.75)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d1f2f6fb-9bfd-4a21-a941-69555a5935a7")
 	)
 	(wire
 		(pts
@@ -22442,7 +22721,25 @@
 			"agBiADcAVgByAGIALwBTAEwARwBwAG0ATAArAGUAOABXAHQAaABpAFgAbgA2AGgANAB6AFUAZgB5"
 			"AHEAcwBiAHkAegB4AEUAaABFAFcAUgBrAHoAUwAwAHkAbQBxAG0AYQB4AHoAcgBMAEsANgA0ACsA"
 			"VgBHADkANwBuAHgAWgAzADQAdgBtAHQAdgBmADYAVABOADYAYgBnADkAMgBkAGEANQB1ADQASgBK"
-			"AFEANwByAFEAMwBaAFMARQAvAHMAWQBHAEsAcQBUADEAbQB1AGYALwBkAHMAbwAxAGkAdQA0AA=="
+			"AFEANwByAFEAMwBaAFMARQAvAHMAWQBHAEsAcQBUADEAbQB1AGYALwBkAHMAbwAxAGkAdQA0AFcA"
+			"OABWAGgANgBLAG8AeQBjADIALwBxADMAQwBUAG4AZAA1AFAAZQAwAEsAeABYAGoAbQB0ADUAWQAz"
+			"AG4AQgBJAHYARQBtAEYAagA0AFMARwBrAEMATgBBADQANgBlADcANAB5AHYAQwBSAHcAcwBVAGYA"
+			"KwB2AG4AeAByAC8AOQAyAFkAdQA3AGUANABJAGkAMQBaAHMAVwBqAFQATgBTAHMARgBhAHUAZwBF"
+			"AGQAdgBFAGUANABkAEYAOQBFAGQAcQA4AFYAOAB0AFgANgBmADEAdgBoAEYARQBvADUAYgBYADQA"
+			"MQAxAFkASQBYADEAcABMAGEASwBTAGsAdQBIADUAbABQAHUATQArADIARwBKADkAdwBqAEIAMwB1"
+			"AEcANAA1AFQAQwBQAGMAbwBrAGcAeAArAGYAbAB1AHIAZQBhAEkAYgBtAFUARwBqADQAeQArAHAA"
+			"QQBqADYAegB1AEsAbAAyAEwAZQBqAFYAMwBQAEYAZQBaAG0ARwA0AFYAQwByAEwAZAA3ADcAQgA3"
+			"AEIAZgBRAEQAQQBzAGUANgB5ADAAVwBSADMAMgBXAHYAdQB2ADkALwBoADkAVwBUAFUAdABlAHEA"
+			"RgBHAHoAcgBWAEYAbgBpAE8ANgBUAFoAcQBhAHkAMwBrAFIAdAB2AE8AMgBMADcAMABNAFMANQBh"
+			"AGwAdgBlAEUAYgBjAFQAYwBEAGYAMQBFAGIAeABzACsAVQAzAEcAbQBHAHcAMgBXADgAcwBuAFYA"
+			"UgBvAE4AQwBoAEMAeAA2AEwAZAAzAEwAVgBzAEgANQB0AGUAMwBKAE4AcwB1ACsAdQAyAFUAdgBa"
+			"AHgAeQBqAEEAeABwADUAZAAwAHkANQBQAHkASgBuAHIAbABxAEcARwAwAEoAaQBOAEcAVQBWADcA"
+			"ZQBSAHcAUwBOAGYAcgBEAGoAdABtAEMAegB6AEsAUABjAG8AVgA2AHYAUQAxAFMAcQAzAE4ARgA5"
+			"AHQAUQBvAGYAeQBZAFEANwA5AHAAZQBvAGUAdgB6AHoAdwBHAEEATgA5AHAAMQBLAG8AbABqAGwA"
+			"ZQBTAFEAVQB5AG4AVgBVAGgAQwBKADgAOQBGADYAMwBIAEoAcwB5AFQANwBXADIAcABLAHkAVgBh"
+			"ADEAMABUAEEAZABjAGMAMgAwAEMAVgBaAEMAcQAwADMATwAyAHkAKwBCAGkAMgB0AFgAcQBoAGgA"
+			"bAA0AG0AMABoAFQAVwByACsANQBPAG4AWgA0AHkAZgA2ADkAdQB5ACsAdQBjAFAASQBDAEsARgBi"
+			"AGIAaAAwADcAZQB2AGkAUwBZAGQAaQBPAHMAMQBrAFAAdwBuAGMAdQAzAHIARwBRAGIAeAA0AA=="
 		)
 	)
 	(image
@@ -23811,7 +24108,25 @@
 			"AGwAegBaAFoAOAAvAG4AdQBRAFYAeQByAFcAVgBvAGsAeABHAEcATQBKAFkAYwBPAFMAZgA0AG8A"
 			"VwBtAGQAeABLAGQARQBiAGoAUABlAFAAdAA3ADUAVgBUAGsAKwA0AHQAZwBrADIAawBaAGIAbwBB"
 			"AEYAQgB3AG0AVwB1ADYARABJAEEAUgBBAFEAZgB4AFoAMABBAGsANQAyAEYATABKAEEAZABTAEQA"
-			"SABIAHIANgBBAEwARgBHAEcAQgBVAGwAUABPADgAVgBrAFgAYgBLAGYAcABnAA=="
+			"SABIAHIANgBBAEwARgBHAEcAQgBVAGwAUABPADgAVgBrAFgAYgBLAGYAcABnAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+			"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
 		)
 	)
 	(image
@@ -24633,7 +24948,25 @@
 			"VwBxAFYAMgA3ADYAbABrADYAMwA3AGkANgBoAHEAcABVAGQAVABoAGMAbgBZAC8AUgBFAEMAaQBr"
 			"ADQAVgBmAFIAMABZAGEAcQAvAEIAYwBkAEsARAArAHAAbQBSAHYAWgBhAEQATgBPAEYAegBNADcA"
 			"RgBzAE4AWQBLAGIAcQA0ADYAVABTAGMAMABOAEcASwA3AFgARQBxAHcAUABUAGEAMwA1AHIAdwA1"
-			"ADEANQB3AHYATwBhAA=="
+			"ADEANQB3AHYATwBhADB0TGlEWS9iRWhrdGMzZDJuZDc2a3VmUVlaL1RxYkFwamZBelkyaEtkWHBV"
+			"ODJOampjbnVDTVNBcUJIQTZGaVNMK2FtQVJJVjh2dUpuN2c3dTdwcmw5c3F5a3UyTldaTG1NbU5H"
+			"WVBLYTBwVC9CeG5IVktxRTRJWjRiU0ViQmdBb3d1Ly9DRDlMOWtkQVRBdXM0UnRBdDJkWFFkcWwv"
+			"bkVxcXE0SmV5REtMRXByVVVYR3p5Njg3Zko3UktrTjR3MUFnQkF5Z3NIZy9SZ09XK0lLK1QzaHdQ"
+			"Qml6MDl2YXRXMHdqUDUzVDFybHBkSnJnRXNHL3pGbnFRN2JEUGIzanU4dm56Y3dvZDBhMUphVW9I"
+			"dE5qZzhOczkvdEZSdWhmM3BNbFhUSjAvUDcvUUlmNWtVQ2JvOTV0TXBveEt1TVoramFrRSt6VUNR"
+			"TXJSWjc5R05xZThkT1JjOUxlNHorbjZ5N3kvbDNjdmE5a1RiMkVpbllBV1BrM0tPVG83dHF1SnBs"
+			"UW51eU9aTHUzbjVURkREUUFBNlNQbXdFKzJ3MzdkMDAreVpZak9YKzZJOS9TemYvZ2pQYkJWbE1j"
+			"TEIva1BzZk9UaTE5c0VFQTdpQm9CQUNCOXNLbnFDSE8vODFqSnBiaHE2TTl4cDVVSGQvNkdIaFJ2"
+			"ZUZ6Z0t1eFJkbjdTcFVjQ2RZcktuSTNCc2E0UkFBRFNoOGxpaWZmUTVOSlNlaEFPeEk0c0NTRzJ4"
+			"WXZQdGI1T0NBa0w3dnpDSHJVdFhpeW5sOXBJKytsUlNEcU1OUUlBUUVadzczK0RIbHg5MjVKNDU3"
+			"QlpiTi9nb0VCVDdOR2tiNzREb0NkRlVlUDcvVTYxK21ITXB0UnRUZDJPQVFCa0xIbi9uSHBkRThr"
+			"aTJiejg0b2ltcHQ5OUp6M28yL0tqZUJ2citKeXV2aTAvaWpoZmRxOWlPbmI4NUx2dkhlbnRQYXk4"
+			"cWZhT0E4b2JNWEpUNnJhbVlsUEdqQjhVTm9VYzZsU0NIR29BU0RrNjUxQXZqOU80dTdPTDdiOGpr"
+			"UGdjOVBwZUw1b2Q5UHFJMk00N2hCQkxUdlp0L2Fjc09kbXEzNDQ4c2tzL2cwSVJ0YlBUR05ZMUFn"
+			"QkFlbUp4WHQvbUxXenZib0hrYUVLSUpTZjdxdXJxNGVhOWhCQ2YwM1Z3NVFNQzdWOVZYVzJja0hG"
+			"UXd1YmtvQkZhT3pzVEVtSVFOUUlBUVBxSVY1Q2F1YW9xY3V3end1VFNFaG8xaXBwODA0MVN1NlV4"
+			"ajlQVnVtcDFzbnVSNlRLaGRqYWlSZ0FBeUNBZnR1K2Z1LzQ3UWllMGRhalZsRDdPSE9odStkWS8w"
+			"aTIrOHgzMnFvYm5VQg=="
 		)
 	)
 	(label "cfg_2"
@@ -25200,6 +25533,28 @@
 			)
 		)
 	)
+	(global_label "D11"
+		(shape input)
+		(at 96.52 90.17 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "4bd1d575-8db3-467e-bbb2-402bf6f87757")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 89.8458 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "sd_io2"
 		(shape input)
 		(at 321.31 245.11 180)
@@ -25297,6 +25652,28 @@
 				(font
 					(size 1.27 1.27)
 				)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "F16"
+		(shape input)
+		(at 173.99 88.9 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "5e99bded-7f8b-4808-8ffe-4322471767d8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 167.4972 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -30397,6 +30774,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+3.3V")
+		(at 340.36 285.75 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "3253a211-9788-4d18-8ab5-7d4c494c020d")
+		(property "Reference" "#PWR0128"
+			(at 340.36 289.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+F3V3"
+			(at 337.566 280.924 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 340.36 285.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 340.36 285.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 340.36 285.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "24314d5c-e2c6-479e-8eac-079438bbb4e7")
+		)
+		(instances
+			(project "greybadge_pcb"
+				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/cfddc707-99f6-43b5-b12d-bc465b2a8faa"
+					(reference "#PWR0128")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 142.24 278.13 90)
 		(unit 1)
@@ -34724,7 +35166,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 322.58 289.56 0)
+		(at 302.26 285.75 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -34732,7 +35174,7 @@
 		(dnp no)
 		(uuid "c74d633f-ec70-4c29-9d6e-fcf9da8972c2")
 		(property "Reference" "#PWR0124"
-			(at 322.58 293.37 0)
+			(at 302.26 289.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34741,7 +35183,7 @@
 			)
 		)
 		(property "Value" "+F2V5"
-			(at 319.786 284.734 0)
+			(at 299.466 280.924 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34750,7 +35192,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 322.58 289.56 0)
+			(at 302.26 285.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34759,7 +35201,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 322.58 289.56 0)
+			(at 302.26 285.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34768,7 +35210,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 322.58 289.56 0)
+			(at 302.26 285.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -34981,6 +35423,76 @@
 			(project "greybadge_pcb"
 				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/cfddc707-99f6-43b5-b12d-bc465b2a8faa"
 					(reference "R39")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Jumper:SolderJumper_3_Bridged12")
+		(at 322.58 285.75 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e24bd4af-c0f3-4fea-b1b5-9f27900ac909")
+		(property "Reference" "JP9"
+			(at 322.58 279.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SolderJumper_3_Bridged12"
+			(at 322.58 281.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Jumper:SolderJumper-3_P1.3mm_Bridged2Bar12_RoundedPad1.0x1.5mm"
+			(at 322.58 285.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 322.58 285.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "3-pole Solder Jumper, pins 1+2 closed/bridged"
+			(at 322.58 285.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "0097c30b-2bb3-4c53-a7da-3789e561d094")
+		)
+		(pin "1"
+			(uuid "bea29cd6-aa06-45b8-b06a-52277886c33b")
+		)
+		(pin "3"
+			(uuid "a1163ded-b8c8-428f-9b92-e981d4e2963a")
+		)
+		(instances
+			(project ""
+				(path "/4eb7ff30-5b75-4e83-8e37-4e6cd7a9e830/cfddc707-99f6-43b5-b12d-bc465b2a8faa"
+					(reference "JP9")
 					(unit 1)
 				)
 			)
