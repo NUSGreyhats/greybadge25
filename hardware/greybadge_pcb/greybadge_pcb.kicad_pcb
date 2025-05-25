@@ -49702,7 +49702,7 @@
 		(effects
 			(font
 				(size 0.9 0.9)
-				(thickness 0.1)
+				(thickness 0.1125)
 			)
 			(justify mirror)
 		)
@@ -50624,7 +50624,7 @@
 		(effects
 			(font
 				(size 1 1)
-				(thickness 0.1)
+				(thickness 0.125)
 			)
 			(justify mirror)
 		)
@@ -50636,7 +50636,7 @@
 		(effects
 			(font
 				(size 1 1)
-				(thickness 0.1)
+				(thickness 0.125)
 			)
 			(justify mirror)
 		)
@@ -53314,7 +53314,7 @@
 		(effects
 			(font
 				(size 1 1)
-				(thickness 0.1)
+				(thickness 0.125)
 			)
 			(justify mirror)
 		)
