@@ -19,7 +19,7 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
     reg [31:0] counter;
     always @ (posedge clk) begin
         counter <= counter + 1;
-        if (counter == 32_000_00/20) begin
+        if (counter == 48_000_00/2) begin
             shooting <= shooting << 1 | shooting[7];
             counter <= 0;
         end

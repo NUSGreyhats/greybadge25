@@ -51,7 +51,7 @@ module uart_top
             //BR_LIMIT = 14,     // baud rate generator counter limit
             //BR_BITS = 4,       // number of baud rate generator counter bits
             // 9600
-            BR_LIMIT = 20,     // baud rate generator counter limit
+            BR_LIMIT = 313,     // baud rate generator counter limit
             BR_BITS = 9,       // number of baud rate generator counter bits
             
             // Size

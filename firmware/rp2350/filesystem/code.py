@@ -21,7 +21,6 @@ import hardware.default_overlay
 import face
 
 gc.enable()
-gc.collect()
 ### Initialisation ####################################
 
 display, display_bus = hardware.rp2350_init_display()
@@ -134,11 +133,14 @@ def menu():
 # Load image
 def load_image(img_filename):
     print(img_filename)
+    gc.collect()
     img_bitmap, img_palette = adafruit_imageload.load(img_filename)
     img_tilegrid = displayio.TileGrid(img_bitmap, pixel_shader=img_palette)
     main.append(img_tilegrid)
     del img_bitmap, img_palette
+    
     gc.collect()
+    print("Free memory at code point 1: {} bytes".format(gc.mem_free()) )
 
 import gifio, asyncio, struct
 def load_gif(filename):
@@ -169,7 +171,7 @@ def face_mode():
     time.sleep(0.5)
     val = main.pop()
     del val
-    load_image("/image/greymecha_angy.jpg")
+    
     
     ## Rough UI
     prev_fpga_buttons = [x.value for x in fpga_buttons]
@@ -177,18 +179,20 @@ def face_mode():
     files_total = os.listdir("/image")
     files = []
     for f in files_total:
-        if ".png" in f:
+        if ".jpg" in f:
             files.append(f)
     file_index = 0
+    print(files)
+    load_image("/image/" + files[file_index])
     while True:
-        
         if fpga_buttons[0].value == False: # and fpga_buttons[3].value != prev_fpga_buttons[3]:
             file_index = (file_index-1) % len(files)
             val = main.pop()
             del val
+            gc.collect()
+            print("Free memory at code point 1: {} bytes".format(gc.mem_free()) )
             load_image("/image/" + files[file_index])
             time.sleep(0.5)
-            
         if fpga_buttons[4].value == False: # and fpga_buttons[3].value != prev_fpga_buttons[3]:
             file_index = (file_index+1) % len(files)
             val = main.pop()
