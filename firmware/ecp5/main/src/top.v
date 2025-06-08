@@ -5,38 +5,19 @@ module top(
 );
     /// Internal Configuration ///////////////////////////////////////////
     wire          clk_int;        // Internal OSCILLATOR clock
-    defparam OSCI1.DIV = "3";
+    defparam OSCI1.DIV = "3"; // Info: Max frequency for clock '$glbnet$clk': 162.00 MHz (PASS at 103.34 MHz)
     OSCG OSCI1 (.OSC(clk_int));
 
     wire clk;
     assign clk = clk_int;
-    //param CLK_FREQ = 48_000_00; // EXT CLK
+
+    localparam CLK_FREQ = 103_340_000; // EXT CLK
 
     /// Chall: Shooting Flags ////////////////////////////////////////////
-    // PWM Counter
-    reg [31:0] counter_pwm;
-    reg pwm_out = 0;
-    always @ (posedge clk) begin
-        counter_pwm <= counter_pwm + 1;
-        if (counter_pwm == 1) begin
-            pwm_out <= 0;
-            //counter_pwm <= 0;
-        end else if (counter_pwm == 4) begin
-            pwm_out <= 1;
-            counter_pwm <= 0;
-        end
-    end
-
-    // Regular Shooting
-    reg [7:0] shooting = 8'b101;
-    reg [31:0] counter;
-    always @ (posedge clk) begin
-        counter <= counter + 1;
-        if (counter == 48_000_00/2) begin
-            shooting <= shooting << 1 | shooting[7];
-            counter <= 0;
-        end
-    end
+    wire [7:0] chall_shootingflags_leds;
+    shooting_flags #(.CLK_FREQ(CLK_FREQ)) chall_shootingflags (
+        .clk(clk), .cats(chall_shootingflags_leds)
+    );
 
     /// Chall: SecureMemory /////////////////////////////////////////////////////
     reg chall_secmem_clk; 
@@ -116,9 +97,7 @@ module top(
     assign led = (( 
             ~btn[0] ? mode : 
             ~btn[1] ? rx_out[7:0] : 
-            ~btn[2] ? {pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out} : 
-            ~btn[3] ? shooting : 
-            (shooting & cat_status & {pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out} | ~cat_status)
+            chall_shootingflags_leds
         )
     ); // & cat_status;
 

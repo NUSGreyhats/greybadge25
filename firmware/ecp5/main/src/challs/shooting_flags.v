@@ -19,34 +19,16 @@ module shooting_flags #(
     end
 
     //// Shooting /////////////////////////////////////////////////////////
-    localparam FLAG_LEN = 16;
-    reg [7:0] flag[FLAG_LEN];
-    always @ (*) begin
-        flag[0] = 103;
-        flag[1] = 114;
-        flag[2] = 121;
-        flag[3] = 123;
-        flag[4] = 49;
-        flag[5] = 95;
-        flag[6] = 99;
-        flag[7] = 97;
-        flag[8] = 116;
-        flag[9] = 95;
-        flag[10] = 49;
-        flag[11] = 95;
-        flag[12] = 98;
-        flag[13] = 105;
-        flag[14] = 116;
-        flag[15] = 125;
-    end
+    localparam FLAG_LEN = 36;
+    reg [(8*FLAG_LEN-1):0] flag  = "grey{fire_movement_got_fire_pattern}";
 
-    reg [7:0] shooting = 8'b101;
+    reg [7:0] shooting = 8'b0; //8'b101;
     reg [31:0] counter;
     reg [31:0] counter_display;
     always @ (posedge clk) begin
         counter <= counter + 1;
         if (counter == CLK_FREQ/2) begin
-            shooting <= flag[counter_display] << counter_display; //shooting << 1 | shooting[7];
+            shooting <= flag[(counter_display+1)*8-1: (counter_display)*8]; //shooting << 1 | shooting[7];
             counter <= 0;
             counter_display <= (counter_display + 1) % FLAG_LEN;
         end
@@ -56,3 +38,14 @@ module shooting_flags #(
     assign cats = shooting & {pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out};
 
 endmodule
+
+    // // Regular Shooting
+    // reg [7:0] shooting = 8'b101;
+    // reg [31:0] counter;
+    // always @ (posedge clk) begin
+    //     counter <= counter + 1;
+    //     if (counter == 48_000_00/2) begin
+    //         shooting <= shooting << 1 | shooting[7];
+    //         counter <= 0;
+    //     end
+    // end
