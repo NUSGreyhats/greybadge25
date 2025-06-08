@@ -1,7 +1,7 @@
 module shooting_flags #(
     parameter CLK_FREQ = 48_000_000
 ) (
-    input clk, output [7:0] cats
+    input clk, input got_commanding_officer, output [7:0] cats
 );
 
     //// PWM //////////////////////////////////////////////////////////////
@@ -24,12 +24,9 @@ module shooting_flags #(
     reg clk_shooting = 0;
     always @ (posedge clk) begin
         counter <= counter + 1;
-        if (counter == CLK_FREQ/200) begin
-            clk_shooting <= 0;
-        end
-        if (counter == CLK_FREQ/100) begin
-            clk_shooting <= 1;
-            counter <= 1;
+        if (counter == CLK_FREQ/30) begin
+            clk_shooting <= ~clk_shooting;
+            counter <= 0;
         end
     end
 
@@ -49,15 +46,22 @@ module shooting_flags #(
     end
 
     reg [7:0] shooting = 8'b101;
+    reg [7:0] shooting_flag = 8'b0;
     reg [$clog2(FLAG_LEN)-1:0] counter_display = 0;
     always @ (posedge clk_shooting) begin
-        shooting <= flag[counter_display];
-        // shooting <= shooting << 1 | shooting[7];
+        shooting <= shooting << 1 | shooting[7];
+        shooting_flag <= (
+            flag[counter_display] << counter_display % 8 | 
+            flag[counter_display] >> (8-counter_display%8)
+        );
         counter_display <= (counter_display + 1) % FLAG_LEN;
     end
 
     /// LED output //////////////////////////////////////////////////////
-    assign cats = shooting & {pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out};
+    assign cats = (
+        (got_commanding_officer ? shooting_flag : shooting) & 
+        {pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out}
+    );
 
 endmodule
 

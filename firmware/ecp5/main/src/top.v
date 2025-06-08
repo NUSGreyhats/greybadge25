@@ -16,7 +16,9 @@ module top(
     /// Chall: Shooting Flags ////////////////////////////////////////////
     wire [7:0] chall_shootingflags_leds;
     shooting_flags #(.CLK_FREQ(CLK_FREQ)) chall_shootingflags (
-        .clk(clk), .cats(chall_shootingflags_leds)
+        .clk(clk), 
+        .got_commanding_officer(~btn[2]),
+        .cats(chall_shootingflags_leds)
     );
 
     /// Chall: SecureMemory /////////////////////////////////////////////////////
