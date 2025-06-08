@@ -18,20 +18,42 @@ module shooting_flags #(
         end
     end
 
-    //// Shooting /////////////////////////////////////////////////////////
-    localparam FLAG_LEN = 36;
-    reg [(8*FLAG_LEN-1):0] flag  = "grey{fire_movement_got_fire_pattern}";
-
-    reg [7:0] shooting = 8'b0; //8'b101;
-    reg [31:0] counter;
-    reg [31:0] counter_display;
+    //// Shooting Rate ////////////////////////////////////////////////////
+    // Create a new clock
+    reg [31:0] counter = 0;
+    reg clk_shooting = 0;
     always @ (posedge clk) begin
         counter <= counter + 1;
-        if (counter == CLK_FREQ/2) begin
-            shooting <= flag[(counter_display+1)*8-1: (counter_display)*8]; //shooting << 1 | shooting[7];
-            counter <= 0;
-            counter_display <= (counter_display + 1) % FLAG_LEN;
+        if (counter == CLK_FREQ/200) begin
+            clk_shooting <= 0;
         end
+        if (counter == CLK_FREQ/100) begin
+            clk_shooting <= 1;
+            counter <= 1;
+        end
+    end
+
+    //// Shooting /////////////////////////////////////////////////////////
+    localparam FLAG_LEN = 45;
+    reg [7:0] flag[FLAG_LEN];
+    always @ (*) begin
+        flag[0] = 103; flag[1] = 114; flag[2] = 101; flag[3] = 121; flag[4] = 123;
+        flag[5] = 101; flag[6] = 104; flag[7] = 95; flag[8] = 108; flag[9] = 105;
+        flag[10] = 118; flag[11] = 101; flag[12] = 95; flag[13] = 102; flag[14] = 105;
+        flag[15] = 114; flag[16] = 105; flag[17] = 110; flag[18] = 103; flag[19] = 95;
+        flag[20] = 100; flag[21] = 111; flag[22] = 110; flag[23] = 116; flag[24] = 95;
+        flag[25] = 116; flag[26] = 117; flag[27] = 114; flag[28] = 110; flag[29] = 95;
+        flag[30] = 121; flag[31] = 111; flag[32] = 117; flag[33] = 114; flag[34] = 95;
+        flag[35] = 98; flag[36] = 114; flag[37] = 97; flag[38] = 105; flag[39] = 110;
+        flag[40] = 95; flag[41] = 111; flag[42] = 102; flag[43] = 102; flag[44] = 125;
+    end
+
+    reg [7:0] shooting = 8'b101;
+    reg [$clog2(FLAG_LEN)-1:0] counter_display = 0;
+    always @ (posedge clk_shooting) begin
+        shooting <= flag[counter_display];
+        // shooting <= shooting << 1 | shooting[7];
+        counter_display <= (counter_display + 1) % FLAG_LEN;
     end
 
     /// LED output //////////////////////////////////////////////////////
