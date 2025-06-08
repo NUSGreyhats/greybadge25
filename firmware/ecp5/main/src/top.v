@@ -1,5 +1,18 @@
-module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnect);
+module top(
+    input clk_ext, input [4:0] btn, output [7:0] led, 
+    inout [7:0] interconnect, 
+    inout [7:0] pmod_j1, inout [7:0] pmod_j2,
+);
+    /// Internal Configuration ///////////////////////////////////////////
+    wire          clk_int;        // Internal OSCILLATOR clock
+    defparam OSCI1.DIV = "3";
+    OSCG OSCI1 (.OSC(clk_int));
 
+    wire clk;
+    assign clk = clk_int;
+    //param CLK_FREQ = 48_000_00; // EXT CLK
+
+    /// Chall: Shooting Flags ////////////////////////////////////////////
     // PWM Counter
     reg [31:0] counter_pwm;
     reg pwm_out = 0;
@@ -25,13 +38,30 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
         end
     end
 
+    /// Chall: SecureMemory /////////////////////////////////////////////////////
+    reg chall_secmem_clk; 
+    reg [31:0] chall_secmem_clk_counter; 
+    always @ (posedge clk) begin
+        chall_secmem_clk_counter <= chall_secmem_clk_counter + 1;
+        if (chall_secmem_clk_counter == CLK_FREQ/1000) begin
+            chall_secmem_clk <= ~chall_secmem_clk;
+        end
+    end
+    wire [4:0] chall_secmem_address;
+    wire [7:0] chall_secmem_value;
+    // secure_memory chall_secmem(
+    //     .clk(chall_secmem_clk), 
+    //     .address(chall_secmem_address), 
+    //     .value(chall_secmem_value)
+    // );
+
     /// UART ////////////////////////////////////////////////////////////
     parameter DBITS = 8;
     parameter UART_FRAME_SIZE = 18;
 
     wire reset = ~btn[2];
 
-    wire rx; // 
+    wire rx; //d 
     wire tx;
     wire [UART_FRAME_SIZE*DBITS-1:0] rx_out;
     wire rx_full, rx_empty;
@@ -57,9 +87,7 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
             .tx_trigger(~btn[0]),
             .tx_in({8'h7b, 8'h68, 8'h69, 8'h5f, 8'h69, 8'h27, 8'h6d, 8'h5f, 8'h79, 8'h6f, 8'h75, 8'h72, 8'h5f, 8'h61, 8'h72, 8'h6d, 8'h79, 8'h7d})
         );
-    //////////////////////////////////////////////////////////////
 
-    //// Shooting Cats /////////////////////////////////////////////////
     reg [7:0] cat_status = 8'b11111111;
     always @ (posedge clk) begin
         if (rx_out[7:0] <= 65+7 && rx_out[7:0] >= 65) begin
@@ -69,18 +97,31 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
             cat_status[rx_out[7:0]-97] = 1;
         end
     end 
+    //////////////////////////////////////////////////////////////
 
-    wire [4:0] btn_out = btn;
-    assign led = (
-        ~btn[0] ? mode : 
-        ~btn[1] ? rx_out[7:0] : 
-        ~btn[3] ? shooting : 
-        (shooting & cat_status & {pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out} | ~cat_status)
-    ); // & cat_status;
-
-
+    //// Shooting Cats /////////////////////////////////////////////////
     parameter MODE_BUTTON = 3'b000;
     parameter MODE_UART = 3'b001;
+    parameter MODE_CHALL_SECURE_MEM = 3'b001;
+
+    // Combinational Logic
+    reg [7:0] wire_led;
+    reg [7:0] wire_interconnect;
+    reg [7:0] wire_pmod_j1;
+    reg [7:0] wire_pmod_j2;
+
+    
+
+    wire [4:0] btn_out = btn;
+    assign led = (( 
+            ~btn[0] ? mode : 
+            ~btn[1] ? rx_out[7:0] : 
+            ~btn[2] ? {pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out} : 
+            ~btn[3] ? shooting : 
+            (shooting & cat_status & {pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out} | ~cat_status)
+        )
+    ); // & cat_status;
+
 
     //assign interconnect[7:5] = 3'bxxx;
     wire [2:0] mode = interconnect[7:5];
