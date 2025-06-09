@@ -90,7 +90,7 @@ def live_firing(hardware, display_bus, overlay):
     
     # Random Choice
     time.sleep(1)
-    while hardware.button_a.value == True:
+    while hardware.button_a.value == True and hardware.button_b.value == True:
         expression = expressions[random.randint(0, len(expressions)-1)]
         if expression == "lazer":
             load_gif_oneshot(display_bus, "face/expressions/greycat_angy.gif")
@@ -111,7 +111,7 @@ def live_firing(hardware, display_bus, overlay):
             load_gif_oneshot_selective(display_bus, "face/expressions/greycat_lazer_attack.gif", range(4, 0, -1))
             load_gif_oneshot_reverse(display_bus, "face/expressions/greycat_angy.gif")
             time.sleep(0.5)
-            u.write(chr(ord("a")+target))
+            u.write("`")
             time.sleep(1)
             continue
         load_gif_oneshot(display_bus, expression)

@@ -42,9 +42,11 @@ class Overlay:
             p.deinit()
             
     def set_mode_uart(self):
-        self.set_mode([0,0,1])
+        self.set_mode([1,0,0])
         
         uart = busio.UART(board.GP8, board.GP9, baudrate=9600, timeout=0.1)
         self.existing_state = uart
         return uart
     
+    def deinit_mode_uart(self):
+        self.existing_state.deinit()

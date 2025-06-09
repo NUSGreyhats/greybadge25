@@ -74,10 +74,13 @@ module top(
     reg [7:0] cat_status = 8'b11111111;
     always @ (posedge clk_ext) begin
         if (rx_out[7:0] <= 65+7 && rx_out[7:0] >= 65) begin
-            cat_status[rx_out[7:0]-65] = 0;
+            cat_status[rx_out[7:0]-65] <= 0;
         end
         if (rx_out[7:0] <= 97+7 && rx_out[7:0] >= 97) begin
-            cat_status[rx_out[7:0]-97] = 1;
+            cat_status[rx_out[7:0]-97] <= 1;
+        end
+        if (rx_out[7:0] == 96) begin // clear all
+            cat_status <= 8'b11111111;
         end
     end 
     //////////////////////////////////////////////////////////////
