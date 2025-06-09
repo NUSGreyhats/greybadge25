@@ -32,11 +32,11 @@ module top(
     end
     wire [4:0] chall_secmem_address;
     wire [7:0] chall_secmem_value;
-    // secure_memory chall_secmem(
-    //     .clk(chall_secmem_clk), 
-    //     .address(chall_secmem_address), 
-    //     .value(chall_secmem_value)
-    // );
+    secure_memory chall_secmem(
+        .clk(chall_secmem_clk), 
+        .address(chall_secmem_address), 
+        .value(chall_secmem_value)
+    );
 
     /// UART ////////////////////////////////////////////////////////////
     parameter DBITS = 8;
@@ -67,12 +67,12 @@ module top(
             .rx_empty(rx_empty),
             .rx_out(rx_out),
             
-            .tx_trigger(~btn[0]),
+            .tx_trigger(~btn[3]),
             .tx_in({8'h7b, 8'h68, 8'h69, 8'h5f, 8'h69, 8'h27, 8'h6d, 8'h5f, 8'h79, 8'h6f, 8'h75, 8'h72, 8'h5f, 8'h61, 8'h72, 8'h6d, 8'h79, 8'h7d})
         );
 
     reg [7:0] cat_status = 8'b11111111;
-    always @ (posedge clk) begin
+    always @ (posedge clk_ext) begin
         if (rx_out[7:0] <= 65+7 && rx_out[7:0] >= 65) begin
             cat_status[rx_out[7:0]-65] = 0;
         end
@@ -84,8 +84,8 @@ module top(
 
     //// Shooting Cats /////////////////////////////////////////////////
     parameter MODE_BUTTON = 3'b000;
-    parameter MODE_UART = 3'b001;
-    parameter MODE_CHALL_SECURE_MEM = 3'b001;
+    parameter MODE_UART = 3'b100;
+    parameter MODE_CHALL_SECURE_MEM = 3'b010;
 
     // Combinational Logic
     reg [7:0] wire_led;
@@ -97,9 +97,12 @@ module top(
 
     wire [4:0] btn_out = btn;
     assign led = (( 
-            ~btn[0] ? mode : 
+            ~btn[0] ? btn : 
             ~btn[1] ? rx_out[7:0] : 
-            chall_shootingflags_leds
+            ~btn[3] ? mode : 
+            ~btn[4] ? mode : 
+            ~btn[5] ? mode : 
+            chall_shootingflags_leds | ~cat_status
         )
     ); // & cat_status;
 
@@ -108,7 +111,7 @@ module top(
     wire [2:0] mode = interconnect[7:5];
     assign interconnect[4:0] = (
         mode == MODE_BUTTON ? {btn_out} : 
-        mode == MODE_UART ? {3'b101, tx, 1'bz} : 
+        //mode == MODE_UART ? {3'b101, tx, 1'bz} : 
         5'bzzzzz
     );
     assign rx = (mode == MODE_UART ? interconnect[0] : 1'bz);

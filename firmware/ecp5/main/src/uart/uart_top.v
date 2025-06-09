@@ -48,11 +48,18 @@ module uart_top
             SB_TICK = 16,       // number of stop bit / oversampling ticks
             
             // Baud Rate
+            // CLK_FREQ = 48_000_000,
+            // BAUD_RATE = 9600,
+            
+            BR_LIMIT = 673,     // baud rate generator counter limit
+            BR_BITS = 10,  
+            
+            // BR_LIMIT = 313,     // baud rate generator counter limit
+            // BR_BITS = 9,  
+            
             //BR_LIMIT = 14,     // baud rate generator counter limit
             //BR_BITS = 4,       // number of baud rate generator counter bits
             // 9600
-            BR_LIMIT = 313,     // baud rate generator counter limit
-            BR_BITS = 9,       // number of baud rate generator counter bits
             
             // Size
             FIFO_IN_SIZE = 4,        
@@ -83,6 +90,9 @@ module uart_top
         input [DBITS*FIFO_OUT_SIZE -1 :0] tx_in //2**FIFO_EXP_IN) -  1
     );
     
+    parameter BR_LIMIT = 673; //$ceil(CLK_FREQ/(BAUD_RATE * 16));   // baud rate generator counter limit
+    parameter BR_BITS = 10; //$clog2(BR_LIMIT);                // number of baud rate generator counter bits
+
     // Connection Signals
     wire tick;                          // sample tick from baud rate generator
     // Instantiate Modules for UART Core

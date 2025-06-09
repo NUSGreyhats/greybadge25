@@ -64,14 +64,3 @@ module shooting_flags #(
     );
 
 endmodule
-
-    // // Regular Shooting
-    // reg [7:0] shooting = 8'b101;
-    // reg [31:0] counter;
-    // always @ (posedge clk) begin
-    //     counter <= counter + 1;
-    //     if (counter == 48_000_00/2) begin
-    //         shooting <= shooting << 1 | shooting[7];
-    //         counter <= 0;
-    //     end
-    // end
