@@ -3,21 +3,6 @@ module shooting_flags #(
 ) (
     input clk, input got_commanding_officer, output [7:0] cats
 );
-
-    //// PWM //////////////////////////////////////////////////////////////
-    reg [31:0] counter_pwm;
-    reg pwm_out = 0;
-    always @ (posedge clk) begin
-        counter_pwm <= counter_pwm + 1;
-        if (counter_pwm == 1) begin
-            pwm_out <= 0;
-            //counter_pwm <= 0;
-        end else if (counter_pwm == 4) begin
-            pwm_out <= 1;
-            counter_pwm <= 0;
-        end
-    end
-
     //// Shooting Rate ////////////////////////////////////////////////////
     // Create a new clock
     reg [31:0] counter = 0;
@@ -58,9 +43,6 @@ module shooting_flags #(
     end
 
     /// LED output //////////////////////////////////////////////////////
-    assign cats = (
-        (got_commanding_officer ? shooting_flag : shooting) & 
-        {pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out}
-    );
+    assign cats = (got_commanding_officer ? shooting_flag : shooting);
 
 endmodule

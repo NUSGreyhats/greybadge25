@@ -13,6 +13,21 @@ module top(
 
     localparam CLK_FREQ = 103_340_000; // EXT CLK
 
+    /// PWM for Generic Control //////////////////////////////////////////
+    reg [31:0] counter_pwm;
+    reg pwm_out = 0;
+    always @ (posedge clk) begin
+        counter_pwm <= counter_pwm + 1;
+        if (counter_pwm == 1) begin
+            pwm_out <= 0;
+            //counter_pwm <= 0;
+        end else if (counter_pwm == 4) begin
+            pwm_out <= 1;
+            counter_pwm <= 0;
+        end
+    end
+    wire [7:0] pwm_bulk_out = {pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out, pwm_out};
+
     /// Chall: Shooting Flags ////////////////////////////////////////////
     wire [7:0] chall_shootingflags_leds;
     shooting_flags #(.CLK_FREQ(CLK_FREQ)) chall_shootingflags (
@@ -72,7 +87,7 @@ module top(
         );
 
     reg [7:0] cat_status = 8'b11111111;
-    always @ (posedge clk_ext) begin
+    always @ (posedge clk) begin
         if (rx_out[7:0] <= 65+7 && rx_out[7:0] >= 65) begin
             cat_status[rx_out[7:0]-65] <= 0;
         end
@@ -95,17 +110,20 @@ module top(
     reg [7:0] wire_interconnect;
     reg [7:0] wire_pmod_j1;
     reg [7:0] wire_pmod_j2;
+    // always @ (*) begin
+    //     wire_pmod_j1 = chall_secmem_value;
+    // end
+    // assign pmod_j1 = wire_pmod_j1;
+    // assign chall_secmem_address = interconnect[4:0];
 
-    
 
     wire [4:0] btn_out = btn;
     assign led = (( 
-            ~btn[0] ? btn : 
-            ~btn[1] ? rx_out[7:0] : 
-            ~btn[3] ? mode : 
-            ~btn[4] ? mode : 
-            ~btn[5] ? mode : 
-            chall_shootingflags_leds | ~cat_status
+            //~btn[0] ? btn : 
+            ~btn[1] ? (rx_out[7:0] & pwm_bulk_out) : // Debugging
+            ~btn[3] ? (mode & pwm_bulk_out) : 
+            //~btn[4] ? mode : 
+            (chall_shootingflags_leds & pwm_bulk_out) | ~cat_status
         )
     ); // & cat_status;
 
@@ -113,8 +131,8 @@ module top(
     //assign interconnect[7:5] = 3'bxxx;
     wire [2:0] mode = interconnect[7:5];
     assign interconnect[4:0] = (
+        //mode == MODE_UART ? {3'bzzz, tx, 1'bz} : // this line causing button 0 to not enable, also tx not working
         mode == MODE_BUTTON ? {btn_out} : 
-        //mode == MODE_UART ? {3'b101, tx, 1'bz} : 
         5'bzzzzz
     );
     assign rx = (mode == MODE_UART ? interconnect[0] : 1'bz);
