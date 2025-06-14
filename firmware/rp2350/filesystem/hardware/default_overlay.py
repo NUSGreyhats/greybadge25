@@ -24,14 +24,14 @@ class Overlay:
         
     def set_mode(self, new_mode):
         for i in range(len(new_mode)):
-            self.mode_pins[2-i].value = new_mode[2-i]
+            self.mode_pins[2-i].value = new_mode[i]
         self.mode_set = True
 
     def is_current_mode(self, mode):
         if self.mode_set == False:
             return False
         for i in range(len(mode)):
-            if self.mode_pins[2-i].value != mode[2-i]:
+            if self.mode_pins[2-i].value != mode[i]:
                 return False
         return True
     
@@ -55,7 +55,7 @@ class Overlay:
         self.mode_set = False
             
     def set_mode_uart(self):
-        mode_pins = (1, 0, 0)
+        mode_pins = (0, 1, 1)
         if self.is_current_mode(mode_pins):
             return self.existing_state
         self.set_mode(mode_pins)

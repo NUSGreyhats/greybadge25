@@ -104,7 +104,7 @@ module top(
 
     //// Shooting Cats /////////////////////////////////////////////////
     parameter MODE_BUTTON = 3'b000;
-    parameter MODE_UART = 3'b100;
+    parameter MODE_UART = 3'b011;
     parameter MODE_CHALL_SECURE_MEM = 3'b010;
 
     // Combinational Logic
@@ -118,20 +118,20 @@ module top(
     // assign pmod_j1 = wire_pmod_j1;
 
     wire [4:0] btn_out = btn;
-    assign led = (( 
+    assign led = (mode == MODE_UART ?( 
             //~btn[0] ? btn : 
             ~btn[1] ? (rx_out[7:0] & pwm_bulk_out) : // Debugging
             ~btn[3] ? (interconnect & pwm_bulk_out) : 
-            ~btn[4] ? (chall_secmem_clk) : 
             (chall_shootingflags_leds & pwm_bulk_out) | ~cat_status
-        )
+        ) :
+        0
     ); // & cat_status;
 
 
     //assign interconnect[7:5] = 3'bxxx;
     wire [2:0] mode = interconnect[7:5];
     assign interconnect[4:0] = (
-        //mode == MODE_UART ? {3'bzzz, tx, 1'bz} : // this line causing button 0 to not enable, also tx not working
+        mode == MODE_UART ? {3'bzzz, tx, 1'bz} : // this line causing button 0 to not enable, also tx not working
         mode == MODE_BUTTON ? {btn_out} : 
         5'bzzzzz
     );

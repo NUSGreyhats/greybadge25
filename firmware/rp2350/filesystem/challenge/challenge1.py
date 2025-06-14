@@ -1,3 +1,5 @@
+print("To start, run the function qna1()")
+
 def mcq(question, choices, ans_choice):
     print(question)
     for c in range(len(choices)):
@@ -41,7 +43,12 @@ def qna1():
         )
     ):
         print("Success: Here's the 1st part of the flag")
+        
 
+import hardware
+overlay = hardware.hw_state["fpga_overlay"]
+overlay.init()
+#u = overlay.set_mode_uart()
 
 ### Flag Reading Part 2
 def xor_decode(a: str, b: str, l: int):
