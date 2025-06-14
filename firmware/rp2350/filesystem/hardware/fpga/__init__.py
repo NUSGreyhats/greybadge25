@@ -4,9 +4,6 @@ from hardware.fpga import ecp5p
 from hardware.fpga import ecp5f
 import digitalio, board, time
 
-
-
-
 def upload_bitstream(path):
     jtag_rst = digitalio.DigitalInOut(board.GP20)
     jtag_rst.direction = digitalio.Direction.OUTPUT
