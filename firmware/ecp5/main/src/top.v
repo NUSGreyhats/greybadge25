@@ -37,12 +37,13 @@ module top(
     );
 
     /// Chall: SecureMemory /////////////////////////////////////////////////////
-    reg chall_secmem_clk; 
-    reg [31:0] chall_secmem_clk_counter; 
+    reg chall_secmem_clk = 0; // 10hz clock
+    reg [31:0] chall_secmem_clk_counter = 0; 
     always @ (posedge clk) begin
         chall_secmem_clk_counter <= chall_secmem_clk_counter + 1;
-        if (chall_secmem_clk_counter == CLK_FREQ/1000) begin
+        if (chall_secmem_clk_counter >= CLK_FREQ/20) begin
             chall_secmem_clk <= ~chall_secmem_clk;
+            chall_secmem_clk_counter <= 0;
         end
     end
     wire [4:0] chall_secmem_address;
@@ -52,7 +53,8 @@ module top(
         .address(chall_secmem_address), 
         .value(chall_secmem_value)
     );
-
+    assign chall_secmem_address = interconnect[4:0];
+    assign pmod_j2 = chall_secmem_value;
     /// UART ////////////////////////////////////////////////////////////
     parameter DBITS = 8;
     parameter UART_FRAME_SIZE = 18;
@@ -114,15 +116,13 @@ module top(
     //     wire_pmod_j1 = chall_secmem_value;
     // end
     // assign pmod_j1 = wire_pmod_j1;
-    // assign chall_secmem_address = interconnect[4:0];
-
 
     wire [4:0] btn_out = btn;
     assign led = (( 
             //~btn[0] ? btn : 
             ~btn[1] ? (rx_out[7:0] & pwm_bulk_out) : // Debugging
-            ~btn[3] ? (mode & pwm_bulk_out) : 
-            //~btn[4] ? mode : 
+            ~btn[3] ? (interconnect & pwm_bulk_out) : 
+            ~btn[4] ? (chall_secmem_clk) : 
             (chall_shootingflags_leds & pwm_bulk_out) | ~cat_status
         )
     ); // & cat_status;

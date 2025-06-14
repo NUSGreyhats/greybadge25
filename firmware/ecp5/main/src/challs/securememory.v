@@ -26,11 +26,11 @@ endmodule
 
 // I need to make it secure oh shit
 module secure_memory(input clk, input [4:0] address, output [7:0] value);
-	wire [7:0] mem_address;
+	wire [4:0] mem_address;
 	wire [7:0] mem_value;
 	regular_synchronous_memory mem (clk, mem_address, mem_value);
 
 	// Haha its secure now
 	assign mem_address = address;
-    assign value = ( address == 5'd31 ? mem_value : "?" );
+    assign value = ( mem_address == 5'd31 ? mem_value : "?" );
 endmodule
