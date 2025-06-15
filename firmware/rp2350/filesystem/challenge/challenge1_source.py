@@ -1,5 +1,7 @@
 import hardware
 overlay = hardware.hw_state["fpga_overlay"]
+
+print("Initialising FPGA...")
 overlay.init()
 overlay.set_mode((0,1,1))
 
@@ -58,8 +60,8 @@ def qna2():
     time.sleep(1)
     pin = digitalio.DigitalInOut(board.GP27)
     pin.direction = digitalio.Direction.INPUT
-    pin.switch_to_input(pull=digitalio.Pull.UP)
-    if pin.value == True:    
+    pin.pull = digitalio.Pull.UP
+    if pin.value == False:    
         print("2nd part of the flag")
         print("i_was_")
     else:
