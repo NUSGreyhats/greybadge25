@@ -37,11 +37,16 @@ def menu_layout(hw_state, text_in):
     #text_area.x = 0
     text_area.y = 15
     
-    text_group = displayio.Group(scale=2)
+    direction = label.Label(terminalio.FONT, text="< >  A/B", color=0xFFFF00,
+                            anchor_point=(0.5,0.5), anchored_position=(0,0))
+    direction.y = 50
     
+    text_group = displayio.Group(scale=2)
     text_group.append(header_text_area) 
     text_group.append(text_area) 
+    text_group.append(direction) 
     main.append(text_group)
+    
     text_group.x = 120 
     text_group.y = 120
 
