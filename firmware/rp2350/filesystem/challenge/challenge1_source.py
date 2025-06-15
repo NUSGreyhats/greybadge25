@@ -1,6 +1,7 @@
 import hardware
 overlay = hardware.hw_state["fpga_overlay"]
 
+hardware.display_text(hardware.hw_state, "CTF Mode")
 print("Initialising FPGA...")
 overlay.init()
 overlay.set_mode((0,1,1))
