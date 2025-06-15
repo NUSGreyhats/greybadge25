@@ -54,7 +54,6 @@ module top(
         .value(chall_secmem_value)
     );
     assign chall_secmem_address = interconnect[4:0];
-    assign pmod_j2 = chall_secmem_value;
     /// UART ////////////////////////////////////////////////////////////
     parameter DBITS = 8;
     parameter UART_FRAME_SIZE = 18;
@@ -100,22 +99,14 @@ module top(
             cat_status <= 8'b11111111;
         end
     end 
+    assign rx = (mode == MODE_UART ? interconnect[0] : 1'bz);
     //////////////////////////////////////////////////////////////
 
     //// Shooting Cats /////////////////////////////////////////////////
     parameter MODE_BUTTON = 3'b000;
     parameter MODE_UART = 3'b011;
     parameter MODE_CHALL_SECURE_MEM = 3'b010;
-
-    // Combinational Logic
-    reg [7:0] wire_led;
-    reg [7:0] wire_interconnect;
-    reg [7:0] wire_pmod_j1;
-    reg [7:0] wire_pmod_j2;
-    // always @ (*) begin
-    //     wire_pmod_j1 = chall_secmem_value;
-    // end
-    // assign pmod_j1 = wire_pmod_j1;
+    parameter MODE_PASSTHROUGH = 3'b001;
 
     wire [4:0] btn_out = btn;
     assign led = (mode == MODE_UART ?( 
@@ -125,15 +116,19 @@ module top(
             (chall_shootingflags_leds & pwm_bulk_out) | ~cat_status
         ) :
         0
-    ); // & cat_status;
-
+    ); 
 
     //assign interconnect[7:5] = 3'bxxx;
     wire [2:0] mode = interconnect[7:5];
     assign interconnect[4:0] = (
         mode == MODE_UART ? {3'bzzz, tx, 1'bz} : // this line causing button 0 to not enable, also tx not working
         mode == MODE_BUTTON ? {btn_out} : 
+        //mode == MODE_PASSTHROUGH ? {1'bz, pmod_j2[3:0]} : 
         5'bzzzzz
     );
-    assign rx = (mode == MODE_UART ? interconnect[0] : 1'bz);
+    assign pmod_j2 = (
+        mode == MODE_CHALL_SECURE_MEM ? chall_secmem_value : 
+        //mode == MODE_PASSTHROUGH ? {interconnect[3:0], 4'bzzzz}: 
+        8'bzzzzzzzz
+    );
 endmodule
