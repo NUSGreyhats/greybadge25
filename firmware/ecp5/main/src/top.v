@@ -103,14 +103,12 @@ module top(
     always @ (posedge clk) begin
         // case (rx_out[8*(1)-1:8*(0)]) 
         //     UART_MODE_SHOOTING_FLAGS: begin if (rx_out[8*(3)-1:8*(2)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
-                cat_status  <= rx_out[8*2-1:8*1];
+                if (rx_out[23:16] >= 65 && rx_out[23:16] <= 65+8) begin
+                    cat_status[rx_out[23:16] - 65] <= 0;
+                end
                 if (rx_out[8*2-1:8*1] == "`") begin // rx_out[23:16] == "`" didnt work huh
                     cat_status  <= 8'b11111111;
-                end 
-                    
-                // else if (rx_out[23:16] >= 65) begin
-                //     cat_status[rx_out[23:16] - 65] <= 0;
-                // end
+                end  
         //     end end
         // endcase
     end 
