@@ -53,7 +53,7 @@ module top(
         .address(chall_secmem_address), 
         .value(chall_secmem_value)
     );
-    assign chall_secmem_address = interconnect[4:0];
+
     /// UART ////////////////////////////////////////////////////////////
     parameter DBITS = 8;
     parameter UART_FRAME_SIZE = 18;
@@ -64,12 +64,15 @@ module top(
     wire tx;
     wire [UART_FRAME_SIZE*DBITS-1:0] rx_out;
     wire rx_full, rx_empty;
+    wire tx_trigger;
     // Complete UART Core
     uart_top 
         #(
             .FIFO_IN_SIZE(UART_FRAME_SIZE),
             .FIFO_OUT_SIZE(UART_FRAME_SIZE),
-            .FIFO_OUT_SIZE_EXP(32)
+            .FIFO_OUT_SIZE_EXP(32), 
+            .BR_LIMIT(672), 
+            .BR_BITS(10)
         ) 
         UART_UNIT
         (
@@ -83,24 +86,45 @@ module top(
             .rx_empty(rx_empty),
             .rx_out(rx_out),
             
-            .tx_trigger(~btn[3]),
-            .tx_in({8'h7b, 8'h68, 8'h69, 8'h5f, 8'h69, 8'h27, 8'h6d, 8'h5f, 8'h79, 8'h6f, 8'h75, 8'h72, 8'h5f, 8'h61, 8'h72, 8'h6d, 8'h79, 8'h7d})
+            .tx_trigger(tx_trigger),
+            .tx_in(flag)
         );
 
+
+    
+    /// UART Controller ////////////////////////////////////////////////////////////
+    assign tx_trigger = ~btn[3];
+    // UART Commands 
+    parameter UART_MODE_SHOOTING_FLAGS = 65; //"A";
+    parameter UART_MODE_AES_KEY_STORE  = 66; //"B";
+    wire [UART_FRAME_SIZE*DBITS-1:0] flag = {8'h7b, 8'h68, 8'h69, 8'h5f, 8'h69, 8'h27, 8'h6d, 8'h5f, 8'h79, 8'h6f, 8'h75, 8'h72, 8'h5f, 8'h61, 8'h72, 8'h6d, 8'h79, 8'h7d};
     reg [7:0] cat_status = 8'b11111111;
+
     always @ (posedge clk) begin
-        if (rx_out[7:0] <= 65+7 && rx_out[7:0] >= 65) begin
-            cat_status[rx_out[7:0]-65] <= 0;
-        end
-        if (rx_out[7:0] <= 97+7 && rx_out[7:0] >= 97) begin
-            cat_status[rx_out[7:0]-97] <= 1;
-        end
-        if (rx_out[7:0] == 96) begin // clear all
-            cat_status <= 8'b11111111;
-        end
+        case (rx_out[8*(1)-1:8*(0)]) 
+            UART_MODE_SHOOTING_FLAGS: begin if (rx_out[8*(3)-1:8*(2)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
+                if (rx_out[23:16] == 96) begin
+                    cat_status  <= 8'b11111111;
+                end else if (rx_out[23:16] >= 65) begin
+                    cat_status[rx_out[23:16] - 65] <= 0;
+                end
+            end end
+        endcase
     end 
-    assign rx = (mode == MODE_UART ? interconnect[0] : 1'bz);
+    assign rx = (mode == MODE_UART ? interconnect[0] : 1'b1);
     //////////////////////////////////////////////////////////////
+
+    wire[127:0] in     = 128'h00112233445566778899aabbccddeeff; // Plain Text example
+    wire[127:0] key128 = 128'h000102030405060708090a0b0c0d0e0f; // 128bit key
+    wire[191:0] key192 = 192'h000102030405060708090a0b0c0d0e0f1011121314151617; // 192bit key
+    wire[255:0] key256 = 256'h000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f; // 256bit key
+
+    wire[127:0] encrypted128; // This wire will contain the encrypted text using the 128bit key
+    wire[127:0] encrypted192; // This wire will contain the encrypted text using the 192bit key
+    wire[127:0] encrypted256; // This wire will contain the encrypted text using the 256bit key
+
+    // The encryption module uses AES128 by default
+    AES_Encrypt a(in,key128,encrypted128);
 
     //// Shooting Cats /////////////////////////////////////////////////
     parameter MODE_BUTTON = 3'b000;
@@ -109,26 +133,30 @@ module top(
     parameter MODE_PASSTHROUGH = 3'b001;
 
     wire [4:0] btn_out = btn;
-    assign led = (mode == MODE_UART ?( 
+    assign led = (        
+        ~btn[3] ? (interconnect & pwm_bulk_out) :
+        mode == MODE_UART ?( 
             //~btn[0] ? btn : 
-            ~btn[1] ? (rx_out[7:0] & pwm_bulk_out) : // Debugging
-            ~btn[3] ? (interconnect & pwm_bulk_out) : 
+            ~btn[1] ? ((rx_out[8*1-1:8*0]) & pwm_bulk_out) : // Debugging
+            ~btn[0] ? ((rx_out[8*2-1:8*1]) & pwm_bulk_out) : // Debugging
             (chall_shootingflags_leds & pwm_bulk_out) | ~cat_status
-        ) :
+        ) : 
         0
     ); 
 
-    //assign interconnect[7:5] = 3'bxxx;
     wire [2:0] mode = interconnect[7:5];
     assign interconnect[4:0] = (
-        mode == MODE_UART ? {3'bzzz, tx, 1'bz} : // this line causing button 0 to not enable, also tx not working
+        //mode == MODE_UART ? {3'bzzz, tx, 1'bz} : // this line causing button 0 to not enable, also tx not working
         mode == MODE_BUTTON ? {btn_out} : 
-        //mode == MODE_PASSTHROUGH ? {1'bz, pmod_j2[3:0]} : 
+        //mode == MODE_PASSTHROUGH ? 5'bzzzzz : 
         5'bzzzzz
     );
+    assign chall_secmem_address = interconnect[4:0];
+    
     assign pmod_j2 = (
         mode == MODE_CHALL_SECURE_MEM ? chall_secmem_value : 
-        //mode == MODE_PASSTHROUGH ? {interconnect[3:0], 4'bzzzz}: 
+        //mode == MODE_PASSTHROUGH ? {interconnect[3:0], interconnect[3:0]}: 
         8'bzzzzzzzz
     );
+    
 endmodule

@@ -3,7 +3,7 @@ PROJ=main
 all: ${PROJ}.bit
 
 tmp.v: 
-	cat src/*.v src/*/*.v > tmp.v
+	cat src/*.v src/*/*.v src/*/*/*.v > tmp.v
 
 %.json: tmp.v
 	yosys -p "synth_ecp5 -top top -json $@" $<
