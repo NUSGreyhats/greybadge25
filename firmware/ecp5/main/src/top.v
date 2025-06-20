@@ -147,7 +147,7 @@ module top(
 
     wire [2:0] mode = interconnect[7:5];
     assign interconnect[4:0] = (
-        //mode == MODE_UART ? {3'bzzz, tx, 1'bz} : // this line causing button 0 to not enable, also tx not working
+        mode == MODE_UART ? {3'bzzz, tx, 1'bz} : // this line causing button 0 to not enable, also tx not working
         mode == MODE_BUTTON ? {btn_out} : 
         //mode == MODE_PASSTHROUGH ? 5'bzzzzz : 
         5'bzzzzz
