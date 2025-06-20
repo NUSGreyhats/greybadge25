@@ -122,12 +122,13 @@ def live_firing(hw_state):
             time.sleep(1)
             
             # Lazer Attack
-            target = random.randint(0, 3)
+            target = random.randint(0, 7)
             #for i in range(target, target+4): u.write(chr(ord("A")+target))
             load_gif_oneshot_selective(display_bus, "/apps/face/expressions/greycat_lazer_attack.gif", [5])
             buzzer.frequency = 329
             buzzer.duty_cycle = 2**15 # BUZZ_ON
-            u.write(chr(ord("A")+target))
+            u.write("A" + chr(ord("A")+target) + "A")
+    
             time.sleep(1)
             buzzer.duty_cycle = 0 # hardware.BUZZ_OFF
             
@@ -135,7 +136,7 @@ def live_firing(hw_state):
             load_gif_oneshot_selective(display_bus, "/apps/face/expressions/greycat_lazer_attack.gif", range(4, 0, -1))
             load_gif_oneshot_reverse(display_bus, "/apps/face/expressions/greycat_angy.gif")
             time.sleep(0.5)
-            u.write("`")
+            u.write(b"A`A")
             time.sleep(1)
             continue
         load_gif_oneshot(display_bus, expression)
