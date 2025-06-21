@@ -2,6 +2,7 @@ module top(
     input clk_ext, input [4:0] btn, output [7:0] led, 
     inout [7:0] interconnect, 
     inout [7:0] pmod_j1, inout [7:0] pmod_j2,
+    inout [4:0] s // secret pins
 );
     /// Internal Configuration ///////////////////////////////////////////
     wire          clk_int;        // Internal OSCILLATOR clock
@@ -58,7 +59,19 @@ module top(
         .value(chall_secmem_value)
     );
 
-    /// Chall: UARTProcessor /////////////////////////////////////////////////////
+    /// Chall: CatCore /////////////////////////////////////////////////////
+    // Copying XBOX vulnerability
+    wire catcore_devmode_enable = s[0]; //cs
+    reg catcore_devmode = 0;
+    reg catcore_devmode_counter = 0;
+    always @ (posedge clk) begin
+        if (catcore_devmode_counter == 0 && catcore_devmode_enable == 0) begin
+            catcore_devmode <= 1;
+        end
+        catcore_devmode_counter <= 1;
+    end
+
+
 
     /// UART ////////////////////////////////////////////////////////////
     parameter DBITS = 8;
@@ -185,6 +198,7 @@ module top(
     wire [4:0] btn_out = btn;
     assign led = (        
         ~btn[3] ? (interconnect & pwm_bulk_out) :
+        ~btn[4] ? (s & pwm_bulk_out) :
         mode == MODE_UART ?( 
             //~btn[0] ? btn : 
             ~btn[1] ? ((rx_out[8*1-1:8*0]) & pwm_bulk_out) : // Debugging
