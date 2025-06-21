@@ -115,7 +115,7 @@ module top(
     );
     // shitty buffer
     always @ (posedge clk) begin
-        aes_enc_out <= aes_enc_out_w;
+        aes_enc_out <= {8'h7b, 8'h68, 8'h69, 8'h5f, 8'h69, 8'h27, 8'h6d, 8'h5f, 8'h79, 8'h6f, 8'h75, 8'h72, 8'h5f, 8'h61, 8'h72, 8'h6d} ;//aes_enc_out_w;
     end
 
     /// UART Controller ////////////////////////////////////////////////////////////
@@ -123,11 +123,9 @@ module top(
     assign tx_trigger = ~btn[3] | tx_controller_send;
     // UART Commands 
     parameter UART_MODE_SHOOTING_FLAGS      = 65; //"A";
-    parameter UART_MODE_HORNET_REVENGE_KEY  = 64; //"A"-1;
+    parameter UART_MODE_SEND_TX             = 64; //"A"-1
     parameter UART_MODE_AES_KEY_STORE       = 66; //"B";
     parameter UART_MODE_AES_PLAINTEXT_STORE = 67; //"C";
-    parameter UART_MODE_AES_ENCRYPTION_OUT  = 68; //"D";
-    parameter UART_MODE_AES_DECRYPTION_OUT  = 69; //"E";
     
     wire [UART_FRAME_SIZE*DBITS-1:0] flag = {8'h7b, 8'h68, 8'h69, 8'h5f, 8'h69, 8'h27, 8'h6d, 8'h5f, 8'h79, 8'h6f, 8'h75, 8'h72, 8'h5f, 8'h61, 8'h72, 8'h6d, 8'h79, 8'h7d};
     reg  [UART_FRAME_SIZE*DBITS-1:0] uart_tx_out = {8'h7b, 8'h68, 8'h69, 8'h5f, 8'h69, 8'h27, 8'h6d, 8'h5f, 8'h79, 8'h6f, 8'h75, 8'h72, 8'h5f, 8'h61, 8'h72, 8'h6d, 8'h79, 8'h7d};
@@ -146,10 +144,15 @@ module top(
                 end  
             end end
             /// Extra Code ///////////////////////////////////////////////////////////////////////////
-            UART_MODE_HORNET_REVENGE_KEY: begin if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
+            UART_MODE_SEND_TX: begin if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
                 // enable tx
                 tx_controller_send <= 1;
-                uart_tx_out <= flag;
+                case (rx_out[8*2-1:8*1]) 
+                    "A": begin uart_tx_out <= flag; end// Hornet Revenge Flag
+                    "B": begin uart_tx_out <= aes_enc_out; end// Hornet Revenge Flag
+                    "C": begin uart_tx_out <= aes_dec_out; end// Hornet Revenge Flag
+                    default begin uart_tx_out <= "??????????????????"; end
+                endcase
             end end
             UART_MODE_AES_KEY_STORE: begin if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
                 aes128_key <= rx_out[8*(17)-1:8*(1)];
@@ -157,14 +160,6 @@ module top(
             UART_MODE_AES_PLAINTEXT_STORE: begin if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
                 aes128_in <= rx_out[8*(17)-1:8*(1)];
                 aes_enc_start <= 1;
-            end end
-            UART_MODE_AES_ENCRYPTION_OUT: begin if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
-                tx_controller_send <= 1;
-                uart_tx_out <= aes_enc_out;
-            end end
-            UART_MODE_AES_DECRYPTION_OUT: begin if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
-                tx_controller_send <= 1;
-                uart_tx_out <= aes_dec_out;
             end end
             /// Extra Code ///////////////////////////////////////////////////////////////////////////
         endcase
