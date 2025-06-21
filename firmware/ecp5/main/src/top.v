@@ -57,7 +57,8 @@ module top(
     /// UART ////////////////////////////////////////////////////////////
     parameter DBITS = 8;
     parameter UART_FRAME_SIZE = 18;
-
+    reg  [UART_FRAME_SIZE*DBITS-1:0] uart_tx_out = {8'h7b, 8'h68, 8'h69, 8'h5f, 8'h69, 8'h27, 8'h6d, 8'h5f, 8'h79, 8'h6f, 8'h75, 8'h72, 8'h5f, 8'h61, 8'h72, 8'h6d, 8'h79, 8'h7d};
+    
     wire reset = ~btn[2];
 
     wire rx; //d 
@@ -87,44 +88,54 @@ module top(
             .rx_out(rx_out),
             
             .tx_trigger(tx_trigger),
-            .tx_in(flag)
+            .tx_in(uart_tx_out)
         );
 
     //////////////////////////////////////////////////////////////
-    // wire[127:0] in     = 128'h00112233445566778899aabbccddeeff; // Plain Text example
-    // wire[127:0] key128 = 128'h000102030405060708090a0b0c0d0e0f; // 128bit key
-    reg [127:0] aes128_in;
-    reg [127:0] aes128_key;
-    // wire[191:0] key192 = 192'h000102030405060708090a0b0c0d0e0f1011121314151617; // 192bit key
-    // wire[255:0] key256 = 256'h000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f; // 256bit key
-
-    wire[127:0] encrypted128; // This wire will contain the encrypted text using the 128bit key
-    // wire[127:0] encrypted192; // This wire will contain the encrypted text using the 192bit key
-    // wire[127:0] encrypted256; // This wire will contain the encrypted text using the 256bit key
+    reg aes_enc_reset_n = 1; // not reset
+    reg aes_enc_start = 1; // not reset
+    reg [127:0] aes_in;
+    reg [127:0] aes_key;
+    wire[127:0] aes_enc_out_w; // This wire will contain the encrypted text using the 128bit key
+    reg [127:0] aes_enc_out; // This wire will contain the encrypted text using the 128bit key
+    wire aes_enc_valid;
+    wire[127:0] aes_dec_out;
 
     // The encryption module uses AES128 by default
-    AES_Encrypt a(aes128_in,aes128_key,encrypted128);
-    
+    Encryption enc(
+        .clock(clk),
+        .reset_n(aes_enc_reset_n),
+        .start(aes_enc_start),
+
+        .key(aes_key),
+        .plain_text(aes_in),
+
+        .enc_data(aes_enc_out_w),
+        .valid_flag(aes_enc_valid)
+    );
+    // shitty buffer
+    always @ (posedge clk) begin
+        aes_enc_out <= aes_enc_out_w;
+    end
+
     /// UART Controller ////////////////////////////////////////////////////////////
     reg tx_controller_send = 0;
-    // wire tx_trigger_mode;
-    // pos_edge_det ped0 (  .sig(tx_controller_send),
-    // 					 .clk(clk),
- 	// 		      		 .pe(tx_trigger_mode))
     assign tx_trigger = ~btn[3] | tx_controller_send;
     // UART Commands 
     parameter UART_MODE_SHOOTING_FLAGS      = 65; //"A";
     parameter UART_MODE_HORNET_REVENGE_KEY  = 64; //"A"-1;
     parameter UART_MODE_AES_KEY_STORE       = 66; //"B";
     parameter UART_MODE_AES_PLAINTEXT_STORE = 67; //"C";
-    parameter UART_MODE_AES_ENCRYPTION_OUT  = 68; //"C";
-    parameter UART_MODE_AES_DECRYPTION_OUT  = 69; //"C";
+    parameter UART_MODE_AES_ENCRYPTION_OUT  = 68; //"D";
+    parameter UART_MODE_AES_DECRYPTION_OUT  = 69; //"E";
     
     wire [UART_FRAME_SIZE*DBITS-1:0] flag = {8'h7b, 8'h68, 8'h69, 8'h5f, 8'h69, 8'h27, 8'h6d, 8'h5f, 8'h79, 8'h6f, 8'h75, 8'h72, 8'h5f, 8'h61, 8'h72, 8'h6d, 8'h79, 8'h7d};
+    reg  [UART_FRAME_SIZE*DBITS-1:0] uart_tx_out = {8'h7b, 8'h68, 8'h69, 8'h5f, 8'h69, 8'h27, 8'h6d, 8'h5f, 8'h79, 8'h6f, 8'h75, 8'h72, 8'h5f, 8'h61, 8'h72, 8'h6d, 8'h79, 8'h7d};
     reg [7:0] cat_status = 8'b11111111;
 
     always @ (posedge clk) begin
         tx_controller_send <= 0;
+        aes_enc_start <= 0 ;
         case (rx_out[8*(1)-1:8*(0)]) 
             UART_MODE_SHOOTING_FLAGS: begin if (rx_out[8*(3)-1:8*(2)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
                 if (rx_out[8*2-1:8*1] >= 65 && rx_out[8*2-1:8*1] <= 65+8) begin
@@ -138,15 +149,22 @@ module top(
             UART_MODE_HORNET_REVENGE_KEY: begin if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
                 // enable tx
                 tx_controller_send <= 1;
+                uart_tx_out <= flag;
             end end
             UART_MODE_AES_KEY_STORE: begin if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
                 aes128_key <= rx_out[8*(17)-1:8*(1)];
             end end
             UART_MODE_AES_PLAINTEXT_STORE: begin if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
                 aes128_in <= rx_out[8*(17)-1:8*(1)];
+                aes_enc_start <= 1;
             end end
             UART_MODE_AES_ENCRYPTION_OUT: begin if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
                 tx_controller_send <= 1;
+                uart_tx_out <= aes_enc_out;
+            end end
+            UART_MODE_AES_DECRYPTION_OUT: begin if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
+                tx_controller_send <= 1;
+                uart_tx_out <= aes_dec_out;
             end end
             /// Extra Code ///////////////////////////////////////////////////////////////////////////
         endcase
