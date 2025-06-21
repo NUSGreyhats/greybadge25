@@ -112,29 +112,48 @@ module top(
 
     //////////////////////////////////////////////////////////////
     reg aes_enc_reset_n = 1; // not reset
-    reg aes_enc_start = 1; // not reset
+    reg aes_enc_start = 0; // not reset
     reg [127:0] aes_in;
     reg [127:0] aes_key;
-    wire[127:0] aes_enc_out_w; // This wire will contain the encrypted text using the 128bit key
-    reg [127:0] aes_enc_out; // This wire will contain the encrypted text using the 128bit key
+    wire[127:0] aes_enc_out_w;
+    reg [127:0] aes_enc_out; 
     wire aes_enc_valid;
-    wire[127:0] aes_dec_out;
+    wire[127:0] aes_dec_out_w;
+    reg [127:0] aes_dec_out;  
+    wire aes_dec_valid;
 
     // The encryption module uses AES128 by default
-    Encryption enc(
-        .clock(clk),
-        .reset_n(aes_enc_reset_n),
-        .start(aes_enc_start),
+    aes enc(
+        .clk(clk),
+        .nreset(aes_enc_reset_n),
+        .data_v_i(aes_enc_start),
+        
+        .key_i(aes_key),
+        .data_i(aes_in),
 
-        .key(aes_key),
-        .plain_text(aes_in),
-
-        .enc_data(aes_enc_out_w),
-        .valid_flag(aes_enc_valid)
+        .res_o(aes_enc_out_w),
+        .res_v_o(aes_enc_valid)
     );
-    // shitty buffer
+
+    iaes dec(
+        .clk(clk),
+        .nreset(aes_enc_reset_n),
+        .data_v_i(aes_enc_start),
+        
+        .key_i(aes_key),
+        .data_i(aes_in),
+
+        .res_o(aes_dec_out_w),
+        .res_v_o(aes_dec_valid)
+    );
+
     always @ (posedge clk) begin
-        aes_enc_out <= {8'h7b, 8'h68, 8'h69, 8'h5f, 8'h69, 8'h27, 8'h6d, 8'h5f, 8'h79, 8'h6f, 8'h75, 8'h72, 8'h5f, 8'h61, 8'h72, 8'h6d} ;//aes_enc_out_w;
+        if (aes_enc_valid) begin
+            aes_enc_out <= aes_enc_out_w;
+        end
+        if (aes_dec_valid) begin
+            aes_dec_out <= aes_dec_out_w;
+        end
     end
 
     /// UART Controller ////////////////////////////////////////////////////////////
@@ -173,7 +192,10 @@ module top(
                             uart_tx_out <= "fun{smd_skillz}"; 
                         end
                     end // Hornet Revenge Flag
-                    "C": begin uart_tx_out <= aes_dec_out; end // Hornet Revenge Flag
+                    "C": begin uart_tx_out <= aes_enc_out_w; end 
+                    "D": begin uart_tx_out <= aes_enc_out; end 
+                    "E": begin uart_tx_out <= aes_dec_out_w; end 
+                    "F": begin uart_tx_out <= aes_dec_out; end 
                     default begin uart_tx_out <= "??????????????????"; end
                 endcase
             end end
