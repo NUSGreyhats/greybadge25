@@ -13,6 +13,10 @@ module top(
 
     localparam CLK_FREQ = 103_340_000; // EXT CLK
 
+    // External Oscillator Easter egg ///////////////////////
+    reg clk_ext_soldered = 0;
+    always @ (posedge clk_ext) begin clk_ext_soldered <= 1; end
+
     /// PWM for Generic Control //////////////////////////////////////////
     reg [31:0] counter_pwm;
     reg pwm_out = 0;
@@ -53,6 +57,8 @@ module top(
         .address(chall_secmem_address), 
         .value(chall_secmem_value)
     );
+
+    /// Chall: UARTProcessor /////////////////////////////////////////////////////
 
     /// UART ////////////////////////////////////////////////////////////
     parameter DBITS = 8;
@@ -139,7 +145,7 @@ module top(
                 if (rx_out[8*2-1:8*1] >= 65 && rx_out[8*2-1:8*1] <= 65+8) begin
                     cat_status[rx_out[8*2-1:8*1] - 65] <= 0;
                 end
-                if (rx_out[8*2-1:8*1] == "`") begin // rx_out[23:16] == "`" didnt work huh
+                if (rx_out[8*2-1:8*1] == "`") begin 
                     cat_status  <= 8'b11111111;
                 end  
             end end
@@ -148,9 +154,13 @@ module top(
                 // enable tx
                 tx_controller_send <= 1;
                 case (rx_out[8*2-1:8*1]) 
-                    "A": begin uart_tx_out <= flag; end// Hornet Revenge Flag
-                    "B": begin uart_tx_out <= aes_enc_out; end// Hornet Revenge Flag
-                    "C": begin uart_tx_out <= aes_dec_out; end// Hornet Revenge Flag
+                    "A": begin uart_tx_out <= flag; end // Hornet Revenge Flag
+                    "B": begin 
+                        if (clk_ext_soldered) begin
+                            uart_tx_out <= "fun{smd_skillz}"; 
+                        end
+                    end // Hornet Revenge Flag
+                    "C": begin uart_tx_out <= aes_dec_out; end // Hornet Revenge Flag
                     default begin uart_tx_out <= "??????????????????"; end
                 endcase
             end end
@@ -165,8 +175,6 @@ module top(
         endcase
     end 
     assign rx = (mode == MODE_UART ? interconnect[0] : 1'b1);
-
-    //
 
     //// I/O Configuration /////////////////////////////////////////////////
     parameter MODE_BUTTON = 3'b000;
