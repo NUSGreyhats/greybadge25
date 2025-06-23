@@ -198,7 +198,7 @@ module top(
                 end
             end
             CATCORE_HYPER_STAGE_DECODE: begin
-                catcore_hyper_instruction_decrypted <= catcore_hyper_instruction_in;
+                catcore_hyper_instruction_decrypted <= catcore_hyper_instruction_in ^ "1234567890123456";
                 catcore_hyper_stage <= CATCORE_HYPER_STAGE_RUN;
             end
             CATCORE_HYPER_STAGE_RUN: begin
@@ -207,6 +207,7 @@ module top(
         endcase
     endtask
 
+    // catcore devmode
 
     //////////////////////////////////////////////////////////////
     reg aes_enc_reset_n = 1; // not reset
@@ -365,6 +366,11 @@ module top(
     );
     assign chall_secmem_address = interconnect[4:0];
     
+
+    assign pmod_j1 = (
+        (catcore_devmode & mode == MODE_UART) ? catcore_hyper_stage :
+        8'bzzzzzzzz
+    ); 
     assign pmod_j2 = (
         mode == MODE_CHALL_SECURE_MEM ? chall_secmem_value : 
         //mode == MODE_PASSTHROUGH ? {interconnect[3:0], interconnect[3:0]}: 
