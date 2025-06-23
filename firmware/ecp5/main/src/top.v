@@ -18,13 +18,15 @@ module top(
 
     /// PWM for Generic Control //////////////////////////////////////////
     reg [31:0] counter_pwm;
+    reg [31:0] pwm_on_cycles = 1;
+    reg [31:0] pwm_total_cycles = 4;
     reg pwm_out = 0;
     always @ (posedge clk) begin
         counter_pwm <= counter_pwm + 1;
-        if (counter_pwm == 1) begin
+        if (counter_pwm == pwm_on_cycles) begin
             pwm_out <= 0;
             //counter_pwm <= 0;
-        end else if (counter_pwm == 4) begin
+        end else if (counter_pwm >= pwm_total_cycles) begin
             pwm_out <= 1;
             counter_pwm <= 0;
         end
@@ -144,16 +146,22 @@ module top(
     reg [127:0] catcore_hyper_instruction;
     reg [127:0] catcore_hyper_instruction_decrypted; 
 
+    parameter CATCORE_HYPER_INSTR_DEV  = "@";
     parameter CATCORE_HYPER_INSTR_FLAG = "A";
     parameter CATCORE_HYPER_INSTR_LED  = "B";
     task catcore_hyper_instruction_decoder(input [127:0] instr);
         if (instr[8*(16)-1:8*(15)] == instr[8*(1)-1:8*(0)]) begin
             case (instr[8*(1)-1:8*(0)])
+                CATCORE_HYPER_INSTR_DEV: begin
+                    tx_controller_send <= 1;
+                    uart_tx_out <= "welcome to devmode";
+                end
                 CATCORE_HYPER_INSTR_FLAG: begin
                     tx_controller_send <= 1;
                     uart_tx_out <= "grey{lmao_sandbox}";
                 end
                 CATCORE_HYPER_INSTR_LED: begin
+                    // Full Control
                     if (rx_out[8*(15)-1:8*(14)] == "A") begin
                         catcore_led_inuse <= 1;
                     end else if (rx_out[8*(15)-1:8*(14)] == "B") begin
@@ -161,12 +169,12 @@ module top(
                     end 
 
                     // LED Control
-                    if (rx_out[8*-1:8*1] >= 65 && rx_out[8*2-1:8*1] <= 65+8) begin
-                        catcore_led_register[rx_out[8*2-1:8*1] - 65] <= 0;
-                    end
-                    if (rx_out[8*-1:8*1] >= 97 && rx_out[8*2-1:8*1] <= 97+8) begin
-                        catcore_led_register[rx_out[8*2-1:8*1] - 97] <= 1;
-                    end
+                    catcore_led_register <= rx_out[8*14-1:8*13];
+
+                    // PWM Control 
+                    pwm_on_cycles    <= rx_out[8*13-1:8*12];                    
+                    pwm_total_cycles <= rx_out[8*12-1:8*11];
+
                     tx_controller_send <= 1;
                     uart_tx_out <= "led set";
                 end
@@ -337,8 +345,8 @@ module top(
     wire [4:0] btn_out = btn;
     assign led = (        
         (catcore_devmode & ~btn[3]) ? (interconnect & pwm_bulk_out) :
-        (catcore_devmode & ~btn[4])? ({catcore_hyper_start, catcore_hyper_start_trigger, catcore_hyper_stage} & pwm_bulk_out) :
-        catcore_led_inuse ? catcore_led_registers:
+        (catcore_devmode & ~btn[4])? (s & pwm_bulk_out) :
+        catcore_led_inuse ? (catcore_led_register & pwm_bulk_out):
         mode == MODE_UART ?( 
             //~btn[0] ? btn : 
             ~btn[1] ? ((rx_out[8*1-1:8*0]) & pwm_bulk_out) : // Debugging
