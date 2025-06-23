@@ -167,10 +167,12 @@ module top(
                     if (rx_out[8*-1:8*1] >= 97 && rx_out[8*2-1:8*1] <= 97+8) begin
                         catcore_led_register[rx_out[8*2-1:8*1] - 97] <= 1;
                     end
+                    tx_controller_send <= 1;
+                    uart_tx_out <= "led set";
                 end
                 default: begin
                     tx_controller_send <= 1;
-                    uart_tx_out <= "hyper_core_running";
+                    uart_tx_out <= "invalid instruct";
                 end
             endcase
             // Send Flag
@@ -189,10 +191,7 @@ module top(
             end
             CATCORE_HYPER_STAGE_DECODE: begin
                 catcore_hyper_instruction_decrypted <= catcore_hyper_instruction_in;
-                // catcore_hyper_stage <= CATCORE_HYPER_STAGE_RUN;
-                catcore_hyper_stage <= CATCORE_HYPER_STAGE_IDLE;
-                tx_controller_send <= 1;
-                uart_tx_out <= "hyper_core_running";
+                catcore_hyper_stage <= CATCORE_HYPER_STAGE_RUN;
             end
             CATCORE_HYPER_STAGE_RUN: begin
                 catcore_hyper_instruction_decoder(catcore_hyper_instruction_decrypted);
