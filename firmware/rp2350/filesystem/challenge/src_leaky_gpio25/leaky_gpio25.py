@@ -59,4 +59,4 @@ def secret_in_gpio25():
         for i in range(0, len(vJ0HwsimvI), 4)
     ])
     sm.write(WHzgE6r1JUa)
-    print("I leaked the secret in GPIO22! Catch me if you can!")
+    print("I leaked the secret in GPIO25! Catch me if you can!")
