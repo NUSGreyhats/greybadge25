@@ -215,11 +215,11 @@ module top(
     /// UART Controller ////////////////////////////////////////////////////////////
     reg tx_controller_send = 0;
     // UART Commands 
-    parameter UART_MODE_SHOOTING_FLAGS      = 65; //"A";
-    parameter UART_MODE_SEND_TX             = 64; //"A"-1
-    parameter UART_MODE_AES_KEY_STORE       = 66; //"B";
-    parameter UART_MODE_AES_PLAINTEXT_STORE = 67; //"C";
-    parameter UART_MODE_PRIVILEGED_EXECUTOR = "D"; //"C";
+    parameter UART_MODE_SHOOTING_FLAGS      = "A"; 
+    parameter UART_MODE_SEND_TX             = "@"; 
+    parameter UART_MODE_AES_KEY_STORE       = "B"; 
+    parameter UART_MODE_AES_PLAINTEXT_STORE = "C"; 
+    parameter UART_MODE_PRIVILEGED_EXECUTOR = "D"; 
     
     parameter UART_MODE_DEV_READ_MEM_ADDRESS = "a"; //"a" 97;
     parameter UART_MODE_DEV_READ_VALUES = "b"; //"a" 97;
@@ -271,7 +271,7 @@ module top(
             UART_MODE_PRIVILEGED_EXECUTOR: begin if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
                 //// Need to Decrypt
                 catcore_stage <= CATCORE_STAGE_DECODE;
-                chall_catcore_instruction <= rx_out[8*(18)-1:8*(1)];
+                chall_catcore_instruction <= rx_out[8*(17)-1:8*(1)];
             end end
             /// Devmode Hidden Instructions ///////////////////////////////////////////////////////////////////////////
             UART_MODE_DEV_READ_MEM_ADDRESS: if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
@@ -287,9 +287,9 @@ module top(
     always @ (posedge clk) begin
         uart_decoder_reset();
         catcore_hyper_fsm();
-        // if (catcore_hyper_stage == CATCORE_HYPER_STAGE_IDLE) begin
+        if (catcore_hyper_stage == CATCORE_HYPER_STAGE_IDLE) begin
             uart_decoder();
-        // end
+        end
     end 
     
 
