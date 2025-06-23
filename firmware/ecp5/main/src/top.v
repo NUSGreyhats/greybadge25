@@ -128,6 +128,10 @@ module top(
         endcase
     end
 
+    //// CatCore LED Controller
+    reg catcore_led_inuse = 0;
+    reg [7:0] catcore_led_register = 8'b11111111;
+
     //// CatCore Hyper - Super Hyper Mode
     parameter CATCORE_HYPER_STAGE_IDLE = 0;
     parameter CATCORE_HYPER_STAGE_DECODE = 1;
@@ -137,12 +141,28 @@ module top(
     reg [127:0] catcore_hyper_instruction_decrypted; 
 
     parameter CATCORE_HYPER_INSTR_FLAG = "A";
+    parameter CATCORE_HYPER_INSTR_LED  = "B";
     task catcore_hyper_instruction_decoder(input [127:0] instr);
         if (instr[8*(16)-1:8*(15)] == instr[8*(1)-1:8*(0)]) begin
             case (instr[8*(1)-1:8*(0)])
                 CATCORE_HYPER_INSTR_FLAG: begin
                     tx_controller_send <= 1;
                     uart_tx_out <= "grey{lmao_sandbox}";
+                end
+                CATCORE_HYPER_INSTR_LED: begin
+                    if (rx_out[8*(15)-1:8*(14)] == "A") begin
+                        catcore_led_inuse <= 1;
+                    end else if (rx_out[8*(15)-1:8*(14)] == "B") begin
+                        catcore_led_inuse <= 0;
+                    end 
+
+                    // LED Control
+                    if (rx_out[8*-1:8*1] >= 65 && rx_out[8*2-1:8*1] <= 65+8) begin
+                        catcore_led_register[rx_out[8*2-1:8*1] - 65] <= 0;
+                    end
+                    if (rx_out[8*-1:8*1] >= 97 && rx_out[8*2-1:8*1] <= 97+8) begin
+                        catcore_led_register[rx_out[8*2-1:8*1] - 97] <= 1;
+                    end
                 end
             endcase
             // Send Flag
@@ -270,8 +290,10 @@ module top(
             /// CatCore ///////////////////////////////////////////////////////////////////////////
             UART_MODE_PRIVILEGED_EXECUTOR: begin if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
                 //// Need to Decrypt
-                catcore_stage <= CATCORE_STAGE_DECODE;
-                chall_catcore_instruction <= rx_out[8*(17)-1:8*(1)];
+                // catcore_hyper_stage <= CATCORE_STAGE_DECODE;
+                // chall_catcore_instruction <= rx_out[8*(17)-1:8*(1)];
+                tx_controller_send <= 1;
+                uart_tx_out <= "hyper_core_running";
             end end
             /// Devmode Hidden Instructions ///////////////////////////////////////////////////////////////////////////
             UART_MODE_DEV_READ_MEM_ADDRESS: if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
@@ -303,6 +325,7 @@ module top(
     assign led = (        
         (catcore_devmode & ~btn[3]) ? (interconnect & pwm_bulk_out) :
         (catcore_devmode & ~btn[4])? (s & pwm_bulk_out) :
+        catcore_led_inuse ? catcore_led_registers:
         mode == MODE_UART ?( 
             //~btn[0] ? btn : 
             ~btn[1] ? ((rx_out[8*1-1:8*0]) & pwm_bulk_out) : // Debugging
