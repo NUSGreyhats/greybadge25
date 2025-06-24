@@ -258,8 +258,8 @@ module top(
     /// CatCore - UART Controller ////////////////////////////////////////////////////////////
     reg tx_controller_send = 0;
     // UART Commands 
-    parameter UART_MODE_SHOOTING_FLAGS      = "A"; 
     parameter UART_MODE_SEND_TX             = "@"; 
+    parameter UART_MODE_SHOOTING_FLAGS      = "A"; 
     parameter UART_MODE_AES_KEY_STORE       = "B"; 
     parameter UART_MODE_AES_PLAINTEXT_STORE = "C"; 
     parameter UART_MODE_PRIVILEGED_EXECUTOR = "D"; 
@@ -316,8 +316,6 @@ module top(
                 //// Need to Decrypt
                 catcore_hyper_start <= 1;
                 catcore_hyper_instruction_in <= rx_out[8*(17)-1:8*(1)];
-                // tx_controller_send <= 1;
-                // uart_tx_out <= "hyper_core_running";
             end end
             /// Devmode Hidden Instructions ///////////////////////////////////////////////////////////////////////////
             UART_MODE_DEV_READ_MEM_ADDRESS: if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar

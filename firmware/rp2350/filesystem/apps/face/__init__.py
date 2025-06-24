@@ -47,6 +47,7 @@ def face_mode(hw_state):
             break
 
 def face_gif_mode(hw_state):
+    time.sleep(0.5)
     button_a = hw_state["btn_action"][0]
     button_b = hw_state["btn_action"][1]
     display = hw_state["display"]
@@ -81,7 +82,7 @@ def face_gif_mode(hw_state):
             odg = gifio.OnDiskGif("/image/"+filename)
             time.sleep(0.5)
         if fpga_buttons[4].value == False:
-            file_index = (file_index-1) % len(files)
+            file_index = (file_index+1) % len(files)
             filename = files[file_index]
             odg = gifio.OnDiskGif("/image/"+filename)
             time.sleep(0.5)
@@ -105,6 +106,8 @@ def live_firing(hw_state):
     display_bus = hw_state["display_bus"]
     overlay = hw_state["fpga_overlay"]
     buzzer = hw_state["buzzer"]
+
+    play_sound = button_b.value # Press button b to NOT play sound
     
     # Awakening
     #load_gif_oneshot_selective(display_bus, "face/expressions/greycat_awakening.gif", [8])
@@ -126,7 +129,8 @@ def live_firing(hw_state):
             #for i in range(target, target+4): u.write(chr(ord("A")+target))
             load_gif_oneshot_selective(display_bus, "/apps/face/expressions/greycat_lazer_attack.gif", [5])
             buzzer.frequency = 329
-            buzzer.duty_cycle = 2**15 # BUZZ_ON
+            if play_sound:
+                buzzer.duty_cycle = 2**15 # BUZZ_ON
             u.write("A" + chr(ord("A")+target) + "A")
     
             time.sleep(1)

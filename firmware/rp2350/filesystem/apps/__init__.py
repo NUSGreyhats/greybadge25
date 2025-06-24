@@ -6,6 +6,7 @@ import time
 import apps.face
 import apps.brick_game
 import apps.others
+import apps.music
 
 ### Loading Screen ##############################################################
 def display_fpga_loading_menu(hw_state):
@@ -56,7 +57,7 @@ def menu(hw_state):
     
     print("menu")
     curr = 0
-    options = ["Hi I'm Locked In", "Face", "Animation", "Live Firing", "Brick Game", "Controller", "Chall"]
+    options = ["Hi I'm Locked In", "Live Firing", "Animation", "Face", "Music", "Brick Game", "Controller", "Chall"]
     menu_layout(hw_state, options[curr])
     fpga_buttons = hw_state["fpga_overlay"].set_mode_buttons()
     
@@ -84,6 +85,8 @@ def menu(hw_state):
             if options[curr] == "Live Firing":
                 apps.face.live_firing(hw_state)
                 fpga_buttons = hw_state["fpga_overlay"].set_mode_buttons()
+            if options[curr] == "Music":
+                apps.music.music_app(hw_state)
             if options[curr] == "Brick Game":
                 apps.brick_game.brick_game(hw_state)
             if options[curr] == "Controller":

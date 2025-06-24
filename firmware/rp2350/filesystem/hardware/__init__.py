@@ -14,7 +14,8 @@ hw_state = {
     # Buttons
     "btn_action": [hardware.rp2350.button_a, hardware.rp2350.button_b], 
     # Buzzer
-    "buzzer": hardware.rp2350.buzzer, 
+    "buzzer": hardware.rp2350.buzzer,
+    "buzzer_init": hardware.rp2350.buzzer_init,
     # FPGA overlay
     "fpga_overlay": overlay
 }

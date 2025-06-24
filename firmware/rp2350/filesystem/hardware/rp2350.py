@@ -32,8 +32,11 @@ button_a.direction = digitalio.Direction.INPUT
 button_b.direction = digitalio.Direction.INPUT
 
 ### Buzzer
-buzzer = pwmio.PWMOut(board.GP21, variable_frequency=True)
+def buzzer_init():
+    return pwmio.PWMOut(board.GP21, variable_frequency=True)
+buzzer = buzzer_init()
 buzzer.frequency = 440
 #buzzer.duty_cycle = ON
 BUZZ_ON = 2**15
 BUZZ_OFF = 0
+

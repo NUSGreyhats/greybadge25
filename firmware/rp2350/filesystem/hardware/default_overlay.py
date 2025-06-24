@@ -60,6 +60,15 @@ class Overlay:
             return self.existing_state
         self.set_mode(mode_pins)
         
+        ### Hacky Shit to clear pins
+        self.set_mode((0, 0, 0))
+        for p in Overlay.DATA_PINS_NO:
+            d = digitalio.DigitalInOut(p)
+            d.direction = digitalio.Direction.OUTPUT
+            d.value = False
+            d.deinit()
+        
+        self.set_mode(mode_pins)
         uart = busio.UART(board.GP8, board.GP9, baudrate=9600, timeout=0.1)
         self.existing_state = uart
         return uart

@@ -15,6 +15,6 @@ def upload_bitstream(path):
     jtag_rst.value = True
     
     ## Upload Bitsream
-    #ecp5f.flash("test.bit")
+    #ecp5f.flash(path)
     ecp5p.prog(path)
     return jtag_rst
