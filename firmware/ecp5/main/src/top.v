@@ -120,15 +120,17 @@ module top(
     end
 
     //// CatCore Key Manager    
-    reg chall_catcore_address;
+    wire chall_catcore_address = pmod_j1[0];
     reg [127:0] chall_catcore_value;
     always @ (*) begin
-        // case (chall_catcore_address)
-        //     0: catcore_key = 127'b0; // Developer key
-        //     1: chall_catcore_value = "theadminispowers"; // Developer key
-        //     default: catcore_key = 127'b0;
-        // endcase
+        case (chall_catcore_address)
+            0: chall_catcore_value = "developerkeypower"; // Developer key
+            1: chall_catcore_value = "theadminispowers"; // Developer key
+            default: chall_catcore_value = 127'b0;
+        endcase
     end
+
+
 
     //// CatCore LED Controller
     reg catcore_led_inuse = 0;
@@ -198,7 +200,7 @@ module top(
                 end
             end
             CATCORE_HYPER_STAGE_DECODE: begin
-                catcore_hyper_instruction_decrypted <= catcore_hyper_instruction_in ^ "1234567890123456";
+                catcore_hyper_instruction_decrypted <= catcore_hyper_instruction_in;
                 catcore_hyper_stage <= CATCORE_HYPER_STAGE_RUN;
             end
             CATCORE_HYPER_STAGE_RUN: begin
@@ -290,7 +292,7 @@ module top(
                 // enable tx
                 tx_controller_send <= 1;
                 case (rx_out[8*2-1:8*1]) 
-                    "A": begin uart_tx_out <= "{hi_i'm_your_army}"; end // Hornet Revenge Flag
+                    "A": begin uart_tx_out <= "{hi_i'm_your_army}"; end // Hornet Revenge Key
                     "B": begin uart_tx_out <= "??????????????????";
                         if (clk_ext_soldered) begin
                                uart_tx_out <= "fun{smd_skillz}"; 
@@ -319,7 +321,8 @@ module top(
             end end
             /// Devmode Hidden Instructions ///////////////////////////////////////////////////////////////////////////
             UART_MODE_DEV_READ_MEM_ADDRESS: if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
-                // <= rx_out[8*(17)-1:8*(16)];
+                tx_controller_send <= 1;
+                uart_tx_out <= chall_catcore_value;
             end 
             UART_MODE_DEV_READ_VALUES: if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
                 // tx_controller_send <= 1;
@@ -366,7 +369,7 @@ module top(
     
 
     assign pmod_j1 = (
-        (catcore_devmode & mode == MODE_UART) ? catcore_hyper_stage :
+        (catcore_devmode & mode == MODE_UART) ? {5'bzzzzz, catcore_hyper_stage, 1'b1}:
         8'bzzzzzzzz
     ); 
     assign pmod_j2 = (
