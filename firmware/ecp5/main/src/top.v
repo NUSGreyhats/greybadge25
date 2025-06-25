@@ -210,7 +210,7 @@ module top(
                 CATCORE_HYPER_INSTR_DEV_MEMORY: begin
                     // Pipeline this shit
                     chall_catcore_address_reg <= (
-                        //4'b1111
+                        catcore_hyper_instruction_is_dev_mode ? {1'b0, instr[8*(14)+2:8*(14)]} :
                         instr[8*(14)+3:8*(14)]
                     ); 
                     // Send out UART Data
