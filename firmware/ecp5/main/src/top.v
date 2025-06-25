@@ -159,21 +159,23 @@ module top(
                     uart_tx_out <= "welcome to devmode";
                 end
                 CATCORE_HYPER_INSTR_FLAG: begin
-                    tx_controller_send <= 1;
-                    uart_tx_out <= "grey{lmao_sandbox}";
+                    if (instr[8*(15)-1:8*(1)] == "1w4n7myfl49p15") begin
+                        tx_controller_send <= 1;
+                        uart_tx_out <= "grey{lmao_sandbox}";
+                    end
                 end
                 CATCORE_HYPER_INSTR_LED: begin
-                    // Full Control
+                    // Full Control - 1st char
                     if (rx_out[8*(15)-1:8*(14)] == "A") begin
                         catcore_led_inuse <= 1;
                     end else if (rx_out[8*(15)-1:8*(14)] == "B") begin
                         catcore_led_inuse <= 0;
                     end 
 
-                    // LED Control
+                    // LED Control - 2nd char
                     catcore_led_register <= rx_out[8*14-1:8*13];
 
-                    // PWM Control 
+                    // PWM Control - 3rd & 4th char
                     pwm_on_cycles    <= rx_out[8*13-1:8*12];                    
                     pwm_total_cycles <= rx_out[8*12-1:8*11];
 
@@ -200,8 +202,14 @@ module top(
                 end
             end
             CATCORE_HYPER_STAGE_DECODE: begin
-                catcore_hyper_instruction_decrypted <= catcore_hyper_instruction_in;
-                catcore_hyper_stage <= CATCORE_HYPER_STAGE_RUN;
+                // if (instr[8*(4)-1:8*(1)] == "DEV") begin // DEV Mode signature
+                    catcore_hyper_instruction_decrypted <= catcore_hyper_instruction_in;
+                    catcore_hyper_stage <= CATCORE_HYPER_STAGE_RUN;
+                // end else begin
+                //     tx_controller_send <= 1;
+                //     uart_tx_out <= "invalid instruct";
+                //     catcore_hyper_stage <= CATCORE_HYPER_STAGE_IDLE;
+                // end
             end
             CATCORE_HYPER_STAGE_RUN: begin
                 catcore_hyper_instruction_decoder(catcore_hyper_instruction_decrypted);
@@ -213,7 +221,7 @@ module top(
 
     //////////////////////////////////////////////////////////////
     reg aes_enc_reset_n = 1; // not reset
-    reg aes_enc_start = 0; // not reset
+    wire aes_enc_start = ~btn[2]; // not reset
     reg [127:0] aes_in;
     reg [127:0] aes_key;
     wire[127:0] aes_enc_out_w;
@@ -369,7 +377,7 @@ module top(
     
 
     assign pmod_j1 = (
-        (catcore_devmode & mode == MODE_UART) ? {5'bzzzzz, catcore_hyper_stage, 1'b1}:
+        (catcore_devmode & mode == MODE_UART) ? {5'bzzzzz, catcore_hyper_stage, 1'b0}:
         8'bzzzzzzzz
     ); 
     assign pmod_j2 = (
