@@ -48,6 +48,25 @@ print("Read Unknown")
 uart.write("@A---------------@")
 print(uart.read())
 
+### DES Encryption ####
+print()
+uart.write("@---------------G@")
+print(uart.read())
+
+print("DES Encryption/ Decryption")
+uart.write("GBBBBBBBB--------G") # Seed is "-"
+uart.write("@---------------G@")
+print(uart.read())
+
+
+# Decryption
+payload = "ABCDEFGH"
+config = "A-----B-"
+uart.write("G"+payload+config+"G") # Seed is "-"
+uart.write("@---------------G@")
+print(uart.read())
+print()
+
 ### CatCore Hyper ###############################
 def xor_decode(a: str, b: str, l: int):
     c = ""
@@ -55,34 +74,63 @@ def xor_decode(a: str, b: str, l: int):
         c = c + (chr(ord(a[i % len(a)]) ^ ord(b[i % len(b)])))
     return c
 
-KEY = "1234567890123456"
+
 
 def run_catcore_hyper_instruction(instr):
     opcode = "D"
     #instr = xor_decode(instr, KEY, len(instr))
     payload = opcode+instr+opcode
-    print("payload:", payload, len(payload))
+    print("payload:", payload, payload.encode(), len(payload))
     uart.write(payload)
     
-print("Invalid Instruction")
+KEY = "1234567890123456"
+def run_catcore_hyper_admin_instruction(instr):
+    opcode = "D"
+    instr = xor_decode(instr, KEY, len(instr))
+    payload = opcode+instr+opcode
+    print("payload:", payload, len(payload))
+    uart.write(payload)
+
+### Basic
+print("Invalid Instruction test")
 run_catcore_hyper_instruction("----------------")
 print(uart.read())
 
+
+### Devmode instruction
 print("Devmode Intro:")
+run_catcore_hyper_instruction("@-----------DEV@")
+print(uart.read())
+
+print("Control LED")
+#run_catcore_hyper_instruction("BA------------AB") # Full control over LED
+run_catcore_hyper_instruction("BA\x0c\x02\x08-------DEVB") # All LEDs o
+print(uart.read())
+
+print()
+
+## CatCore without signing
+print("Non Devmode Intro: (Should Fail)")
 run_catcore_hyper_instruction("@--------------@")
 print(uart.read())
 
 print("CatCore Flag:")
-run_catcore_hyper_instruction("A--------------A")
+run_catcore_hyper_instruction("A1w4n7myfl49p15A")
 print(uart.read())
 
 
-print("Control LED")
-#run_catcore_hyper_instruction("BA------------AB") # Full control over LED
-run_catcore_hyper_instruction("B-A\x0c\x02\x08---------B") # All LEDs o
+## CatCore with signing
+KEY = "1234567890123456"
+print()
+print("Non Devmode Intro - admin:")
+run_catcore_hyper_admin_instruction("@--------------@")
 print(uart.read())
 
+print("CatCore Flag:")
+run_catcore_hyper_admin_instruction("A1w4n7myfl49p15A")
+print(uart.read())
 
+print()
 
 
 ### Revert ###############################
@@ -90,7 +138,8 @@ print("Read Key")
 uart.write("@---------------A@")
 print(uart.read())
 
-
+uart.write("a----------------a")
+print(uart.read())
 ### AES Encryption #######################
 # Send AES Key
 uart.write("B----------------B")

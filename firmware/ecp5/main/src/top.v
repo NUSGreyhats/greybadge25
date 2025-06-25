@@ -131,13 +131,20 @@ module top(
         catcore_devmode_counter <= 1;
     end
 
-    //// CatCore Key Manager    
-    wire chall_catcore_address = pmod_j1[0];
+
+    
+    parameter ADMIN_KEY = "1234567890123456";
+    //// CatCore Memory manager (For Debugging)    
+    wire [3:0] chall_catcore_address = mode == MODE_UART? pmod_j1[3:0] : 0;
+    reg [3:0] chall_catcore_address_reg = 0;
     reg [127:0] chall_catcore_value;
     always @ (*) begin
         case (chall_catcore_address)
             0: chall_catcore_value = "developerkeypowers"; // Developer key
             1: chall_catcore_value = "DA1w4n7myfl49p15DA"; // Admin key
+
+            8 + 1: chall_catcore_value = "DA1w4n7myfl49p15DA"; // Admin key
+            8 + 2: chall_catcore_value = ADMIN_KEY; 
             default: chall_catcore_value = 127'b0;
         endcase
     end
@@ -161,8 +168,10 @@ module top(
     reg [127:0] catcore_hyper_instruction_decrypted; 
 
     parameter CATCORE_HYPER_INSTR_DEV  = "@";
+    parameter CATCORE_HYPER_INSTR_DEV_MEMORY  = "C";
     parameter CATCORE_HYPER_INSTR_FLAG = "A";
     parameter CATCORE_HYPER_INSTR_LED  = "B";
+
     task catcore_hyper_instruction_decoder(input [127:0] instr);
         catcore_hyper_stage <= CATCORE_HYPER_STAGE_IDLE;
         if (instr[8*(16)-1:8*(15)] == instr[8*(1)-1:8*(0)]) begin
@@ -195,6 +204,17 @@ module top(
                     tx_controller_send <= 1;
                     uart_tx_out <= "led set";
                 end
+                CATCORE_HYPER_INSTR_DEV_MEMORY: begin
+                    // Pipeline this shit
+                    if (catcore_hyper_instruction_is_dev_mode) begin
+                        chall_catcore_address_reg <= {1'b0, instr[8*(17)-2:8*(16)]}; // Mask off the privileged bits
+                    end else begin
+                        chall_catcore_address_reg <= instr[8*(17)-2:8*(16)]; 
+                    end
+                    // Send out UART Data
+                    tx_controller_send <= 1;
+                    uart_tx_out <= chall_catcore_value;
+                end
                 default: begin
                     tx_controller_send <= 1;
                     uart_tx_out <= "invalid instruct";
@@ -204,7 +224,7 @@ module top(
         end
     endtask
     
-    parameter ADMIN_KEY = "1234567890123456";
+    wire catcore_hyper_instruction_is_dev_mode = catcore_hyper_instruction_in[8*(4)-1:8*(1)] == "DEV";
     task catcore_hyper_fsm();
         catcore_hyper_start_prev <= catcore_hyper_start;
         case (catcore_hyper_stage)
@@ -215,7 +235,7 @@ module top(
                 end
             end
             CATCORE_HYPER_STAGE_DECODE: begin
-                if (catcore_devmode && catcore_hyper_instruction_in[8*(4)-1:8*(1)] == "DEV") begin // DEV Mode signature
+                if (catcore_devmode && catcore_hyper_instruction_is_dev_mode) begin // DEV Mode signature
                     catcore_hyper_instruction_decrypted <= catcore_hyper_instruction_in;
                     catcore_hyper_stage <= CATCORE_HYPER_STAGE_RUN;
                 end else begin
@@ -229,8 +249,8 @@ module top(
         endcase
     endtask
 
-    // catcore devmode
-    //// DES Decryption ////////////////////////////////////////////////////////////////
+    /// Encryption Systems /////////////////////////////////////////////////////////////
+    //// DES Decryption /////////////////////////
     reg des_action = 0;
     reg   [7:0] des_seed = 0;
     reg  [63:0] des_data_in;
@@ -241,7 +261,7 @@ module top(
         .data_in(des_data_in),
         .data_out(des_data_out),
     );
-    ////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////
     reg aes_enc_reset_n = 1; // not reset
     wire aes_enc_start = ~btn[2]; // not reset
     reg [127:0] aes_in;
@@ -298,7 +318,7 @@ module top(
     parameter UART_MODE_DES_IN    = "G"; 
     
     parameter UART_MODE_DEV_READ_MEM_ADDRESS = "a"; //"a" 97;
-    parameter UART_MODE_DEV_READ_VALUES = "b"; //"a" 97;
+    parameter UART_MODE_DEV_SET_MEM_ADDRESS = "a"; //"a" 97;
     
     reg [7:0] cat_status = 8'b11111111;
 
@@ -352,21 +372,12 @@ module top(
                 des_action <= (rx_out[8*(9)-1:8*(8)] == "A");
                 des_seed <= rx_out[8*(8)-1:8*(7)];
             end end
-            /// CatCore ///////////////////////////////////////////////////////////////////////////
+            /// CatCore Advanced Processor ///////////////////////////////////////////////////////////////////////////
             UART_MODE_PRIVILEGED_EXECUTOR: begin if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
                 //// Need to Decrypt
                 catcore_hyper_start <= 1;
                 catcore_hyper_instruction_in <= rx_out[8*(17)-1:8*(1)];
             end end
-            /// Devmode Hidden Instructions ///////////////////////////////////////////////////////////////////////////
-            UART_MODE_DEV_READ_MEM_ADDRESS: if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
-                tx_controller_send <= 1;
-                uart_tx_out <= chall_catcore_value;
-            end 
-            UART_MODE_DEV_READ_VALUES: if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
-                // tx_controller_send <= 1;
-                // uart_tx_out <=;
-            end 
         endcase
     endtask
 
@@ -387,7 +398,6 @@ module top(
     assign led = (        
         (catcore_devmode & ~btn[3]) ? (interconnect & pwm_bulk_out) :
         (catcore_devmode & ~btn[4])? (s & pwm_bulk_out) :
-        (catcore_devmode & ~btn[2])? (catcore_hyper_instruction_decrypted & pwm_bulk_out) :
         catcore_led_inuse ? (catcore_led_register & pwm_bulk_out):
         mode == MODE_UART ?( 
             //~btn[0] ? btn : 
@@ -409,7 +419,7 @@ module top(
     
 
     assign pmod_j1 = (
-        (catcore_devmode & mode == MODE_UART) ? {5'bzzzzz, catcore_hyper_stage, 1'b0}:
+        (catcore_devmode & mode == MODE_UART) ? {3'bzzz, catcore_hyper_stage, 4'bzzzz}:
         8'bzzzzzzzz
     ); 
     assign pmod_j2 = (
