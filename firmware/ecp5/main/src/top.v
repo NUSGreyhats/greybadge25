@@ -210,8 +210,8 @@ module top(
                 CATCORE_HYPER_INSTR_DEV_MEMORY: begin
                     // Pipeline this shit
                     chall_catcore_address_reg <= (
-                        4'b1111
-                        //instr[8*(14)+4:8*(14)]
+                        //4'b1111
+                        instr[8*(14)+3:8*(14)]
                     ); 
                     // Send out UART Data
                     tx_controller_send <= 1;
@@ -398,6 +398,9 @@ module top(
 
     wire [4:0] btn_out = btn;
     assign led = (        
+        
+        (catcore_devmode & ~btn[0]) ? (catcore_hyper_instruction_decrypted[8*(14)+3:8*(14)] & pwm_bulk_out) :
+        
         (catcore_devmode & ~btn[3]) ? (interconnect & pwm_bulk_out) :
         (catcore_devmode & ~btn[4])? (chall_catcore_address & pwm_bulk_out) :
         (catcore_devmode & ~btn[4])? (s & pwm_bulk_out) :
