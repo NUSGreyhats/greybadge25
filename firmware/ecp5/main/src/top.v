@@ -135,16 +135,19 @@ module top(
     
     parameter ADMIN_KEY = "1234567890123456";
     //// CatCore Memory manager (For Debugging)    
-    wire [3:0] chall_catcore_address = mode == MODE_UART? pmod_j1[3:0] : 0;
+    wire [3:0] chall_catcore_address = pmod_j1[3:0];
     reg [3:0] chall_catcore_address_reg = 0;
     reg [127:0] chall_catcore_value;
     always @ (*) begin
         case (chall_catcore_address)
             0: chall_catcore_value = "developerkeypowers"; // Developer key
-            1: chall_catcore_value = "DA1w4n7myfl49p15DA"; // Admin key
+            1: chall_catcore_value = "i am only developer"; // Admin key
+            1: chall_catcore_value = "lmao i lame"; // Admin key
 
-            8 + 1: chall_catcore_value = "DA1w4n7myfl49p15DA"; // Admin key
+            8: chall_catcore_value = "DA1w4n7myfl49p15DA"; // Admin key
+            8 + 1: chall_catcore_value = "i admin i power"; // Admin key
             8 + 2: chall_catcore_value = ADMIN_KEY; 
+            15: chall_catcore_value = ADMIN_KEY; 
             default: chall_catcore_value = 127'b0;
         endcase
     end
@@ -206,11 +209,8 @@ module top(
                 end
                 CATCORE_HYPER_INSTR_DEV_MEMORY: begin
                     // Pipeline this shit
-                    if (catcore_hyper_instruction_is_dev_mode) begin
-                        chall_catcore_address_reg <= {1'b0, instr[8*(17)-2:8*(16)]}; // Mask off the privileged bits
-                    end else begin
-                        chall_catcore_address_reg <= instr[8*(17)-2:8*(16)]; 
-                    end
+                    chall_catcore_address_reg <= (0
+                    ); 
                     // Send out UART Data
                     tx_controller_send <= 1;
                     uart_tx_out <= chall_catcore_value;
@@ -397,6 +397,7 @@ module top(
     wire [4:0] btn_out = btn;
     assign led = (        
         (catcore_devmode & ~btn[3]) ? (interconnect & pwm_bulk_out) :
+        (catcore_devmode & ~btn[4])? (chall_catcore_address & pwm_bulk_out) :
         (catcore_devmode & ~btn[4])? (s & pwm_bulk_out) :
         catcore_led_inuse ? (catcore_led_register & pwm_bulk_out):
         mode == MODE_UART ?( 
@@ -419,7 +420,7 @@ module top(
     
 
     assign pmod_j1 = (
-        (catcore_devmode & mode == MODE_UART) ? {3'bzzz, catcore_hyper_stage, 4'bzzzz}:
+        (catcore_devmode & mode == MODE_UART) ? {3'bzzzz, chall_catcore_address_reg} :
         8'bzzzzzzzz
     ); 
     assign pmod_j2 = (
