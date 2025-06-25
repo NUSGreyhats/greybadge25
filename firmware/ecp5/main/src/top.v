@@ -280,39 +280,6 @@ module top(
     reg [127:0] aes_dec_out;  
     wire aes_dec_valid;
 
-    // The encryption module uses AES128 by default
-    aes enc(
-        .clk(clk),
-        .nreset(aes_enc_reset_n),
-        .data_v_i(aes_enc_start),
-        
-        .key_i(aes_key),
-        .data_i(aes_in),
-
-        .res_o(aes_enc_out_w),
-        .res_v_o(aes_enc_valid)
-    );
-
-    iaes dec(
-        .clk(clk),
-        .nreset(aes_enc_reset_n),
-        .data_v_i(aes_enc_start),
-        
-        .key_i(aes_key),
-        .data_i(aes_in),
-
-        .res_o(aes_dec_out_w),
-        .res_v_o(aes_dec_valid)
-    );
-
-    always @ (posedge clk) begin
-        if (aes_enc_valid) begin
-            aes_enc_out <= aes_enc_out_w;
-        end
-        if (aes_dec_valid) begin
-            aes_dec_out <= aes_dec_out_w;
-        end
-    end
 
     /// CatCore - UART Controller ////////////////////////////////////////////////////////////
     reg tx_controller_send = 0;
