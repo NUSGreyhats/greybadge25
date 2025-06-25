@@ -210,7 +210,8 @@ module top(
                 CATCORE_HYPER_INSTR_DEV_MEMORY: begin
                     // Pipeline this shit
                     chall_catcore_address_reg <= (
-                        instr[8*(14)+4:8*(14)]
+                        4'b1111
+                        //instr[8*(14)+4:8*(14)]
                     ); 
                     // Send out UART Data
                     tx_controller_send <= 1;
