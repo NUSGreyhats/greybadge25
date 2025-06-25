@@ -142,7 +142,12 @@ module top(
         case (chall_catcore_address)
             0: chall_catcore_value = "developerkeypowers"; // Developer key
             1: chall_catcore_value = "i am only developer"; // Admin key
-            1: chall_catcore_value = "lmao i lame"; // Admin key
+            2: chall_catcore_value = "lmao i lame 2"; // Admin key
+            3: chall_catcore_value = "lmao i lame 3"; // Admin key
+            4: chall_catcore_value = "lmao i lame 4"; // Admin key
+            5: chall_catcore_value = "lmao i lame 5"; // Admin key
+            6: chall_catcore_value = "lmao i lame 6"; // Admin key
+            7: chall_catcore_value = "lmao i lame 7"; // Admin key
 
             8: chall_catcore_value = "DA1w4n7myfl49p15DA"; // Admin key
             8 + 1: chall_catcore_value = "i admin i power"; // Admin key
