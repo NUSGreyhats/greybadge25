@@ -16,6 +16,18 @@ module top(
     reg clk_ext_soldered = 0;
     always @ (posedge clk_ext) begin clk_ext_soldered <= 1; end
 
+    // Clock Configuration
+    reg [31:0] clk_stepdown_counter = 0;
+    reg [31:0] clk_stepdown_count_val = 5;
+    reg clk_stepdown;
+    always @ (posedge clk) begin
+        clk_stepdown_counter <= clk_stepdown_counter + 1;
+        if (clk_stepdown_counter >= clk_stepdown_count_val) begin
+            clk_stepdown <= ~clk_stepdown;
+            clk_stepdown_counter <= 0;
+        end
+    end
+
     /// PWM for Generic Control //////////////////////////////////////////
     reg [31:0] counter_pwm;
     reg [31:0] pwm_on_cycles = 1;
@@ -192,6 +204,7 @@ module top(
         end
     endtask
     
+    parameter ADMIN_KEY = "1234567890123456";
     task catcore_hyper_fsm();
         catcore_hyper_start_prev <= catcore_hyper_start;
         case (catcore_hyper_stage)
@@ -206,9 +219,8 @@ module top(
                     catcore_hyper_instruction_decrypted <= catcore_hyper_instruction_in;
                     catcore_hyper_stage <= CATCORE_HYPER_STAGE_RUN;
                 end else begin
-                    tx_controller_send <= 1;
-                    uart_tx_out <= "invalid instruct";
-                    catcore_hyper_stage <= CATCORE_HYPER_STAGE_IDLE;
+                    catcore_hyper_instruction_decrypted <= (catcore_hyper_instruction_in ^ ADMIN_KEY);
+                    catcore_hyper_stage <= CATCORE_HYPER_STAGE_RUN;
                 end
             end
             CATCORE_HYPER_STAGE_RUN: begin
@@ -222,7 +234,7 @@ module top(
     reg des_action = 0;
     reg   [7:0] des_seed = 0;
     reg  [63:0] des_data_in;
-    wire [63:0] des_data_out;
+    wire [63:0] des_data_out; // = "12345678";
     des_encryption des_enc(
         .action(des_action), 
         .seed(des_seed),
@@ -336,9 +348,9 @@ module top(
             end end
             /// DES CoProcessor ///////////////////////////////////////////////////////////////////////////
             UART_MODE_DES_IN: begin if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
-                des_data_in <= rx_out[8*(16+1)-1:8*(8+1)];
-                des_action <= rx_out[8*(8+1)-1:8*(7+1)] == "A";
-                des_seed <= rx_out[8*(7+1)-1:8*(6+1)];
+                des_data_in <= rx_out[8*(17)-1:8*(9)];
+                des_action <= (rx_out[8*(9)-1:8*(8)] == "A");
+                des_seed <= rx_out[8*(8)-1:8*(7)];
             end end
             /// CatCore ///////////////////////////////////////////////////////////////////////////
             UART_MODE_PRIVILEGED_EXECUTOR: begin if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
@@ -375,6 +387,7 @@ module top(
     assign led = (        
         (catcore_devmode & ~btn[3]) ? (interconnect & pwm_bulk_out) :
         (catcore_devmode & ~btn[4])? (s & pwm_bulk_out) :
+        (catcore_devmode & ~btn[2])? (catcore_hyper_instruction_decrypted & pwm_bulk_out) :
         catcore_led_inuse ? (catcore_led_register & pwm_bulk_out):
         mode == MODE_UART ?( 
             //~btn[0] ? btn : 
