@@ -124,8 +124,8 @@ module top(
     reg [127:0] chall_catcore_value;
     always @ (*) begin
         case (chall_catcore_address)
-            0: chall_catcore_value = "developerkeypower"; // Developer key
-            1: chall_catcore_value = "theadminispowers"; // Developer key
+            0: chall_catcore_value = "developerkeypowers"; // Developer key
+            1: chall_catcore_value = "DA1w4n7myfl49p15DA"; // Admin key
             default: chall_catcore_value = 127'b0;
         endcase
     end
@@ -152,6 +152,7 @@ module top(
     parameter CATCORE_HYPER_INSTR_FLAG = "A";
     parameter CATCORE_HYPER_INSTR_LED  = "B";
     task catcore_hyper_instruction_decoder(input [127:0] instr);
+        catcore_hyper_stage <= CATCORE_HYPER_STAGE_IDLE;
         if (instr[8*(16)-1:8*(15)] == instr[8*(1)-1:8*(0)]) begin
             case (instr[8*(1)-1:8*(0)])
                 CATCORE_HYPER_INSTR_DEV: begin
@@ -166,18 +167,18 @@ module top(
                 end
                 CATCORE_HYPER_INSTR_LED: begin
                     // Full Control - 1st char
-                    if (rx_out[8*(15)-1:8*(14)] == "A") begin
+                    if (instr[8*(15)-1:8*(14)] == "A") begin
                         catcore_led_inuse <= 1;
-                    end else if (rx_out[8*(15)-1:8*(14)] == "B") begin
+                    end else if (instr[8*(15)-1:8*(14)] == "B") begin
                         catcore_led_inuse <= 0;
                     end 
 
                     // LED Control - 2nd char
-                    catcore_led_register <= rx_out[8*14-1:8*13];
+                    catcore_led_register <= instr[8*14-1:8*13];
 
                     // PWM Control - 3rd & 4th char
-                    pwm_on_cycles    <= rx_out[8*13-1:8*12];                    
-                    pwm_total_cycles <= rx_out[8*12-1:8*11];
+                    pwm_on_cycles    <= instr[8*13-1:8*12];                    
+                    pwm_total_cycles <= instr[8*12-1:8*11];
 
                     tx_controller_send <= 1;
                     uart_tx_out <= "led set";
@@ -189,7 +190,6 @@ module top(
             endcase
             // Send Flag
         end
-        catcore_hyper_stage <= CATCORE_HYPER_STAGE_IDLE;
     endtask
     
     task catcore_hyper_fsm();
@@ -202,14 +202,14 @@ module top(
                 end
             end
             CATCORE_HYPER_STAGE_DECODE: begin
-                // if (instr[8*(4)-1:8*(1)] == "DEV") begin // DEV Mode signature
+                if (catcore_devmode && catcore_hyper_instruction_in[8*(4)-1:8*(1)] == "DEV") begin // DEV Mode signature
                     catcore_hyper_instruction_decrypted <= catcore_hyper_instruction_in;
                     catcore_hyper_stage <= CATCORE_HYPER_STAGE_RUN;
-                // end else begin
-                //     tx_controller_send <= 1;
-                //     uart_tx_out <= "invalid instruct";
-                //     catcore_hyper_stage <= CATCORE_HYPER_STAGE_IDLE;
-                // end
+                end else begin
+                    tx_controller_send <= 1;
+                    uart_tx_out <= "invalid instruct";
+                    catcore_hyper_stage <= CATCORE_HYPER_STAGE_IDLE;
+                end
             end
             CATCORE_HYPER_STAGE_RUN: begin
                 catcore_hyper_instruction_decoder(catcore_hyper_instruction_decrypted);
@@ -218,8 +218,18 @@ module top(
     endtask
 
     // catcore devmode
-
-    //////////////////////////////////////////////////////////////
+    //// DES Decryption ////////////////////////////////////////////////////////////////
+    reg des_action = 0;
+    reg   [7:0] des_seed = 0;
+    reg  [63:0] des_data_in;
+    wire [63:0] des_data_out;
+    des_encryption des_enc(
+        .action(des_action), 
+        .seed(des_seed),
+        .data_in(des_data_in),
+        .data_out(des_data_out),
+    );
+    ////////////////////////////////////////////////////////////////////////////////////
     reg aes_enc_reset_n = 1; // not reset
     wire aes_enc_start = ~btn[2]; // not reset
     reg [127:0] aes_in;
@@ -273,6 +283,7 @@ module top(
     parameter UART_MODE_AES_KEY_STORE       = "B"; 
     parameter UART_MODE_AES_PLAINTEXT_STORE = "C"; 
     parameter UART_MODE_PRIVILEGED_EXECUTOR = "D"; 
+    parameter UART_MODE_DES_IN    = "G"; 
     
     parameter UART_MODE_DEV_READ_MEM_ADDRESS = "a"; //"a" 97;
     parameter UART_MODE_DEV_READ_VALUES = "b"; //"a" 97;
@@ -310,6 +321,8 @@ module top(
                     "D": begin uart_tx_out <= aes_enc_out; end 
                     "E": begin uart_tx_out <= aes_dec_out_w; end 
                     "F": begin uart_tx_out <= aes_dec_out; end 
+                    //
+                    "G": begin uart_tx_out <= des_data_out; end 
                     default begin  end
                 endcase
             end end
@@ -320,6 +333,12 @@ module top(
             UART_MODE_AES_PLAINTEXT_STORE: begin if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
                 aes128_in <= rx_out[8*(17)-1:8*(1)];
                 aes_enc_start <= 1;
+            end end
+            /// DES CoProcessor ///////////////////////////////////////////////////////////////////////////
+            UART_MODE_DES_IN: begin if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
+                des_data_in <= rx_out[8*(16+1)-1:8*(8+1)];
+                des_action <= rx_out[8*(8+1)-1:8*(7+1)] == "A";
+                des_seed <= rx_out[8*(7+1)-1:8*(6+1)];
             end end
             /// CatCore ///////////////////////////////////////////////////////////////////////////
             UART_MODE_PRIVILEGED_EXECUTOR: begin if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin // endchar
