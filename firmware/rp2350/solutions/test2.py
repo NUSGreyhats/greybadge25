@@ -3,15 +3,15 @@ import board
 from rp2pio import StateMachine
 from adafruit_pioasm import assemble
 
-import challenge.leaky_gpio25 as leaky_gpio25
+import rp2350.challenge_sources.leaky_gpio25 as leaky_gpio25
 
 """
-A PIO is used to encode bits into short (12 cycles) and long (32 cycles) pulses on GPIO25. 
+A PIO is used to encode bits into short (12 cycles) and long (32 cycles) pulses on GPIO22. 
 However, it is difficult to measure this with CPU-sampling due to its short durations (<1ms). 
 Instead, we use another PIO available on the RP2040 to sniff this high-speed pulses, as the 
 PIO block runs independently at 125MHz, allowing cycle-accurate pulse counting (8ns ticks).
 
-For this example, we wire GPIO25 to GPIO24 and sample on GPIO24.
+For this example, we wire GPIO22 to GPIO24 and sample on GPIO24.
 
 Each RP2040 PIO has only four 32-bit RX-FIFO entries. Without packing, capturing a 64-edge
 (low -> high) burst would overflow the FIFO. To avoid this, we pack four 8-bit width counts into
