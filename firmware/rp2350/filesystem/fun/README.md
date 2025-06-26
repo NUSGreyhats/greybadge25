@@ -12,3 +12,9 @@ Once soldered, go to UART mode and send "@---------------B@" to the UART
 
 Check the zip.
 
+
+### Fast Secure Memory
+
+Secure Memory but at 50MHz instead of 10Hz
+(Untested lmao but theoretically can work)
+
