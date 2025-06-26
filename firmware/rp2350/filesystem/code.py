@@ -11,4 +11,3 @@ hw_state["fpga_overlay"].init()
 
 ### Menu ############################################
 apps.menu(hw_state)
- 

@@ -48,24 +48,6 @@ print("Read Unknown")
 uart.write("@A---------------@")
 print(uart.read())
 
-### DES Encryption ####
-print()
-uart.write("@---------------G@")
-print(uart.read())
-
-print("DES Encryption/ Decryption")
-uart.write("GBBBBBBBB--------G") # Seed is "-"
-uart.write("@---------------G@")
-print(uart.read())
-
-
-# Decryption
-payload = "ABCDEFGH"
-config = "A-----B-"
-uart.write("G"+payload+config+"G") # Seed is "-"
-uart.write("@---------------G@")
-print(uart.read())
-print()
 
 ### CatCore Hyper ###############################
 def xor_decode(a: str, b: str, l: int):
@@ -97,41 +79,57 @@ run_catcore_hyper_instruction("----------------")
 print(uart.read())
 
 
-### Devmode instruction
-print("Devmode Intro:")
+### Devmode instruction #########################################
+print("### Devmode Intro: ################################################################")
+
+### Hello World
 run_catcore_hyper_instruction("@-----------DEV@")
-print(uart.read())
+print("    >", uart.read())
+print()
 
+### LED Control
 print("Control LED")
-#run_catcore_hyper_instruction("BA------------AB") # Full control over LED
 run_catcore_hyper_instruction("BA\x0c\x02\x08-------DEVB") # All LEDs o
-print(uart.read())
+print("    >", uart.read())
+print()
 
+'''
+print("Display Memory:")
+address="\x00"
+run_catcore_hyper_instruction("C"+address+"----------DEVC")
+print("    >", uart.read())
+print()
+'''
+
+print("Invalid Memory:")
+run_catcore_hyper_instruction("------------DEV-")
+print("    >", uart.read())
 print()
 
 ## CatCore without signing
-print("Non Devmode Intro: (Should Fail)")
+print("### Non Devmode Intro: (Should Fail) ################################################################")
 run_catcore_hyper_instruction("@--------------@")
-print(uart.read())
+print("    >",uart.read())
 
 print("CatCore Flag:")
 run_catcore_hyper_instruction("A1w4n7myfl49p15A")
-print(uart.read())
+print("    >",uart.read())
 
+print()
 
 ## CatCore with signing
 KEY = "1234567890123456"
 print()
 print("Non Devmode Intro - admin:")
 run_catcore_hyper_admin_instruction("@--------------@")
-print(uart.read())
+print("    >",uart.read())
 
 print("CatCore Flag:")
 run_catcore_hyper_admin_instruction("A1w4n7myfl49p15A")
-print(uart.read())
+print("    >",uart.read())
 
 print()
-
+ 
 
 ### Revert ###############################
 print("Read Key")
@@ -150,3 +148,11 @@ uart.write("C----------------C")
 print("AES Out")
 uart.write("@---------------E@")
 print(uart.read())
+
+'''
+print("Display Memory:")
+address="\x01\x01"
+run_catcore_hyper_instruction("C"+address+"---------DEVC")
+print("    >", uart.read())
+print()
+'''

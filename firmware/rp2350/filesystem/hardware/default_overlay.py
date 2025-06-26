@@ -76,3 +76,7 @@ class Overlay:
     def deinit_mode_uart(self):
         self.existing_state.deinit()
         self.mode_set = False
+    
+    def deinit(self):
+        for p in self.mode_pins:
+            p.deinit()
