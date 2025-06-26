@@ -11,7 +11,7 @@ QZKago = ('QZKago:d=4,o=5,b=125:8c,8d,8d#,8g4,8f#4,16g4,8g#4,8d#,16d#,8d,8d#,' +
           '8f,8d#,8d,16d#,8d,16c,16c,4g,'+
           '8d#,8g#4,16g4,8g#4,8g4,16g4,16f#4,16g4,16.,16g,16f#,16g,16.,'+
           '16f,16d#,16d,16c,16d,16d#,16f,16b4,4c')
-
+spoderman = 'Spiderman:o=6,d=4,b=200,b=200:c,8d#,g.,p,f#,8d#,c.,p,c,8d#,g,8g#,g,f#,8d#,c.,p,f,8g#,c7.,p,a#,8g#,f.,p,c,8d#,g.,p,f#,8d#,c,p,8g#,2g,p,8f#,f#,8d#,f,8d#,2c'
     
 def play_rtttl(hw_state, songtext):
     hw_state["buzzer"].deinit()
@@ -62,6 +62,7 @@ def music_app(hw_state):
         ("qzkago",lambda:play_rtttl(hw_state, QZKago)),
         ("maimai",lambda:buzz_intro(hw_state)),
         ("eye",lambda:buzz_eye(hw_state)),
+        ("spoderman", lambda:play_rtttl(hw_state, spoderman)),
     ]
     menu_layout(hw_state, options[curr][0])
     fpga_buttons = hw_state["fpga_overlay"].set_mode_buttons()
