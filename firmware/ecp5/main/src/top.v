@@ -123,7 +123,7 @@ module top(
     /// CatCore ///////////////////////////////////////////////////////////////////////
     wire catcore_devmode_input = s[0]; //cs
     reg catcore_devmode_counter = 0;
-    reg catcore_devmode = 1;
+    reg catcore_devmode = 0;
     always @ (posedge clk) begin
         if (catcore_devmode_counter == 0 && catcore_devmode_input == 0) begin
             catcore_devmode <= 1;
@@ -379,8 +379,8 @@ module top(
         catcore_led_inuse ? (catcore_led_register & pwm_bulk_out):
         mode == MODE_UART ?( 
             //~btn[0] ? btn : 
-            ~btn[1] ? ((rx_out[8*1-1:8*0]) & pwm_bulk_out) : // Debugging
-            ~btn[0] ? ((rx_out[8*2-1:8*1]) & pwm_bulk_out) : // Debugging
+            (catcore_devmode & ~btn[1])? ((rx_out[8*1-1:8*0]) & pwm_bulk_out) : // Debugging
+            (catcore_devmode & ~btn[0]) ? ((rx_out[8*2-1:8*1]) & pwm_bulk_out) : // Debugging
             (chall_shootingflags_leds & pwm_bulk_out) | ~cat_status
         ) : 
         0
