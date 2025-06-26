@@ -13,7 +13,6 @@ You may use EzGif to convert a video to Gif format. https://ezgif.com/video-to-g
 You may also use EzGif to resize to 240 x 240 pixels. https://ezgif.com/maker
 
 
-
 ## Challenges
 
 There are 2 kinds of challenges. 
@@ -29,41 +28,6 @@ Grey Challenges
 5. CatCore
 
 
+## Updates
 
-### Hornet Revenge
-
-I want revenge.
-
-Run this in the Thonny REPL to start the challenge.
-
-```python
-from challenge.hornet_revenge import *
-```
-
-### Leaky Pin
-
-I wonder if there's something special in the secret pin....
-
-Run this in Thonny to start the challenge.
-
-```python
-from challenge.leaky_gpio25 import *
-```
-
-### Bricked Up
-
-
-
-
-### Shooting Flags
-
-During Live Firing, the cats were told to "follow the standards" and shoot accordingly. I wonder if it could mean something...
-
-
-
-### Secure Memory
-
-Oh wait, the flag is not supposed to be accessed by anyone? Hmm, this should do the trick...
-Access the stored values of secure memory at pmod_j2.
-
-Source code: 
+This badge might receive firmware updates so do check NUS Greyhats Github for any updates!
