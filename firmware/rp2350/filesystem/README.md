@@ -31,3 +31,7 @@ Grey Challenges
 ## Updates
 
 This badge might receive firmware updates so do check NUS Greyhats Github for any updates!
+https://github.com/NUSGreyhats
+
+Can also check the creator's blog for eventual solutions and writeups!
+https://hackin7-blog.vercel.app/
