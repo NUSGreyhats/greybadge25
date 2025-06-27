@@ -9,7 +9,7 @@ import leaky_gpio25
 A PIO is used to encode bits into short (12 cycles) and long (32 cycles) pulses on GPIO25. 
 However, it is difficult to measure this with CPU-sampling due to its short durations (<1ms). 
 Instead, we use another PIO available on the RP2040 to sniff this high-speed pulses, as the 
-PIO block runs independently at 125MHz, allowing cycle-accurate pulse counting (8ns ticks).
+PIO block runs independently at 150MHz, allowing cycle-accurate pulse counting (6.66ns ticks).
 
 For this example, we wire GPIO25 to GPIO24 and sample on GPIO24.
 
@@ -39,7 +39,7 @@ do_count:
 """
 binary = assemble(program)
 
-SYSCLK = 125_000_000
+SYSCLK = 150_000_000
 
 sm_rx = StateMachine(
     program        = binary,
@@ -62,7 +62,7 @@ def read_pulses():
 
     for word in buf:
         for shift in shifts:
-            loops = (word >> shift) & 0xFF # 1 cycle = 8 ns @ 125 MHz
+            loops = (word >> shift) & 0xFF # 1 cycle = 6.67 ns @ 150 MHz
             cycles = loops * 2
             pulse  = cycles / SYSCLK * 1e6 
 
