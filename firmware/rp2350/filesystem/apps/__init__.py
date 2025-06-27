@@ -57,7 +57,7 @@ def menu(hw_state):
     
     print("menu")
     curr = 0
-    options = ["Hi I'm Locked In", "Live Firing", "Animation", "Face", "Music", "Brick Game", "Controller", "Chall"]
+    options = ["Hi I'm Locked In", "Live Firing", "Animation", "Face", "Music", "Brick Game", "Controller"]
     menu_layout(hw_state, options[curr])
     fpga_buttons = hw_state["fpga_overlay"].set_mode_buttons()
     
