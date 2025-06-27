@@ -11,7 +11,7 @@ QZKago = ('QZKago:d=4,o=5,b=125:8c,8d,8d#,8g4,8f#4,16g4,8g#4,8d#,16d#,8d,8d#,' +
           '8f,8d#,8d,16d#,8d,16c,16c,4g,'+
           '8d#,8g#4,16g4,8g#4,8g4,16g4,16f#4,16g4,16.,16g,16f#,16g,16.,'+
           '16f,16d#,16d,16c,16d,16d#,16f,16b4,4c')
-
+SovietUnion = "tetris:d=4,o=4,b=150:e5,8b,8c5,8d5,15e5,15d5,8c5,8b,a,8a,8c5,e5,8d5,8c5,b,8b,8c5,d5,e5,c5,a,2a,8p,d5,8f5,a5,8g5,8f5,e5,8e5,8c5,e5,8d5,8c5,b,8b,8c5,d5,e5,c5,a,a"
     
 def play_rtttl(hw_state, songtext):
     hw_state["buzzer"].deinit()
@@ -59,6 +59,7 @@ def music_app(hw_state):
     curr = 0
     options = [
         ("mario", lambda:play_rtttl(hw_state, SuperMario)),
+        ("sovietunion",lambda:play_rtttl(hw_state, SovietUnion)),
         ("qzkago",lambda:play_rtttl(hw_state, QZKago)),
         ("maimai",lambda:buzz_intro(hw_state)),
         ("eye",lambda:buzz_eye(hw_state)),
