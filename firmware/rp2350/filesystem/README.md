@@ -35,3 +35,29 @@ https://github.com/NUSGreyhats
 
 Can also check the creator's blog for eventual solutions and writeups!
 https://hackin7-blog.vercel.app/
+
+
+## Credits
+
+Developers
+
+1. Hackin7 
+    - Main Badge System Designer
+    - Concept, Artwork & Animations
+    - PCB (Power, FPGA, Connectivity)
+    - Firmware
+2. itsme-zeix 
+    - PCB (RP2350, LiPo, Power), Leaky Pin, Firmware
+3. shuqing 
+    - Artwork & Animations (They are so cute man)
+4. Fieash
+    - Bricked Up Challenge
+5. sunshinefactory
+    - zip file
+
+Thanks to these people for helping
+
+1. zst123, rhgndf, sayomaki - Technical Advice
+2. caprinux - For initiating the whole GreyHats Badge thing
+
+and thanks to GreyHats and whoever else who made this possible.
