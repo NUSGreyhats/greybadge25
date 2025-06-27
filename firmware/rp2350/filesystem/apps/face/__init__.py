@@ -103,10 +103,16 @@ def face_gif_mode(hw_state):
             print("Free memory at code point 2: {} bytes".format(gc.mem_free()) )
             time.sleep(0.5)
         if button_a.value == False:
-            if hw_state["fpga_overlay"].is_current_mode((0, 1, 1)):
-                hw_state["fpga_overlay"].set_mode((0, 0, 0))
-            else:
-                hw_state["fpga_overlay"].set_mode((0, 1, 1))
+            time.sleep(0.5)
+            if button_a.value == False: # Enable LEDs
+                if hw_state["fpga_overlay"].is_current_mode((0, 1, 1)):
+                    hw_state["fpga_overlay"].set_mode((0, 0, 0))
+                else:
+                    hw_state["fpga_overlay"].set_mode((0, 1, 1))
+            else: # Pause
+                time.sleep(0.5)
+                while button_a.value == True:
+                    pass
             time.sleep(0.5)
         if button_b.value == False:
             hw_state["fpga_overlay"].set_mode((0, 0, 0))
