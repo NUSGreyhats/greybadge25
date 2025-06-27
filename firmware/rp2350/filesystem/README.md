@@ -54,6 +54,8 @@ Developers
     - Bricked Up Challenge
 5. sunshinefactory
     - zip file
+6. Codekrodile
+    - mirrortune
 
 Thanks to these people for helping
 
