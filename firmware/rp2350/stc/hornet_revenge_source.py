@@ -4,8 +4,23 @@ overlay = hardware.hw_state["fpga_overlay"]
 hardware.display_text(hardware.hw_state, "CTF Mode")
 print("Initialising FPGA...")
 overlay.init()
-overlay.set_mode((0,1,1))
 
+import board
+import digitalio
+### Clear GPIO Pins #######################
+DATA_PINS_NO = [board.GP8, board.GP9, board.GP10, board.GP11, board.GP12]
+pins = []
+overlay.set_mode((0, 0, 0))
+for p in DATA_PINS_NO:
+    d = digitalio.DigitalInOut(p)
+    d.direction = digitalio.Direction.OUTPUT
+    d.value = False
+    pins.append(d)
+            
+for d in pins:
+    d.deinit()
+
+overlay.set_mode((0,1,1))
 
 def mcq(question, choices, ans_choice):
     print(question)
