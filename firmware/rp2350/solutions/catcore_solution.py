@@ -70,6 +70,13 @@ print("    >", uart.read())
 print()
 
 
+print("Display Memory:")
+address="\x0f"
+run_catcore_hyper_instruction("C"+address+"----------DEVC")
+print("    >", uart.read())
+print()
+
+
 print("pls short A3 to 3.3v ---------")
 input()
 
