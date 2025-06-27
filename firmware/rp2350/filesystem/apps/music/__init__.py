@@ -28,7 +28,7 @@ def menu_layout(hw_state, text_in):
     main = hw_state["display"].root_group
     val = main.pop()
     
-    header_text_area = label.Label(terminalio.FONT, text="Music Playback", color=0xFFFF00,
+    header_text_area = label.Label(terminalio.FONT, text="Music Playback\nand Buzzing", color=0xFFFF00,
                             anchor_point=(0.5,0.5), anchored_position=(0,0))
     #header_text_area.x = 0
     header_text_area.y = -20

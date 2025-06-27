@@ -1,4 +1,5 @@
 import gifio, asyncio, struct, time, random, os
+import gc
 from apps.face.load import *
 
 def face_mode(hw_state):
@@ -42,7 +43,14 @@ def face_mode(hw_state):
             load_image(hw_state, "/image/" + files[file_index])
             time.sleep(0.5)
         prev_fpga_buttons = [x.value for x in fpga_buttons]
-        if button_a.value == False or button_b.value == False:
+        if button_a.value == False:
+            if hw_state["fpga_overlay"].is_current_mode((0, 1, 1)):
+                hw_state["fpga_overlay"].set_mode((0, 0, 0))
+            else:
+                hw_state["fpga_overlay"].set_mode((0, 1, 1))
+            time.sleep(0.5)
+        if button_b.value == False:
+            hw_state["fpga_overlay"].set_mode((0, 0, 0))
             print("exit")
             break
 
@@ -79,14 +87,29 @@ def face_gif_mode(hw_state):
         if fpga_buttons[0].value == False:
             file_index = (file_index-1) % len(files)
             filename = files[file_index]
+            print("Free memory at code point 1: {} bytes".format(gc.mem_free()) )
+            del odg
+            print("Free memory at code point 1: {} bytes".format(gc.mem_free()) )
             odg = gifio.OnDiskGif("/image/"+filename)
+            gc.collect()
+            print("Free memory at code point 1: {} bytes".format(gc.mem_free()) )
             time.sleep(0.5)
         if fpga_buttons[4].value == False:
             file_index = (file_index+1) % len(files)
             filename = files[file_index]
+            del odg
             odg = gifio.OnDiskGif("/image/"+filename)
+            gc.collect()
+            print("Free memory at code point 2: {} bytes".format(gc.mem_free()) )
             time.sleep(0.5)
-        if button_a.value == False or button_b.value == False:
+        if button_a.value == False:
+            if hw_state["fpga_overlay"].is_current_mode((0, 1, 1)):
+                hw_state["fpga_overlay"].set_mode((0, 0, 0))
+            else:
+                hw_state["fpga_overlay"].set_mode((0, 1, 1))
+            time.sleep(0.5)
+        if button_b.value == False:
+            hw_state["fpga_overlay"].set_mode((0, 0, 0))
             print("exit")
             break
 

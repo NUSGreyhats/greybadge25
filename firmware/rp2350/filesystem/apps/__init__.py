@@ -91,7 +91,5 @@ def menu(hw_state):
                 apps.brick_game.brick_game(hw_state)
             if options[curr] == "Controller":
                 apps.others.controller(hw_state)
-            if options[curr] == "Chall":
-                return
             menu_layout(hw_state, options[curr])
             time.sleep(0.5)
