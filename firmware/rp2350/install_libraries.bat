@@ -1,4 +1,0 @@
-circup install adafruit_imageload
-circup install gc9a01
-circup install adafruit_display_text
-circup install asyncio
