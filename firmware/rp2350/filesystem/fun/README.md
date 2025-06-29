@@ -12,7 +12,6 @@ Once soldered, go to UART mode and send "@---------------B@" to the UART
 
 Check the zip.
 
-
 ### Fast Secure Memory (hackin7)
 
 Secure Memory but at 50MHz instead of 10Hz
@@ -21,6 +20,8 @@ Secure Memory but at 50MHz instead of 10Hz
 ### Bricked Up Game v2 (Fieash/itsme-zeix)
 
 Updates the Bricked Up Challenge to remove the challenge and add additional features to the gameplay more NES Tetris-like.
+
+Replace `brick_game.mpy` in `/apps` with the `brick_game.py` found in this directory.
 
 Changes include:
 - Removal of Konami code for CTF challenge
