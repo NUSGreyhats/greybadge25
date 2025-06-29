@@ -71,6 +71,19 @@ module top(
         .value(chall_secmem_value)
     );
     
+    /// Chall: Fun SecureMemory /////////////////////////////////////////////////////
+    reg chall_fast_secmem_clk = 0; // 50mhz clock
+    always @ (posedge clk) begin
+        chall_fast_secmem_clk <= ~chall_fast_secmem_clk;
+    end
+    wire [4:0] chall_fast_secmem_address;
+    wire [7:0] chall_fast_secmem_value;
+    fast_secure_memory chall_fast_secmem(
+        .clk(chall_fast_secmem_clk), 
+        .address(chall_fast_secmem_address), 
+        .value(chall_fast_secmem_value)
+    );
+
     /// UART ////////////////////////////////////////////////////////////
     parameter DBITS = 8;
     parameter UART_FRAME_SIZE = 18;
@@ -123,7 +136,7 @@ module top(
     /// CatCore ///////////////////////////////////////////////////////////////////////
     wire catcore_devmode_input = s[0]; //cs
     reg catcore_devmode_counter = 0;
-    reg catcore_devmode = 1;
+    reg catcore_devmode = 0;
     always @ (posedge clk) begin
         if (catcore_devmode_counter == 0 && catcore_devmode_input == 0) begin
             catcore_devmode <= 1;
@@ -366,6 +379,7 @@ module top(
     parameter MODE_BUTTON = 3'b000;
     parameter MODE_UART = 3'b011;
     parameter MODE_CHALL_SECURE_MEM = 3'b010;
+    parameter MODE_CHALL_FAST_SECURE_MEM = 3'b100;
     parameter MODE_PASSTHROUGH = 3'b001;
 
     wire [4:0] btn_out = btn;
@@ -379,8 +393,8 @@ module top(
         catcore_led_inuse ? (catcore_led_register & pwm_bulk_out):
         mode == MODE_UART ?( 
             //~btn[0] ? btn : 
-            ~btn[1] ? ((rx_out[8*1-1:8*0]) & pwm_bulk_out) : // Debugging
-            ~btn[0] ? ((rx_out[8*2-1:8*1]) & pwm_bulk_out) : // Debugging
+            (catcore_devmode & ~btn[1])? ((rx_out[8*1-1:8*0]) & pwm_bulk_out) : // Debugging
+            (catcore_devmode & ~btn[0]) ? ((rx_out[8*2-1:8*1]) & pwm_bulk_out) : // Debugging
             (chall_shootingflags_leds & pwm_bulk_out) | ~cat_status
         ) : 
         0
@@ -394,6 +408,7 @@ module top(
         5'bzzzzz
     );
     assign chall_secmem_address = interconnect[4:0];
+    assign chall_fast_secmem_address = interconnect[4:0];
     
 
     assign pmod_j1 = (
@@ -402,6 +417,7 @@ module top(
     ); 
     assign pmod_j2 = (
         mode == MODE_CHALL_SECURE_MEM ? chall_secmem_value : 
+        mode == MODE_CHALL_FAST_SECURE_MEM ? chall_fast_secmem_value : 
         //mode == MODE_PASSTHROUGH ? {interconnect[3:0], interconnect[3:0]}: 
         8'bzzzzzzzz
     );

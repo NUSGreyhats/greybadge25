@@ -1,6 +1,6 @@
 # GreyMecha/Army
 
-This is the GreyMecha/Army Firmware (for the RP2350 part anyway). It's based off circuitpython, and includes various challenges.
+This is the GreyMecha/Army Firmware (for the RP part anyway). It's based off circuitpython, and includes various challenges.
 
 
 ## Images
@@ -15,36 +15,53 @@ You may also use EzGif to resize to 240 x 240 pixels. https://ezgif.com/maker
 
 ## Challenges
 
-Check the `/challenge` folder for more information
+There are 2 kinds of challenges. 
+`grey` challenges are ones which are released for GreyCTF 2025 Finals. If you are a finalist, you only need to care about these.
+`fun` challenges, meanwhile, are just ones for fun. 
 
-### Hornet Revenge
-
-I want revenge.
-
-Run this in Thonny to start the challenge.
-
-```python
-from challenge.hornet_revenge import *
-```
-
-### LeakyPin
-
-I wonder if there's something special in the secret pin GP22....
-
-Run this in Thonny to start the challenge.
-
-```python
-from challenge.leaky_gpio22 import *
-```
-
-### Shooting Flags
-
-During Live Firing, the cats were told to "follow the standards" and shoot accordingly. I wonder if it could mean something...
+Grey Challenges
+1. Hornet Revenge
+2. Leaky Pin
+3. Bricked Up
+3. Shooting Flags
+4. Secure Memory
+5. CatCore
 
 
-### Secure Memory
+## Updates
 
-Oh wait, the flag is not supposed to be accessed by anyone? Hmm, this should do the trick...
-Access the stored values of secure memory at pmod_j2.
+This badge might receive firmware updates so do check NUS Greyhats Github for any updates!
+https://github.com/NUSGreyhats
 
-Source code: 
+Can also check the creator's blog for eventual solutions and writeups!
+https://hackin7-blog.vercel.app/
+
+
+## Credits
+
+Developers
+
+1. Hackin7 
+    - Main Badge System Designer
+    - Concept, Artwork & Animations
+    - PCB (Power, FPGA, Connectivity)
+    - Firmware
+2. itsme-zeix 
+    - PCB (RP2350, LiPo, Power)
+    - Leaky Pin Challenge 
+    - Firmware
+3. shuqing 
+    - Artwork & Animations (They are so cute man)
+4. Fieash
+    - Bricked Up Challenge
+5. sunshinefactory
+    - zip file
+6. Codekrodile
+    - mirrortune
+
+Thanks to these people for helping
+
+1. zst123, rhgndf, sayomaki - Technical Advice
+2. caprinux - For initiating the whole GreyHats Badge thing
+
+and thanks to GreyHats and whoever else who made this possible.

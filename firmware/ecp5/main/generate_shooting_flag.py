@@ -1,4 +1,4 @@
-FLAG = "grey{eh_live_firing_dont_turn_your_brain_off}"
+FLAG = "grey{eh_dont_only_wayang}"
 output = ""
 for i in range(len(FLAG)):
     output += f"flag[{i}] = {ord(FLAG[i])};"
@@ -6,5 +6,5 @@ for i in range(len(FLAG)):
         output += "\n"
     else:
         output += " "
-
+print(len(FLAG))
 print(output)

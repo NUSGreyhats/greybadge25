@@ -1,1 +1,0 @@
- npx cpsync -i D: .\filesystem\

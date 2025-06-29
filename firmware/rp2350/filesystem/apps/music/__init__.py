@@ -12,7 +12,9 @@ QZKago = ('QZKago:d=4,o=5,b=125:8c,8d,8d#,8g4,8f#4,16g4,8g#4,8d#,16d#,8d,8d#,' +
           '8d#,8g#4,16g4,8g#4,8g4,16g4,16f#4,16g4,16.,16g,16f#,16g,16.,'+
           '16f,16d#,16d,16c,16d,16d#,16f,16b4,4c')
 spoderman = 'Spiderman:o=6,d=4,b=200,b=200:c,8d#,g.,p,f#,8d#,c.,p,c,8d#,g,8g#,g,f#,8d#,c.,p,f,8g#,c7.,p,a#,8g#,f.,p,c,8d#,g.,p,f#,8d#,c,p,8g#,2g,p,8f#,f#,8d#,f,8d#,2c'
-    
+SovietUnion = "tetris:d=4,o=4,b=150:e5,8b,8c5,8d5,15e5,15d5,8c5,8b,a,8a,8c5,e5,8d5,8c5,b,8b,8c5,d5,e5,c5,a,2a,8p,d5,8f5,a5,8g5,8f5,e5,8e5,8c5,e5,8d5,8c5,b,8b,8c5,d5,e5,c5,a,a"
+MirrorTune = "mirrortune:d=16,o=5,b=160:32c6,32p,c6,a#5,c6,p,a#5,p,c#6,p,c6,a#5,p,c6,p,a#5,p,32f5,32p,f5,g5,p,f5,p,d5,p,c5,p,a#4,p,c5,p,g4,f4,8p,a#5,c6,p,a#5,p,c#6,p,c6,a#5,p,c6,p,a#5,p,f5,f#5,g5,p,32g6,32p,32g6,32p,32g6,32p,32g6,32p,32g6,32p,32g6,32p,g6,f6,p,g6,4p,a#5,c6,p,a#5,p,c#6,p,c6,a#5,p,c6,p,a#5,p,32f5,32p,f5,g5,p,f5,p,d5,p,c5,p,a#4,p,c5,p,g4,f4,8p,a#5,c6,p,a#5,p,c#6,p,c6,a#5,p,c6,p,a#5,p,f5,f#5,g5,p,f5,f#5,g5,p,f5,f#5,4g5,8p"
+
 def play_rtttl(hw_state, songtext):
     hw_state["buzzer"].deinit()
     adafruit_rtttl.play(board.GP21, songtext)
@@ -28,7 +30,7 @@ def menu_layout(hw_state, text_in):
     main = hw_state["display"].root_group
     val = main.pop()
     
-    header_text_area = label.Label(terminalio.FONT, text="Music Playback", color=0xFFFF00,
+    header_text_area = label.Label(terminalio.FONT, text="Music Playback\nand Buzzing", color=0xFFFF00,
                             anchor_point=(0.5,0.5), anchored_position=(0,0))
     #header_text_area.x = 0
     header_text_area.y = -20
@@ -59,6 +61,8 @@ def music_app(hw_state):
     curr = 0
     options = [
         ("mario", lambda:play_rtttl(hw_state, SuperMario)),
+        ("mirrortune", lambda:play_rtttl(hw_state, MirrorTune)),
+        ("sovietunion",lambda:play_rtttl(hw_state, SovietUnion)),
         ("qzkago",lambda:play_rtttl(hw_state, QZKago)),
         ("maimai",lambda:buzz_intro(hw_state)),
         ("eye",lambda:buzz_eye(hw_state)),

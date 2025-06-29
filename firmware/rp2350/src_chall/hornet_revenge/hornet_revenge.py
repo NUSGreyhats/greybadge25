@@ -4,8 +4,23 @@ overlay = hardware.hw_state["fpga_overlay"]
 hardware.display_text(hardware.hw_state, "CTF Mode")
 print("Initialising FPGA...")
 overlay.init()
-overlay.set_mode((0,1,1))
 
+import board
+import digitalio
+### Clear GPIO Pins #######################
+DATA_PINS_NO = [board.GP8, board.GP9, board.GP10, board.GP11, board.GP12]
+pins = []
+overlay.set_mode((0, 0, 0))
+for p in DATA_PINS_NO:
+    d = digitalio.DigitalInOut(p)
+    d.direction = digitalio.Direction.OUTPUT
+    d.value = False
+    pins.append(d)
+            
+for d in pins:
+    d.deinit()
+
+overlay.set_mode((0,1,1))
 
 def mcq(question, choices, ans_choice):
     print(question)
@@ -20,6 +35,7 @@ def open_ended(question, answer):
     return input("Answer: ").strip().lower() == answer.lower()
 
 def qna1():
+    print("Type in full")
     if (
         ### Q #####################################################
         mcq(
@@ -45,12 +61,14 @@ def qna1():
         ) and print() is None and
         ### Q ######################################################
         open_ended(
-            "What is the FPGA chip on here? Answer with ?????-??F-6BG256C",
+            "What is the FPGA chip on here? Answer with ?????-??F-6BG256?",
             "LFE5U-25F-6BG256C"
         )
     ):
         print("Success: Here's the 1st part of the flag:")
         print("grey{for_last_greyctf_")
+    else:
+        print("Wrong lmao")
         
 import board
 import digitalio
@@ -73,9 +91,10 @@ def qna2():
 PROMPT3 = "Next, we need to extract the key from the FPGA\nI've imported the libraries busio and board for you."
 def qna3():
     print(PROMPT3)
-    exec(input("Gimme some code to initialise uart on board GP8 and GP9: "))
-    print("Press and release the down button to prompt the army for the secret key")
-    time.sleep(5)
+    exec(input("Gimme some code to initialise uart at baud rate 9600 on board GP8 and GP9: "))
+    exec(input("Send the string '@---------------A@' excluding quotes to the uart: "))
+    #print("Press and release the down button to prompt the army for the secret key")
+    #time.sleep(5)
     exec(input("Gimme some code to retrieve the key from the FPGA: "))
     print("Run qna4()")
     

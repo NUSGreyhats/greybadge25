@@ -3,8 +3,9 @@ import digitalio
 import time
 import hardware.fpga
 
+hardware.hw_state["fpga_overlay"].deinit()
 if input("type something to update fpga: ") != "":
-    h = hardware.fpga.upload_bitstream("main.bit")
+    h = hardware.fpga.upload_bitstream("/hardware/bitstreams/main.bit")
     h.deinit()
 
 fpga_interconnect_pins = [board.GP8, board.GP9, board.GP10, board.GP11,	board.GP12, board.GP13, board.GP14, board.GP15]
@@ -77,7 +78,7 @@ def enumerate_addresses_wait_and_bypass():
         c = read_char()
         print(c, ord(c))
         out += c
-    print(out)
+    print("Out:", out)
     return out
         
 enumerate_addresses_wait_and_bypass()
