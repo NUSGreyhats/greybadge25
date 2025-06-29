@@ -1,0 +1,6 @@
+*.svf
+*.bit
+*.config
+*.json
+tmp.v
+log*

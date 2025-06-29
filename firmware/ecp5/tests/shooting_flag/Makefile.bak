@@ -1,0 +1,17 @@
+all: test.bit
+
+%.json : %.v
+	yosys -p "synth_ecp5 -top top -json $@" $<
+
+%_out.config : %.json
+	nextpnr-ecp5 --json $< --textcfg $@ --um-25k --package CABGA256 --lpf pinout.lpf
+
+%.bit : %_out.config
+	ecppack --svf test.svf $< $@
+
+test.svf : test.bit
+
+clean :
+	rm -f *.svf *.bit *.config *.json
+
+.PHONY : all clean
