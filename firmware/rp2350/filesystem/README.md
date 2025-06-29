@@ -47,7 +47,9 @@ Developers
     - PCB (Power, FPGA, Connectivity)
     - Firmware
 2. itsme-zeix 
-    - PCB (RP2350, LiPo, Power), Leaky Pin, Firmware
+    - PCB (RP2350, LiPo, Power)
+    - Leaky Pin Challenge 
+    - Firmware
 3. shuqing 
     - Artwork & Animations (They are so cute man)
 4. Fieash
