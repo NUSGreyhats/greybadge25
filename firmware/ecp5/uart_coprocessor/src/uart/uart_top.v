@@ -47,12 +47,9 @@ module uart_top
             DBITS = 8,          // number of data bits in a word
             SB_TICK = 16,       // number of stop bit / oversampling ticks
             
-            // Baud Rate
-            //BR_LIMIT = 14,     // baud rate generator counter limit
-            //BR_BITS = 4,       // number of baud rate generator counter bits
-            // 9600
-            BR_LIMIT = 20,     // baud rate generator counter limit
-            BR_BITS = 9,       // number of baud rate generator counter bits
+            // Baud Rate 460800
+            BR_LIMIT = 14,     // baud rate generator counter limit
+            BR_BITS = 4,       // number of baud rate generator counter bits
             
             // Size
             FIFO_IN_SIZE = 4,        

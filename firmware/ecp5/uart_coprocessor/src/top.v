@@ -1,5 +1,14 @@
-module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnect);
+module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interconnect);
 
+    /// Internal Configuration ///////////////////////////////////////////
+    wire clk_int;        // Internal OSCILLATOR clock
+    defparam OSCI1.DIV = "3"; // Info: Max frequency for clock '$glbnet$clk': 162.00 MHz (PASS at 103.34 MHz)
+    OSCG OSCI1 (.OSC(clk_int));
+
+    wire clk = clk_int;
+    localparam CLK_FREQ = 103_340_000; // EXT CLK
+
+    /// UART ////////////////////////////////////////////////
     parameter DBITS = 8;
     parameter UART_FRAME_SIZE = 18;
 
@@ -58,7 +67,7 @@ module top(input clk, input [4:0] btn, output [7:0] led, inout [7:0] interconnec
     assign led = (
         ~btn[4] ? rx_out[8*(1)-1:8*(0)] :
         ~btn[3] ? rx_out[8*(2)-1:8*(1)] :
-        {2'b11, state_out, interconnect[0], rx_out[7:0] == 65,  ~btn[0], tx}
+        interconnect
     );
 
 endmodule
