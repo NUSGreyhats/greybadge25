@@ -9,7 +9,7 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
     localparam CLK_FREQ = 103_340_000; // EXT CLK
 
     reg [31:0] clk_stepdown_counter = 0;
-    reg [31:0] clk_stepdown_count_val = 5;
+    reg [31:0] clk_stepdown_count_val = 10;
     reg clk_slow = 0;
     always @ (posedge clk) begin
         clk_stepdown_counter <= clk_stepdown_counter + 1;
@@ -25,9 +25,6 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
     wire [127:0] text_in = tv[255:128];
     wire [127:0] plain   = tv[255:128];
     wire [127:0] ciph    = tv[127:0];
-
-    reg [127:0] aes_key = key;
-    reg [127:0] aes_in = text_in;
 
     reg [127:0] aes_enc_key = key;
     reg [127:0] aes_enc_text_in = text_in;
@@ -68,7 +65,7 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
     //     .text_out(aes_dec_text_out) 
     // );
 
-    // reg [127:0] aes_dec_text_out_reg;
+    reg [127:0] aes_dec_text_out_reg;
     // always @ (posedge clk_slow) begin
     //     if (aes_dec_done) begin
     //         aes_dec_text_out_reg <= aes_dec_text_out;
