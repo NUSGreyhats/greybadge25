@@ -130,10 +130,10 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
                 end
                 // Input Stuff /////////////////////////////////////
                 "C": begin // Key
-                    aes_enc_key <= rx_out[8*(17)-1:8*(1)];
+                    aes_enc_key <= rx_out[135:8];
                 end
                 "D": begin // PlainText
-                    // aes_enc_text_in <= rx_out[8*(17)-1:8*(1)];
+                    aes_enc_text_in <= rx_out[135:8];
                 end
                 "E": begin // PlainText
                     aes_enc_ld <= 1;
