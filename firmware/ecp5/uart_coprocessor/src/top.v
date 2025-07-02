@@ -28,7 +28,7 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
     wire aes_enc_done;
     aes_cipher_top AES_ENC(
         .clk(clk_slow), 
-        .rst(1), .ld(~btn[0]), 
+        .rst(1), .ld(aes_enc_ld | ~btn[0]), 
         .done(aes_enc_done), 
         
         // .key(key), 
@@ -111,8 +111,12 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
                     uart_tx_out <= "123456789012345678";
                     tx_controller_send <= 1;
                 end
-                /// Display Stuff
-                "B": begin // display AES encryption
+                /// Trigger Loading /////////////////////////////
+                "E": begin // PlainText
+                    aes_enc_ld <= 1;
+                end
+                /// Display Stuff ////////////////////////////////
+                "@": begin // display AES encryption
                     uart_tx_out <= aes_enc_text_out_reg;
                     tx_controller_send <= 1;
                 end
@@ -124,7 +128,7 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
                     uart_tx_out <= aes_enc_text_in;
                     tx_controller_send <= 1;
                 end
-                // Input Stuff
+                // Input Stuff /////////////////////////////////////
                 "C": begin // Key
                     aes_enc_key <= rx_out[8*(17)-1:8*(1)];
                 end
