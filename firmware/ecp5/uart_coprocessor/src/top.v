@@ -32,9 +32,9 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
         .done(aes_enc_done), 
         
         // .key(key), 
-        .text_in(text_in),
+        // .text_in(text_in),
         .key(aes_enc_key), 
-        // .text_in(aes_enc_text_in),
+        .text_in(aes_enc_text_in),
         .text_out(aes_enc_text_out) 
     );
 
@@ -133,7 +133,7 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
                     aes_enc_key <= rx_out[8*(17)-1:8*(1)];
                 end
                 "D": begin // PlainText
-                    aes_enc_text_in <= rx_out[8*(17)-1:8*(1)];
+                    // aes_enc_text_in <= rx_out[8*(17)-1:8*(1)];
                 end
                 "E": begin // PlainText
                     aes_enc_ld <= 1;
