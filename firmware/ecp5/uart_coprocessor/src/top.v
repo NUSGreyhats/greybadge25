@@ -8,9 +8,15 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
     wire clk = clk_int;
     localparam CLK_FREQ = 103_340_000; // EXT CLK
 
+    reg [31:0] clk_stepdown_counter = 0;
+    reg [31:0] clk_stepdown_count_val = 5;
     reg clk_slow = 0;
     always @ (posedge clk) begin
-        clk_slow <= ~clk_slow;
+        clk_stepdown_counter <= clk_stepdown_counter + 1;
+        if (clk_stepdown_counter >= clk_stepdown_count_val) begin
+            clk_slow <= ~clk_slow;
+            clk_stepdown_counter <= 0;
+        end
     end
 
     // AES Coprocessor /////////////////////////////////////////////////
@@ -162,10 +168,10 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
 
     
 
-    // always @ (posedge clk_slow) begin
-    //     uart_decoder_reset();
-    //     uart_decoder();
-    // end 
+    always @ (posedge clk_slow) begin
+        uart_decoder_reset();
+        uart_decoder();
+    end 
 
     // https://gchq.github.io/CyberChef/#recipe=To_Hex('Space',0)Find_/_Replace(%7B'option':'Regex','string':'%20'%7D,',%208%5C'h',true,false,true,false)&input=e2hpX2knbV95b3VyX2FybXl9
     assign interconnect[1] = tx;
