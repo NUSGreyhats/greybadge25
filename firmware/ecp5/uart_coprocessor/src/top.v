@@ -20,6 +20,8 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
     wire [127:0] plain   = tv[255:128];
     wire [127:0] ciph    = tv[127:0];
 
+    reg [127:0] aes_key = key;
+    reg [127:0] aes_in = text_in;
 
     reg [127:0] aes_enc_key = key;
     reg [127:0] aes_enc_text_in = text_in;
@@ -49,33 +51,23 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
     
     reg aes_dec_kld = 0;
     wire [127:0] aes_dec_text_out;
-    aes_inv_cipher_top AES_ENC(
-        .clk(clk_slow), 
-        .rst(1), 
-        .kld(aes_dec_kld), .ld(aes_enc_ld), 
-        .kdone(), .done(aes_dec_done), 
+    // aes_inv_cipher_top AES_DEC(
+    //     .clk(clk_slow), 
+    //     .rst(1), 
+    //     .kld(aes_dec_kld), .ld(aes_enc_ld), 
+    //     .done(aes_dec_done), 
 
-        .key(aes_enc_key), 
-        .text_in(aes_enc_text_in),
-        .text_out(aes_dec_text_out) 
-    );
+    //     .key(aes_enc_key), 
+    //     .text_in(aes_enc_text_in),
+    //     .text_out(aes_dec_text_out) 
+    // );
 
-    reg [127:0] aes_dec_text_out_reg;
-    always @ (posedge clk_slow) begin
-        if (aes_dec_done) begin
-            aes_enc_text_out_reg <= aes_enc_text_out;
-        end
-    end
-
-    /// AES Write Data /////////////////////////////////////////
-    // Data Write on posedge
-    reg trig_aes_text_in = 0;
-    always @ (posedge clk_slow) begin
-        if (trig_aes_text_in) begin
-            //aes_enc_text_in <= 128'h9798c4640bad75c7c3227db910174e72; // rx_out[135:8];
-            trig_aes_text_in <= 0;
-        end
-    end
+    // reg [127:0] aes_dec_text_out_reg;
+    // always @ (posedge clk_slow) begin
+    //     if (aes_dec_done) begin
+    //         aes_dec_text_out_reg <= aes_dec_text_out;
+    //     end
+    // end
 
     /// UART ////////////////////////////////////////////////
     parameter DBITS = 8;
@@ -153,10 +145,13 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
                 // Input Stuff /////////////////////////////////////
                 "C": begin // Key
                     aes_enc_key <= rx_out[135:8];
+                    uart_tx_out <= "key updated";
+                    tx_controller_send <= 1;
                 end
                 "D": begin // PlainText
-                    trig_aes_text_in <= 1;
-                    //aes_enc_text_in <= 128'h9798c4640bad75c7c3227db910174e72; // rx_out[135:8];
+                    aes_in <= rx_out[135:8];
+                    uart_tx_out <= "plaintext updated";
+                    tx_controller_send <= 1;
                 end
                 "E": begin // PlainText
                     aes_enc_ld <= 1;
@@ -167,10 +162,10 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
 
     
 
-    always @ (posedge clk_slow) begin
-        uart_decoder_reset();
-        uart_decoder();
-    end 
+    // always @ (posedge clk_slow) begin
+    //     uart_decoder_reset();
+    //     uart_decoder();
+    // end 
 
     // https://gchq.github.io/CyberChef/#recipe=To_Hex('Space',0)Find_/_Replace(%7B'option':'Regex','string':'%20'%7D,',%208%5C'h',true,false,true,false)&input=e2hpX2knbV95b3VyX2FybXl9
     assign interconnect[1] = tx;

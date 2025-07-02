@@ -115,22 +115,32 @@ module uart_top
          );
     // above working
     
-    fifo_shift
-         #(
-             .DATA_SIZE(DBITS),
-             .ADDR_SPACE(FIFO_IN_SIZE)
-          )
-          FIFO_RX_UNIT
-          (
-             .clk(clk_100MHz),
-             .write_to_fifo(rx_done_tick),
-             .write_data_in(rx_data_out),
-             .write_batch_to_fifo(0),
-             .write_batch_data_in(0),
-             .read_all_data_out(rx_out),
-             .tick(read_tick)  
-           );
+    reg  [(DBITS * FIFO_IN_SIZE)-1:0] memory;
+    wire [(DBITS * FIFO_IN_SIZE)-1:0] shifted_memory = memory << DBITS; 
+    always @ (posedge clk_100MHz) begin
+        if (rx_done_tick) begin
+            memory <= shifted_memory | rx_data_out;
+        end
+    end
+    assign rx_out = memory;
     
+    // fifo_shift
+    //      #(
+    //          .DATA_SIZE(DBITS),
+    //          .ADDR_SPACE(FIFO_IN_SIZE)
+    //       )
+    //       FIFO_RX_UNIT
+    //       (
+    //          .clk(clk_100MHz),
+    //          .reset(reset),
+    //          .write_to_fifo(rx_done_tick),
+    //          //.shift(rx_done_tick), 
+    //          .write_data_in(rx_data_out),
+    //          .write_batch_to_fifo(0),
+    //          .write_batch_data_in(0),
+    //          .read_all_data_out(rx_out),
+    //          .tick(read_tick)  
+    //        );
     
     // UART Transmitter ////////////////////////////////////////////////
     
