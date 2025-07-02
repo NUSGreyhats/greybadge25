@@ -21,8 +21,8 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
     wire [127:0] ciph    = tv[127:0];
 
 
-    reg [127:0] aes_enc_key;
-    reg [127:0] aes_enc_text_in;
+    reg [127:0] aes_enc_key = key;
+    reg [127:0] aes_enc_text_in = text_in;
     wire [127:0] aes_enc_text_out;
     reg aes_enc_ld = 0;
     wire aes_enc_done;
@@ -31,9 +31,9 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
         .rst(1), .ld(~btn[0]), 
         .done(aes_enc_done), 
         
-        .key(key), 
+        // .key(key), 
         .text_in(text_in),
-        // .key(aes_enc_key), 
+        .key(aes_enc_key), 
         // .text_in(aes_enc_text_in),
         .text_out(aes_enc_text_out) 
     );
@@ -111,10 +111,20 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
                     uart_tx_out <= "123456789012345678";
                     tx_controller_send <= 1;
                 end
+                /// Display Stuff
                 "B": begin // display AES encryption
                     uart_tx_out <= aes_enc_text_out_reg;
                     tx_controller_send <= 1;
                 end
+                "a": begin 
+                    uart_tx_out <= aes_enc_key;
+                    tx_controller_send <= 1;
+                end
+                "b": begin 
+                    uart_tx_out <= aes_enc_text_in;
+                    tx_controller_send <= 1;
+                end
+                // Input Stuff
                 "C": begin // Key
                     aes_enc_key <= rx_out[8*(17)-1:8*(1)];
                 end
