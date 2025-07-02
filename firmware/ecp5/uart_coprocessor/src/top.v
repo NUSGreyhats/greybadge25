@@ -8,6 +8,11 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
     wire clk = clk_int;
     localparam CLK_FREQ = 103_340_000; // EXT CLK
 
+    reg clk_slow = 0;
+    always @ (posedge clk) begin
+        clk_slow <= ~clk_slow;
+    end
+
     // AES Coprocessor /////////////////////////////////////////////////
     reg [127:0] aes_enc_key;
     reg [127:0] aes_enc_text_in;
@@ -15,8 +20,8 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
     reg aes_enc_ld = 0;
     wire aes_enc_done;
     aes_cipher_top AES_ENC(
-        .clk(clk), 
-        .rst(0), .ld(aes_enc_ld), 
+        .clk(clk_slow), 
+        .rst(btn[2]), .ld(aes_enc_ld), 
         .done(aes_enc_done), 
         .key(aes_enc_key), 
         .text_in(aes_enc_text_in),
@@ -24,7 +29,7 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
     );
 
     reg [127:0] aes_enc_text_out_reg;
-    always @ (posedge clk_ext) begin
+    always @ (posedge clk_slow) begin
         if (aes_enc_done) begin
             aes_enc_text_out_reg <= aes_enc_text_out;
         end
@@ -94,7 +99,7 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
         end
     endtask
 
-    always @ (posedge clk_ext) begin
+    always @ (posedge clk_slow) begin
         uart_decoder_reset();
         uart_decoder();
     end 
