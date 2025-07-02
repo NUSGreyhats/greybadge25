@@ -67,6 +67,16 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
         end
     end
 
+    /// AES Write Data /////////////////////////////////////////
+    // Data Write on posedge
+    reg trig_aes_text_in = 0;
+    always @ (posedge clk_slow) begin
+        if (trig_aes_text_in) begin
+            //aes_enc_text_in <= 128'h9798c4640bad75c7c3227db910174e72; // rx_out[135:8];
+            trig_aes_text_in <= 0;
+        end
+    end
+
     /// UART ////////////////////////////////////////////////
     parameter DBITS = 8;
     parameter UART_FRAME_SIZE = 18;
@@ -145,7 +155,8 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
                     aes_enc_key <= rx_out[135:8];
                 end
                 "D": begin // PlainText
-                    aes_enc_text_in <= 128'h9798c4640bad75c7c3227db910174e72; // rx_out[135:8];
+                    trig_aes_text_in <= 1;
+                    //aes_enc_text_in <= 128'h9798c4640bad75c7c3227db910174e72; // rx_out[135:8];
                 end
                 "E": begin // PlainText
                     aes_enc_ld <= 1;
@@ -153,6 +164,8 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
             endcase
         end
     endtask
+
+    
 
     always @ (posedge clk_slow) begin
         uart_decoder_reset();
