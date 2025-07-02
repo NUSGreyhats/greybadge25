@@ -155,7 +155,7 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
                     tx_controller_send <= 1;
                 end
                 "D": begin // PlainText
-                    aes_in <= rx_out[135:8];
+                    aes_enc_text_in <= rx_out[135:8];
                     uart_tx_out <= "plaintext updated";
                     tx_controller_send <= 1;
                 end
@@ -165,8 +165,6 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
             endcase
         end
     endtask
-
-    
 
     always @ (posedge clk_slow) begin
         uart_decoder_reset();
