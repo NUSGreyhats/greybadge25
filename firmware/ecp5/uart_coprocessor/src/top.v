@@ -46,22 +46,26 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
     end
 
 
-    // wire [127:0] aes_dec_text_out;
-    // aes_inv_cipher_top AES_ENC(
-    //     .clk(clk_slow), 
-    //     .rst(btn[2]), .ld(aes_enc_ld), 
-    //     .done(aes_dec_done), 
-    //     .key(aes_enc_key), 
-    //     .text_in(aes_enc_text_in),
-    //     .text_out(aes_dec_text_out) 
-    // );
+    
+    reg aes_dec_kld = 0;
+    wire [127:0] aes_dec_text_out;
+    aes_inv_cipher_top AES_ENC(
+        .clk(clk_slow), 
+        .rst(1), 
+        .kld(aes_dec_kld), .ld(aes_enc_ld), 
+        .kdone(), .done(aes_dec_done), 
 
-    // reg [127:0] aes_dec_text_out_reg;
-    // always @ (posedge clk_slow) begin
-    //     if (aes_dec_done) begin
-    //         aes_enc_text_out_reg <= aes_enc_text_out;
-    //     end
-    // end
+        .key(aes_enc_key), 
+        .text_in(aes_enc_text_in),
+        .text_out(aes_dec_text_out) 
+    );
+
+    reg [127:0] aes_dec_text_out_reg;
+    always @ (posedge clk_slow) begin
+        if (aes_dec_done) begin
+            aes_enc_text_out_reg <= aes_enc_text_out;
+        end
+    end
 
     /// UART ////////////////////////////////////////////////
     parameter DBITS = 8;
@@ -102,6 +106,7 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
     task uart_decoder_reset();
         tx_controller_send <= 0;
         aes_enc_ld <= 0;
+        aes_dec_kld <= 0;
     endtask
 
     task uart_decoder();
@@ -115,9 +120,16 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
                 "E": begin // PlainText
                     aes_enc_ld <= 1;
                 end
+                "K": begin // PlainText
+                    aes_dec_kld <= 1;
+                end
                 /// Display Stuff ////////////////////////////////
                 "@": begin // display AES encryption
                     uart_tx_out <= aes_enc_text_out_reg;
+                    tx_controller_send <= 1;
+                end
+                "`": begin // display AES decryption
+                    uart_tx_out <= aes_dec_text_out_reg;
                     tx_controller_send <= 1;
                 end
                 "a": begin 
@@ -133,7 +145,7 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
                     aes_enc_key <= rx_out[135:8];
                 end
                 "D": begin // PlainText
-                    aes_enc_text_in <= rx_out[135:8];
+                    aes_enc_text_in <= 128'h9798c4640bad75c7c3227db910174e72; // rx_out[135:8];
                 end
                 "E": begin // PlainText
                     aes_enc_ld <= 1;
