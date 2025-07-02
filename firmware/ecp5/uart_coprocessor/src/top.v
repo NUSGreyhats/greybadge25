@@ -40,7 +40,7 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
 
     reg [127:0] aes_enc_text_out_reg = 0;
     always @ (posedge clk_slow) begin
-        if (aes_enc_text_out == ciph) begin
+        if (aes_enc_done) begin
             aes_enc_text_out_reg <= aes_enc_text_out;
         end
     end
