@@ -14,6 +14,13 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
     end
 
     // AES Coprocessor /////////////////////////////////////////////////
+    wire [384:0] tv = 384'h00000000000000000000000000000000f34481ec3cc627bacd5dc3fb08f273e60336763e966d92595a567cc9ce537f5e;
+    wire [127:0] key     = tv[383:256];
+    wire [127:0] text_in = tv[255:128];
+    wire [127:0] plain   = tv[255:128];
+    wire [127:0] ciph    = tv[127:0];
+
+
     reg [127:0] aes_enc_key;
     reg [127:0] aes_enc_text_in;
     wire [127:0] aes_enc_text_out;
@@ -21,19 +28,41 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
     wire aes_enc_done;
     aes_cipher_top AES_ENC(
         .clk(clk_slow), 
-        .rst(btn[2]), .ld(aes_enc_ld), 
+        .rst(1), .ld(~btn[0]), 
         .done(aes_enc_done), 
-        .key(aes_enc_key), 
-        .text_in(aes_enc_text_in),
+        
+        .key(key), 
+        .text_in(text_in),
+        // .key(aes_enc_key), 
+        // .text_in(aes_enc_text_in),
         .text_out(aes_enc_text_out) 
     );
 
-    reg [127:0] aes_enc_text_out_reg;
+    reg [127:0] aes_enc_text_out_reg = 0;
     always @ (posedge clk_slow) begin
-        if (aes_enc_done) begin
+        if (aes_enc_text_out == ciph) begin
             aes_enc_text_out_reg <= aes_enc_text_out;
         end
     end
+
+
+    // wire [127:0] aes_dec_text_out;
+    // aes_inv_cipher_top AES_ENC(
+    //     .clk(clk_slow), 
+    //     .rst(btn[2]), .ld(aes_enc_ld), 
+    //     .done(aes_dec_done), 
+    //     .key(aes_enc_key), 
+    //     .text_in(aes_enc_text_in),
+    //     .text_out(aes_dec_text_out) 
+    // );
+
+    // reg [127:0] aes_dec_text_out_reg;
+    // always @ (posedge clk_slow) begin
+    //     if (aes_dec_done) begin
+    //         aes_enc_text_out_reg <= aes_enc_text_out;
+    //     end
+    // end
+
     /// UART ////////////////////////////////////////////////
     parameter DBITS = 8;
     parameter UART_FRAME_SIZE = 18;
