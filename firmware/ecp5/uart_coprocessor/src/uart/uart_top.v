@@ -131,6 +131,7 @@ module uart_top
              .tick(read_tick)  
            );
     
+    
     // UART Transmitter ////////////////////////////////////////////////
     
     wire tx_empty;                      // Tx FIFO has no data to transmit

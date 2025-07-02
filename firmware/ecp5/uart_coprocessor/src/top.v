@@ -8,6 +8,27 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
     wire clk = clk_int;
     localparam CLK_FREQ = 103_340_000; // EXT CLK
 
+    // AES Coprocessor /////////////////////////////////////////////////
+    reg [127:0] aes_enc_key;
+    reg [127:0] aes_enc_text_in;
+    wire [127:0] aes_enc_text_out;
+    reg aes_enc_ld = 0;
+    wire aes_enc_done;
+    aes_cipher_top AES_ENC(
+        .clk(clk), 
+        .rst(0), .ld(aes_enc_ld), 
+        .done(aes_enc_done), 
+        .key(aes_enc_key), 
+        .text_in(aes_enc_text_in),
+        .text_out(aes_enc_text_out) 
+    );
+
+    reg [127:0] aes_enc_text_out_reg;
+    always @ (posedge clk_ext) begin
+        if (aes_enc_done) begin
+            aes_enc_text_out_reg <= aes_enc_text_out;
+        end
+    end
     /// UART ////////////////////////////////////////////////
     parameter DBITS = 8;
     parameter UART_FRAME_SIZE = 18;
@@ -46,18 +67,34 @@ module top(input clk_ext, input [4:0] btn, output [7:0] led, inout [7:0] interco
     /// Control Logic ///////////////////////////////////////////////
     task uart_decoder_reset();
         tx_controller_send <= 0;
+        aes_enc_ld <= 0;
     endtask
 
     task uart_decoder();
-        case (rx_out[8*(1)-1:8*(0)]) 
-            "A": begin // testing
-                uart_tx_out <= "123456789012345678";
-                tx_controller_send <= 1;
-            end
-        endcase
+        if (rx_out[8*(18)-1:8*(17)] == rx_out[8*(1)-1:8*(0)]) begin 
+            case (rx_out[8*(1)-1:8*(0)]) 
+                "A": begin // testing
+                    uart_tx_out <= "123456789012345678";
+                    tx_controller_send <= 1;
+                end
+                "B": begin // display AES encryption
+                    uart_tx_out <= aes_enc_text_out_reg;
+                    tx_controller_send <= 1;
+                end
+                "C": begin // Key
+                    aes_enc_key <= rx_out[8*(17)-1:8*(1)];
+                end
+                "D": begin // PlainText
+                    aes_enc_text_in <= rx_out[8*(17)-1:8*(1)];
+                end
+                "E": begin // PlainText
+                    aes_enc_ld <= 1;
+                end
+            endcase
+        end
     endtask
 
-    always @ (posedge clk) begin
+    always @ (posedge clk_ext) begin
         uart_decoder_reset();
         uart_decoder();
     end 
