@@ -2,8 +2,11 @@ import displayio
 import terminalio
 import random
 import time
+from array import array
 
-### Tetris v1.0 - Added Ghost Piece ########################
+### Tetris v1.2.1 - Add hold piece ########################
+# KNOWN BUGS
+# 1. When game ends, the game screen will get shifted to the top left corner
 
 # Simple Non-blocking Music Player
 class BackgroundMusicPlayer:
@@ -20,8 +23,7 @@ class BackgroundMusicPlayer:
         self.tempo_multiplier = 1.0  # Speed multiplier for the music
 
     def set_simple_melody(self):
-        """Set the correct Tetris theme melody (Korobeiniki) at proper tempo"""
-        # Correct Tetris melody using note indices and durations
+        """Set the correct Tetris theme melody (Korobeiniki) at base tempo"""
         # Notes in E minor key with proper frequencies
         self.note_frequencies = [
             330,   # E4  - index 0
@@ -153,7 +155,7 @@ class SimpleDebouncer:
         return False
 
 class NESRandomizer:
-    """Implements NES Tetris randomization - reroll if same as previous piece"""
+    """NES Tetris randomization - reroll if same as previous piece"""
     def __init__(self):
         self.last_piece = None
     def get_next_piece(self):
@@ -164,7 +166,7 @@ class NESRandomizer:
         return piece
 
 class Brick:
-    BRICKS = b'\xf0\x66\x4e\x36\x63\x71\x74'  # T piece corrected to 0x4e
+    BRICKS = b'\xf0\x66\x4e\x36\x63\x71\x74'
     ROTATIONS = [
         (1, 0, 0, 1, -1, -1),
         (0, 1, -1, 0, -1, 0),
@@ -214,10 +216,18 @@ class Brick:
                 mask <<= 1
         return False
 
-# ---------------------- MAIN GAME ----------------------
+
+    def copy(self):
+        """Create a copy of this brick"""
+        new_brick = Brick(self.kind)
+        new_brick.x = self.x
+        new_brick.y = self.y
+        new_brick.rotation = self.rotation
+        return new_brick
+
 
 def brick_game(hw_state):
-    """Main function to run the brick game with ghost piece support."""
+    """Setup the game display and run game"""
 
     # -------------------- DISPLAY SETUP --------------------
     display = hw_state["display"]
@@ -232,10 +242,10 @@ def brick_game(hw_state):
     nes_randomizer = NESRandomizer()
 
     music_player = BackgroundMusicPlayer(hw_state)
-    music_player.start_music()
+    if button_b.value == True:
+        music_player.start_music()
 
-    # Expanded palette to 9 to accommodate ghost piece (index 8)
-    palette = displayio.Palette(9)
+    palette = displayio.Palette(10)
     palette[0] = 0x7f7f7f  # Background
     palette[1] = 0x00ffff  # I piece - Cyan
     palette[2] = 0xffff00  # O piece - Yellow
@@ -245,6 +255,7 @@ def brick_game(hw_state):
     palette[6] = 0x0000ff  # J piece - Blue
     palette[7] = 0xff7f00  # L piece - Orange
     palette[8] = 0xbbbbbb  # Ghost piece - Light grey
+    palette[9] = 0xffffff  # Hold piece border - White
 
     text_palette = displayio.Palette(2)
     text_palette[0] = 0x222222
@@ -258,33 +269,44 @@ def brick_game(hw_state):
     text_grid.y = 50
     text = terminalio.Terminal(text_grid, terminalio.FONT)
 
+    # Add level text display
     level_grid = displayio.TileGrid(terminalio.FONT.bitmap, tile_width=w, tile_height=h,
                                     pixel_shader=text_palette, width=8, height=1)
     level_grid.x = 96
     level_grid.y = 70
     level_text = terminalio.Terminal(level_grid, terminalio.FONT)
 
-    # desc_grid = displayio.TileGrid(terminalio.FONT.bitmap, tile_width=w, tile_height=h,
-    #                                pixel_shader=text_palette, width=25, height=1)
-    # desc_grid.x = -30
-    # desc_grid.y = 130
-    # desc_text = terminalio.Terminal(desc_grid, terminalio.FONT)
+    # Add description text for endgame message
+    desc_grid = displayio.TileGrid(terminalio.FONT.bitmap, tile_width=w, tile_height=h,
+                                   pixel_shader=text_palette, width=25, height=1)
+    desc_grid.x = -30
+    desc_grid.y = 130
+    desc_text = terminalio.Terminal(desc_grid, terminalio.FONT)
 
-    # Main game and preview bitmaps now allow 9 colors
-    screen = displayio.Bitmap(10, 20, 9)
-    preview = displayio.Bitmap(4, 4, 9)
+    # Add hold piece display text
+    hold_grid = displayio.TileGrid(terminalio.FONT.bitmap, tile_width=w, tile_height=h,
+                                   pixel_shader=text_palette, width=8, height=1)
+    hold_grid.x = -50
+    hold_grid.y = -15
+    hold_text = terminalio.Terminal(hold_grid, terminalio.FONT)
+
+    screen = displayio.Bitmap(10, 20, 10)
+    preview = displayio.Bitmap(4, 4, 10)
+    hold_area = displayio.Bitmap(4, 4, 10)
 
     bricks_group = displayio.Group(scale=8)
     bricks_group.append(displayio.TileGrid(screen, pixel_shader=palette, x=0, y=-4))
     bricks_group.append(displayio.TileGrid(preview, pixel_shader=palette, x=12, y=0))
+    bricks_group.append(displayio.TileGrid(hold_area, pixel_shader=palette, x=-8, y=0))
 
     root = displayio.Group()
     root.append(bricks_group)
     root.append(text_grid)
     root.append(level_grid)
-    # root.append(desc_grid)
+    root.append(desc_grid)
+    root.append(hold_grid)
 
-    # Center game on display
+    # Center game on display (we had a circular screen)
     root.x = 80
     root.y = 70
     display.root_group = root
@@ -311,11 +333,59 @@ def brick_game(hw_state):
         current_brick.y += drop
         current_brick.draw(screen, 8)  # Draw using ghost color
         current_brick.y = original_y
+    
+    def clear_preview():
+        """Clear the entire preview area"""
+        for y in range(preview.height):
+            for x in range(preview.width):
+                preview[x, y] = 0
+
+    # --------------- Hold piece functions ---------------
+    def clear_hold_area():
+        """Clear the hold area display"""
+        for y in range(hold_area.height):
+            for x in range(hold_area.width):
+                hold_area[x, y] = 0
+
+    def draw_hold_piece(held_piece):
+        """Draw the held piece in the hold area"""
+        clear_hold_area()
+        # draw_hold_border()
+        if held_piece is not None:
+            # Create a temporary brick positioned in the hold area
+            temp_brick = Brick(held_piece.kind)
+            temp_brick.x = 1
+            temp_brick.y = 1
+            temp_brick.rotation = 0  # Always show pieces in default rotation (buggy)
+            temp_brick.draw(hold_area)
+
+    def perform_hold(current_brick, held_piece, next_brick_func, can_hold):
+        """Handle the hold piece swap"""
+        if not can_hold:
+            return current_brick, held_piece, False  # Prevent holding twice in a row
+        
+        if held_piece is None:
+            # First time holding - store current piece and get next
+            held_piece = Brick(current_brick.kind)
+            new_current = next_brick_func()
+            return new_current, held_piece, False  # Can't hold again until next piece
+        else:
+            # Swap current with held
+            temp_kind = current_brick.kind
+            new_current = Brick(held_piece.kind)
+            new_current.x = screen.width // 2
+            new_current.y = 2
+            held_piece = Brick(temp_kind)
+            return new_current, held_piece, False  # Can't hold again until next piece
 
     # --------------- Game mechanics ---------------
     def get_gravity_delay(score):
         level = score // 4  # Level up every 4 points (was every 100)
         return max(0.02, 0.35 - (level * 0.02))
+
+    # Initialize hold piece system
+    held_piece = None
+    can_hold = True  # Can hold the current piece
 
     brick = None
     score = 0
@@ -324,29 +394,35 @@ def brick_game(hw_state):
 
     last_inputs = [1] * 10
 
+    # Initialize hold display
+    hold_text.write("HOLD")
+    draw_hold_piece(held_piece)
+
     try:
         while True:
             music_player.update()
 
             # Spawn new brick if needed
             if brick is None:
-                
                 current_level = score // 4
                 text.write("\r\n%08d" % score)
                 level_text.write("\r\nLEVEL %d" % current_level)
-                next_brick.draw(preview, 0)  # Clear preview area
+                clear_preview()
                 brick = next_brick
                 brick.x = screen.width // 2
+                brick.y = 2
                 next_brick = Brick(nes_randomizer.get_next_piece())
                 next_brick.draw(preview)
+                can_hold = True  # Reset hold availability for new piece
+                
                 if brick.hit(screen, 0, 0):
-                    # desc_text.write("Restarting game 5s....")
+                    desc_text.write("!!!!Thanks for playing!!!")
+                    time.sleep(1)
                     root.x = 0
                     root.y = 0
-                    time.sleep(1)
                     music_player.stop()
                     return
-
+            
             # Gravity timing
             if tick <= time.monotonic():
                 tick = time.monotonic() + get_gravity_delay(score)
@@ -366,28 +442,38 @@ def brick_game(hw_state):
                 if debouncer.check_button('left', fpga_buttons[0].value):
                     if not brick.hit(screen, -1, 0):
                         brick.x -= 1
-                        last_inputs.append(0); last_inputs.pop(0)
+                        last_inputs.append(0); last_inputs.pop(0) # input history
                 if debouncer.check_button('right', fpga_buttons[4].value):
                     if not brick.hit(screen, 1, 0):
                         brick.x += 1
                         last_inputs.append(4); last_inputs.pop(0)
-                if debouncer.check_button('down', fpga_buttons[3].value):
+                if debouncer.check_button('down', fpga_buttons[3].value): # Soft drop
                     if not brick.hit(screen, 0, 1):
                         brick.y += 1
                         last_inputs.append(3); last_inputs.pop(0)
-                if debouncer.check_button('a', button_a.value):
+                if debouncer.check_button('a', button_a.value): # Rotate counter clockwise
                     if not brick.hit(screen, 0, 0, 1):
                         brick.rotation = (brick.rotation + 1) % 4
                         last_inputs.append(5); last_inputs.pop(0)
-                if debouncer.check_button('b', button_b.value):
+                if debouncer.check_button('b', button_b.value): # Rotate clockwise
                     if not brick.hit(screen, 0, 0, -1):
                         brick.rotation = (brick.rotation - 1) % 4
                         last_inputs.append(6); last_inputs.pop(0)
-                if debouncer.check_button('center', fpga_buttons[2].value):
+                if debouncer.check_button('center', fpga_buttons[2].value): # Hard drop
                     while not brick.hit(screen, 0, 1):
                         brick.y += 1
-                if debouncer.check_button('up', fpga_buttons[1].value):
-                    if not brick.hit(screen, 0, 1):
+                if debouncer.check_button('up', fpga_buttons[1].value): # hold piece
+                    # Hold piece functionality
+                    if can_hold:
+                        def get_next():
+                            return next_brick
+                        brick, held_piece, can_hold = perform_hold(brick, held_piece, get_next, can_hold)
+                        # If we swapped with empty hold, need to generate new next piece
+                        if held_piece is not None and held_piece.kind == next_brick.kind:
+                            next_brick = Brick(nes_randomizer.get_next_piece())
+                            clear_preview()
+                            next_brick.draw(preview)
+                        draw_hold_piece(held_piece)
                         last_inputs.append(1); last_inputs.pop(0)
 
                 # Draw ghost first, then brick
