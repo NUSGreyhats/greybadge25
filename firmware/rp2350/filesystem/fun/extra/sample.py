@@ -4,9 +4,6 @@ import digitalio
 import time
 import hardware.fpga
 
-# It's a buggy coprocessor, but hey, its a proof of concept of how you can utilise the FPGA to go advanced computation!
-# Can check the bitstream verilog on github
-
 hardware.hw_state["fpga_overlay"].deinit()
 if input("type something to update fpga: ") != "":
     h = hardware.fpga.upload_bitstream("/fun/extra/coprocessor.bit")
@@ -36,7 +33,7 @@ print(uart.read())
 ### Datasets #################################################################
 
 key = '\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
-text_in = '\xf3D\x81\xec<\xc6\'\xba\xcd]\xc3\xfb\x08\xf2s\xe6'
+text_in = b'\xf3D\x81\xec<\xc6\'\xba\xcd]\xc3\xfb\x08\xf2s\xe6'
 plain = '\xf3D\x81\xec<\xc6\'\xba\xcd]\xc3\xfb\x08\xf2s\xe6'
 ciph = '\x036v>\x96m\x92YZa|\xc9\xceS\x7f^'
 
