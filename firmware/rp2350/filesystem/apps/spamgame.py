@@ -51,10 +51,12 @@ def spamgame(hw_state):
         # Select Code
         if timediff != prevtime:
             text_area.text = f"Score: {score}\nTime: {timediff}"
+            text_area.y = 15
         
         if hw_state["btn_action"][0].value == False and prevpress == True:
             score += 1
             text_area.text = f"Score: {score}\nTime: {timediff}"
+            text_area.y = 15
         if hw_state["btn_action"][1].value == False:
             return
         prevpress = hw_state["btn_action"][0].value
