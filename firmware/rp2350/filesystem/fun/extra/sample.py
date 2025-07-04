@@ -6,7 +6,7 @@ import hardware.fpga
 
 hardware.hw_state["fpga_overlay"].deinit()
 if input("type something to update fpga: ") != "":
-    h = hardware.fpga.upload_bitstream("/extra/coprocessor.bit")
+    h = hardware.fpga.upload_bitstream("/fun/extra/coprocessor.bit")
     h.deinit()
 
 ### Need clear Pins first #######################
