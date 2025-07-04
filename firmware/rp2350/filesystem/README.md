@@ -2,6 +2,7 @@
 
 This is the GreyMecha/Army Firmware (for the RP part anyway). It's based off circuitpython, and includes various challenges.
 
+More documentation can be found in `/fun`. The Github Repo is https://github.com/NUSGreyhats/greybadge25
 
 ## Images
 
@@ -27,6 +28,7 @@ Grey Challenges
 4. Secure Memory
 5. CatCore
 
+Check the `/fun` info for more documentation
 
 ## Updates
 
