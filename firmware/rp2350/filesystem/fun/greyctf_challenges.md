@@ -131,6 +131,8 @@ Hackin7
 
 It's security at the hardware level so it must be secure right?
 
+Clock Frequency - 15Hz
+
 Verilog Reference
 
 ```verilog
