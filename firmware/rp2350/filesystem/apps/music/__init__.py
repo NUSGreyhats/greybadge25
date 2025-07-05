@@ -2,6 +2,7 @@ import time
 from apps.music.old import *
 import board
 import adafruit_rtttl
+from apps.music.badapple import play_bad_apple
 
 SuperMario = 'Super Mario - Main Theme:d=4,o=5,b=125:a,8f.,16c,16d,16f,16p,f,16d,16c,16p,16f,16p,16f,16p,8c6,8a.,g,16c,a,8f.,16c,16d,16f,16p,f,16d,16c,16p,16f,16p,16a#,16a,16g,2f,16p,8a.,8f.,8c,8a.,f,16g#,16f,16c,16p,8g#.,2g,8a.,8f.,8c,8a.,f,16g#,16f,8c,2c6'
 QZKago = ('QZKago:d=4,o=5,b=125:8c,8d,8d#,8g4,8f#4,16g4,8g#4,8d#,16d#,8d,8d#,' +
@@ -19,6 +20,7 @@ def play_rtttl(hw_state, songtext):
     adafruit_rtttl.play(board.GP21, songtext)
     hw_state["buzzer"] = hw_state["buzzer_init"]()
     
+### Bad
 ### Music Menu #############################################################
 from adafruit_display_text import label
 import displayio
@@ -65,6 +67,7 @@ def music_app(hw_state):
         ("qzkago",lambda:play_rtttl(hw_state, QZKago)),
         ("maimai",lambda:buzz_intro(hw_state)),
         ("eye",lambda:buzz_eye(hw_state)),
+        ("bad apple", lambda:play_bad_apple(hw_state)),
     ]
     menu_layout(hw_state, options[curr][0])
     fpga_buttons = hw_state["fpga_overlay"].set_mode_buttons()

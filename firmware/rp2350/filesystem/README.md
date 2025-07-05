@@ -2,7 +2,6 @@
 
 This is the GreyMecha/Army Firmware (for the RP part anyway). It's based off circuitpython, and includes various challenges.
 
-More documentation can be found in `/fun`. The Github Repo is https://github.com/NUSGreyhats/greybadge25
 
 ## Images
 
@@ -28,7 +27,6 @@ Grey Challenges
 4. Secure Memory
 5. CatCore
 
-Check the `/fun` info for more documentation
 
 ## Updates
 
@@ -60,10 +58,14 @@ Developers
     - mirrortune
 7. khian
     - Asteroids
+8. sayomaki
+    - Bad Apple
 
 Thanks to these people for helping
 
 1. zst123, rhgndf, sayomaki - Technical Advice
 2. caprinux - For initiating the whole GreyHats Badge thing
 
-and thanks to GreyHats and whoever else who made this possible.
+and thanks to GreyHats and whoever else who made this possible!
+
+For anyone who made anything cool with the badge, do share it on instagram/x and tag NUSGreyhats!
