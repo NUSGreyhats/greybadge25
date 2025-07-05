@@ -2,6 +2,7 @@ import time
 from apps.music.old import *
 import board
 import adafruit_rtttl
+from apps.music.badapple import play_bad_apple
 
 SuperMario = 'Super Mario - Main Theme:d=4,o=5,b=125:a,8f.,16c,16d,16f,16p,f,16d,16c,16p,16f,16p,16f,16p,8c6,8a.,g,16c,a,8f.,16c,16d,16f,16p,f,16d,16c,16p,16f,16p,16a#,16a,16g,2f,16p,8a.,8f.,8c,8a.,f,16g#,16f,16c,16p,8g#.,2g,8a.,8f.,8c,8a.,f,16g#,16f,8c,2c6'
 QZKago = ('QZKago:d=4,o=5,b=125:8c,8d,8d#,8g4,8f#4,16g4,8g#4,8d#,16d#,8d,8d#,' +
@@ -11,7 +12,6 @@ QZKago = ('QZKago:d=4,o=5,b=125:8c,8d,8d#,8g4,8f#4,16g4,8g#4,8d#,16d#,8d,8d#,' +
           '8f,8d#,8d,16d#,8d,16c,16c,4g,'+
           '8d#,8g#4,16g4,8g#4,8g4,16g4,16f#4,16g4,16.,16g,16f#,16g,16.,'+
           '16f,16d#,16d,16c,16d,16d#,16f,16b4,4c')
-spoderman = 'Spiderman:o=6,d=4,b=200,b=200:c,8d#,g.,p,f#,8d#,c.,p,c,8d#,g,8g#,g,f#,8d#,c.,p,f,8g#,c7.,p,a#,8g#,f.,p,c,8d#,g.,p,f#,8d#,c,p,8g#,2g,p,8f#,f#,8d#,f,8d#,2c'
 SovietUnion = "tetris:d=4,o=4,b=150:e5,8b,8c5,8d5,15e5,15d5,8c5,8b,a,8a,8c5,e5,8d5,8c5,b,8b,8c5,d5,e5,c5,a,2a,8p,d5,8f5,a5,8g5,8f5,e5,8e5,8c5,e5,8d5,8c5,b,8b,8c5,d5,e5,c5,a,a"
 MirrorTune = "mirrortune:d=16,o=5,b=160:32c6,32p,c6,a#5,c6,p,a#5,p,c#6,p,c6,a#5,p,c6,p,a#5,p,32f5,32p,f5,g5,p,f5,p,d5,p,c5,p,a#4,p,c5,p,g4,f4,8p,a#5,c6,p,a#5,p,c#6,p,c6,a#5,p,c6,p,a#5,p,f5,f#5,g5,p,32g6,32p,32g6,32p,32g6,32p,32g6,32p,32g6,32p,32g6,32p,g6,f6,p,g6,4p,a#5,c6,p,a#5,p,c#6,p,c6,a#5,p,c6,p,a#5,p,32f5,32p,f5,g5,p,f5,p,d5,p,c5,p,a#4,p,c5,p,g4,f4,8p,a#5,c6,p,a#5,p,c#6,p,c6,a#5,p,c6,p,a#5,p,f5,f#5,g5,p,f5,f#5,g5,p,f5,f#5,4g5,8p"
 
@@ -20,6 +20,7 @@ def play_rtttl(hw_state, songtext):
     adafruit_rtttl.play(board.GP21, songtext)
     hw_state["buzzer"] = hw_state["buzzer_init"]()
     
+### Bad
 ### Music Menu #############################################################
 from adafruit_display_text import label
 import displayio
@@ -66,7 +67,7 @@ def music_app(hw_state):
         ("qzkago",lambda:play_rtttl(hw_state, QZKago)),
         ("maimai",lambda:buzz_intro(hw_state)),
         ("eye",lambda:buzz_eye(hw_state)),
-        ("spoderman", lambda:play_rtttl(hw_state, spoderman)),
+        ("bad apple", lambda:play_bad_apple(hw_state)),
     ]
     menu_layout(hw_state, options[curr][0])
     fpga_buttons = hw_state["fpga_overlay"].set_mode_buttons()

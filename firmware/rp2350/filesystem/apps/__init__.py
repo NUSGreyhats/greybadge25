@@ -5,6 +5,9 @@ import time
 
 import apps.face
 import apps.brick_game
+import apps.brick_good
+import apps.asteroid
+import apps.spamgame
 import apps.others
 import apps.music
 
@@ -57,7 +60,7 @@ def menu(hw_state):
     
     print("menu")
     curr = 0
-    options = ["Hi I'm Locked In", "Live Firing", "Animation", "Face", "Music", "Brick Game", "Controller"]
+    options = ["Hi I'm Locked In", "Live Firing", "Animation", "Face", "Music", "Brick Game", "Brick Good", "Asteroids", "Spam Game", "Controller"]
     menu_layout(hw_state, options[curr])
     fpga_buttons = hw_state["fpga_overlay"].set_mode_buttons()
     
@@ -89,6 +92,12 @@ def menu(hw_state):
                 apps.music.music_app(hw_state)
             if options[curr] == "Brick Game":
                 apps.brick_game.brick_game(hw_state)
+            if options[curr] == "Brick Good":
+                apps.brick_good.brick_game(hw_state)
+            if options[curr] == "Asteroids":
+                apps.asteroid.run_asteroids(hw_state)
+            if options[curr] == "Spam Game":
+                apps.spamgame.spamgame(hw_state)
             if options[curr] == "Controller":
                 apps.others.controller(hw_state)
             menu_layout(hw_state, options[curr])

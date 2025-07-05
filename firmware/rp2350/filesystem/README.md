@@ -47,9 +47,7 @@ Developers
     - PCB (Power, FPGA, Connectivity)
     - Firmware
 2. itsme-zeix 
-    - PCB (RP2350, LiPo, Power)
-    - Leaky Pin Challenge 
-    - Firmware
+    - PCB (RP2350, LiPo, Power), Leaky Pin, Firmware
 3. shuqing 
     - Artwork & Animations (They are so cute man)
 4. Fieash
@@ -58,10 +56,16 @@ Developers
     - zip file
 6. Codekrodile
     - mirrortune
+7. khian
+    - Asteroids
+8. sayomaki
+    - Bad Apple
 
 Thanks to these people for helping
 
 1. zst123, rhgndf, sayomaki - Technical Advice
 2. caprinux - For initiating the whole GreyHats Badge thing
 
-and thanks to GreyHats and whoever else who made this possible.
+and thanks to GreyHats and whoever else who made this possible!
+
+For anyone who made anything cool with the badge, do share it on instagram/x and tag NUSGreyhats!
