@@ -1,6 +1,9 @@
 # greybadge25
 GreyCTF 2025 Badge (Greymecha Army)
 
+1. [Instruction Manual](https://docs.google.com/presentation/d/1nLdjBvxjxtfjGmfyWnxctUPe7XqL7leBmsDQaAjqEwk/edit?usp=sharing)
+2. [Slides for Badge Talk](https://docs.google.com/presentation/d/1yoPuX5LA_Zj3ds3s_bZVRaBWZWmjrsSOJFy59PNaYqE/edit?usp=sharing)
+
 ## Repository Structure
 ```
 .
@@ -47,3 +50,18 @@ There are several things you will need to order separately (and solder on).
     - LiPo Battery: [Taobao Link](https://item.taobao.com/item.htm?id=695205775685) We chose the 603040-750mAh option. If you want to have the plug rather than soldering the battery, contact the seller to install the 2.0-2P 反向公插 header (2.0mm pitch, 2 pin, reverse-orientation), which is essentially JST-PH, on the battery.
     - AA Battery Holder: [Taobao Link](https://detail.tmall.com/item.htm?id=533054527075).
     - 90 Degree Pinout Headers (or just solder wires)
+
+## FPGA Tooling
+
+A sample FPGA project is in `/firmware/ecp5/uart_coprocessor`. The tooling needed to be installed is as such
+
+```
+sudo apt install openFPGALoader # only needed if you use an external fpga jtag programmer
+sudo apt install yosys
+sudo apt install nextpnr-ecp5
+sudo apt install fpga-trellis
+```
+
+Afterwards, you can just run `make clean` and `make` to generate the bitstream.
+
+You can upload through the RP2350 in the `hardware.fpga` libraries
