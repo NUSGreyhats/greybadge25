@@ -24,6 +24,8 @@ GreyCTF 2025 Badge (Greymecha Army)
 └── README.md
 ```
 
+To view the schematic, find the pcb/prototype3 release and get the schematic pdf from there
+
 ## Firmware Set Up Guide
 1. Connect the PCB to your computer. It will mount as a USB drive named RPI_RP2.
 2. From the `/firmware` folder, drag & drop the file `circuitpython_frozen_leaky.uf2` onto the RPI_RP2 drive.
